@@ -1,0 +1,17 @@
+.mat-toolbar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.mat-toolbar-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: 0;
+}
+.mat-toolbar-row button {
+    cursor: pointer;
+}
