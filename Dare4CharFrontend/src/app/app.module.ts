@@ -4,25 +4,36 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AddFilesComponent } from './add-files/add-files.component';
+import { environment } from '../environments/environment';
+
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // Materail
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, AddFilesComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+
+        // Initialize Firebase
+        AngularFireModule.initializeApp(environment.firebaseConfig),
 
         // Material
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
         MatMenuModule,
+        MatStepperModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
