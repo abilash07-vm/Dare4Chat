@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 import { UploadFileService } from '../../Services/upload-file.service';
 
@@ -9,8 +11,19 @@ import { UploadFileService } from '../../Services/upload-file.service';
 })
 export class AddFilesComponent implements OnInit {
     constructor(public uploadService: UploadFileService) {}
-
+    keywords = new Set(['angular', 'how-to', 'tutorial']);
+    formControl = new FormControl(['angular']);
     ngOnInit(): void {}
+
+    addKeywordFromInput(event: MatChipInputEvent) {
+        if (event.value) {
+            this.keywords.add(event.value);
+            event.chipInput!.clear();
+        }
+    }
+    removeKeyword(keyword: string) {
+        this.keywords.delete(keyword);
+    }
 
     async upload($event: any) {
         let links: string[] = await this.uploadService.upload(

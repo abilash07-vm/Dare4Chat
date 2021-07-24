@@ -1,1 +1,26 @@
+<mat-vertical-stepper #stepper>
+    <mat-step>
+        <mat-chip-list
+            #chipList
+            aria-label="Video keywords"
+            multiple
+            [formControl]="formControl"
+        >
+            <mat-chip
+                *ngFor="let keyword of keywords"
+                [selected]="keyword"
+                [value]="keyword"
+                (removed)="removeKeyword(keyword)"
+            >
+                {{ keyword }}
+            </mat-chip>
+            <input
+                placeholder="New keyword..."
+                [matChipInputFor]="chipList"
+                (matChipInputTokenEnd)="addKeywordFromInput($event)"
+            />
+        </mat-chip-list>
+    </mat-step>
+</mat-vertical-stepper>
+
 <input type="file" accept="images/*" multiple (change)="upload($event)" />
