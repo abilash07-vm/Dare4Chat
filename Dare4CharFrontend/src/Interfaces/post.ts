@@ -13,5 +13,4 @@ export interface Comment {
     date: Date;
     userid: string;
     message: string;
-    likes: string;
 }

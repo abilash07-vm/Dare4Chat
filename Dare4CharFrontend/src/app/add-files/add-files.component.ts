@@ -32,7 +32,7 @@ export class AddFilesComponent implements OnInit {
     async upload($event: any) {
         let links: string[] = await this.uploadService.upload(
             $event.target.files,
-            'temp'
+            'post'
         );
         for (let i = 0; i < links.length; i++) {
             this.items.push({ url: links[i], caption: '' });
@@ -66,8 +66,9 @@ export class AddFilesComponent implements OnInit {
             likes: 0,
             comments: [],
         };
-        this.apiServices.addPost(data).subscribe((data) => {
-            console.log('Added post !!!!');
+        this.apiServices.addPost(data).subscribe((data_server: any) => {
+            let data_mongo: Post = data_server;
+            console.log('Added post !!!!' + data_mongo);
         });
     }
 }

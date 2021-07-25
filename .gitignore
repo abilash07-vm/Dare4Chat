@@ -3,3 +3,6 @@
 
 # Generated files
 /public
+
+# environmental variables
+.env

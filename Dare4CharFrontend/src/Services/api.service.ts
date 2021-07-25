@@ -13,6 +13,6 @@ export class ApiService {
 
     //post
     addPost(post: Post) {
-        return this.http.post(baseurl + '/post', post);
+        return this.http.post(baseurl + 'post', post);
     }
 }
