@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Item, Post } from 'src/Interfaces/post';
+import { ApiService } from 'src/Services/api.service';
+import { AuthService } from 'src/Services/auth.service';
 
 import { UploadFileService } from '../../Services/upload-file.service';
 
 interface chip {
     name: string;
     isSelected: boolean;
-}
-interface initialpost {
-    url: string;
-    caption: string;
 }
 
 @Component({
@@ -18,9 +17,13 @@ interface initialpost {
 })
 export class AddFilesComponent implements OnInit {
     selectedChip: string = '';
-    items: initialpost[] = [];
+    items: Item[] = [];
     keywords!: chip[];
-    constructor(public uploadService: UploadFileService) {
+    constructor(
+        public uploadService: UploadFileService,
+        private authServices: AuthService,
+        private apiServices: ApiService
+    ) {
         this.resetChips();
     }
 
@@ -55,6 +58,16 @@ export class AddFilesComponent implements OnInit {
         ];
     }
     onFinish() {
-        console.log(this.items);
+        let userId = this.authServices.getUserId() || 'admin';
+        let data: Post = {
+            items: this.items,
+            userid: userId,
+            date: new Date(),
+            likes: 0,
+            comments: [],
+        };
+        this.apiServices.addPost(data).subscribe((data) => {
+            console.log('Added post !!!!');
+        });
     }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/Services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -7,8 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'Dare4CharFrontend';
-
-    issmall() {
-        return window.innerWidth <= 700;
+    constructor(private authServices: AuthService) {
+        this.authServices.setUserId('admin-123');
     }
 }
