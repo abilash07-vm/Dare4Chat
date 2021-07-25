@@ -1,8 +1,17 @@
 <div class="continer">
+    <!-- Toolbar -->
+    <mat-toolbar class="toolbar" color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button routerLink="#">
+                <mat-icon>logout</mat-icon>Logout
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
     <router-outlet></router-outlet>
 
-    <!-- Toolbars and icons -->
-    <mat-toolbar color="primary">
+    <!-- Navigation bar -->
+    <mat-toolbar class="navbar" color="primary">
         <mat-toolbar-row>
             <button mat-icon-button routerLink="home">
                 <mat-icon>home</mat-icon>

@@ -1,15 +1,26 @@
-.mat-toolbar {
+.toolbar {
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0 20px;
+}
+.toolbar .mat-toolbar-row {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.navbar {
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
 }
-.mat-toolbar-row {
+.navbar .mat-toolbar-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     max-width: 100%;
+    height: 30px;
     margin: 0;
 }
 .mat-toolbar-row button {
