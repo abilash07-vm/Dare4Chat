@@ -1,26 +1,54 @@
-<mat-vertical-stepper #stepper>
-    <mat-step>
-        <mat-chip-list
-            #chipList
-            aria-label="Video keywords"
-            multiple
-            [formControl]="formControl"
-        >
-            <mat-chip
-                *ngFor="let keyword of keywords"
-                [selected]="keyword"
-                [value]="keyword"
-                (removed)="removeKeyword(keyword)"
-            >
-                {{ keyword }}
-            </mat-chip>
-            <input
-                placeholder="New keyword..."
-                [matChipInputFor]="chipList"
-                (matChipInputTokenEnd)="addKeywordFromInput($event)"
-            />
-        </mat-chip-list>
-    </mat-step>
-</mat-vertical-stepper>
+<div>
+    <mat-card class="main">
+        <mat-card-content>
+            <label for="chipList"><strong>Select action:</strong> </label>
+            <mat-chip-list #chipList aria-label="Video keywords">
+                <div *ngFor="let keyword of keywords">
+                    <mat-chip
+                        *ngIf="keyword.isSelected"
+                        [value]="keyword.name"
+                        color="primary"
+                        (click)="onChipClick(keyword)"
+                        selected
+                    >
+                        {{ keyword.name }}
+                    </mat-chip>
+                    <mat-chip
+                        *ngIf="!keyword.isSelected"
+                        [value]="keyword.name"
+                        (click)="onChipClick(keyword)"
+                    >
+                        {{ keyword.name }}
+                    </mat-chip>
+                </div>
+            </mat-chip-list>
+            <div *ngFor="let selected of items; index as i">
+                <mat-card class="child">
+                    <mat-card-content>
+                        <img src="{{ selected.url }}" /><br />
+                        <input
+                            type="text"
+                            (change)="onCaptionChange(i, $event)"
+                            placeholder="caption {{ i + 1 }}"
+                        />
+                    </mat-card-content>
+                </mat-card>
+            </div>
 
-<input type="file" accept="images/*" multiple (change)="upload($event)" />
+            <input
+                *ngIf="selectedChip"
+                class="fullwidth"
+                type="file"
+                accept="image/*"
+                value="Upload"
+                multiple
+                (change)="upload($event)"
+            />
+        </mat-card-content>
+        <mat-card-actions *ngIf="items.length > 0">
+            <button color="primary" mat-raised-button (click)="onFinish()">
+                Finish
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

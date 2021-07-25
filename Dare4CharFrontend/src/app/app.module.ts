@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [AppComponent, AddFilesComponent],
@@ -38,6 +39,7 @@ import { MatChipsModule } from '@angular/material/chips';
         MatMenuModule,
         MatStepperModule,
         MatChipsModule,
+        MatCardModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

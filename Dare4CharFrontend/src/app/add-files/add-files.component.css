@@ -1,0 +1,21 @@
+.child {
+    width: 100%;
+    margin: auto;
+}
+.main {
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    min-height: 300px;
+    margin-bottom: 100px;
+}
+input {
+    width: 200px;
+}
+.fullwidth {
+    margin: 30px 0;
+    width: 100%;
+}
+.mat-card-actions {
+    text-align: center;
+}
