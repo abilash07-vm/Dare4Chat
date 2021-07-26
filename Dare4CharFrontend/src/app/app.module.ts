@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [AppComponent, AddFilesComponent],
@@ -42,6 +43,7 @@ import { MatCardModule } from '@angular/material/card';
         MatStepperModule,
         MatChipsModule,
         MatCardModule,
+        MatProgressSpinnerModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

@@ -1,5 +1,7 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
 <div>
-    <mat-card class="main">
+    <mat-card class="main" [ngClass]="{ loading: isLoading }">
         <mat-card-content>
             <label for="chipList"><strong>Select action:</strong> </label>
             <mat-chip-list #chipList aria-label="Video keywords">

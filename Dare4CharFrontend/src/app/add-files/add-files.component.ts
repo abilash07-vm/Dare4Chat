@@ -17,6 +17,7 @@ interface chip {
 })
 export class AddFilesComponent implements OnInit {
     selectedChip: string = '';
+    isLoading = false;
     items: Item[] = [];
     keywords!: chip[];
     constructor(
@@ -30,6 +31,7 @@ export class AddFilesComponent implements OnInit {
     ngOnInit(): void {}
 
     async upload($event: any) {
+        this.isLoading = true;
         let links: string[] = await this.uploadService.upload(
             $event.target.files,
             'post'
@@ -37,6 +39,7 @@ export class AddFilesComponent implements OnInit {
         for (let i = 0; i < links.length; i++) {
             this.items.push({ url: links[i], caption: '' });
         }
+        this.isLoading = false;
         console.log(`from add files component: ${links}`);
 
         console.log(`from add files component length: ${links.length}`);

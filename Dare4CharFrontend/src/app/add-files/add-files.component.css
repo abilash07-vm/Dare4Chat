@@ -3,7 +3,7 @@
     margin: auto;
 }
 .main {
-    width: 300px;
+    width: 70%;
     margin: auto;
     margin-top: 20px;
     min-height: 300px;
@@ -18,4 +18,19 @@ input {
 }
 .mat-card-actions {
     text-align: center;
+}
+
+.mat-spinner {
+    position: fixed;
+    left: 45%;
+    top: 45%;
+}
+
+.loading {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 805px;
 }
