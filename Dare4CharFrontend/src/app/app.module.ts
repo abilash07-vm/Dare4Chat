@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -20,11 +20,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+
+// Loading
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
-    declarations: [AppComponent, AddFilesComponent, LoadingSpinnerComponent],
+    declarations: [AppComponent, AddFilesComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -44,9 +45,10 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
         MatStepperModule,
         MatChipsModule,
         MatCardModule,
-        MatProgressSpinnerModule,
+        NgxSpinnerModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

@@ -1,10 +1,6 @@
-<app-loading-spinner
-    class="spinner"
-    *ngIf="isLoading"
-    message="loading..."
-></app-loading-spinner>
+<ngx-spinner></ngx-spinner>
 <div>
-    <mat-card class="main" [ngClass]="{ loading: isLoading }">
+    <mat-card class="main">
         <mat-card-content>
             <label for="chipList"><strong>Select action:</strong> </label>
             <mat-chip-list #chipList aria-label="Video keywords">
@@ -53,6 +49,9 @@
         <mat-card-actions *ngIf="items.length > 0">
             <button color="primary" mat-raised-button (click)="onFinish()">
                 Finish
+            </button>
+            <button color="primary" mat-raised-button (click)="onReset()">
+                reset
             </button>
         </mat-card-actions>
     </mat-card>

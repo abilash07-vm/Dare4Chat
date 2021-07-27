@@ -5,6 +5,8 @@ import { AuthService } from 'src/Services/auth.service';
 
 import { UploadFileService } from '../../Services/upload-file.service';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 interface chip {
     name: string;
     isSelected: boolean;
@@ -22,13 +24,13 @@ interface TempAddData {
 })
 export class AddFilesComponent implements OnInit {
     selectedChip: string = '';
-    isLoading = false;
     items: Item[] = [];
     keywords!: chip[];
     constructor(
         public uploadService: UploadFileService,
         private authServices: AuthService,
-        private apiServices: ApiService
+        private apiServices: ApiService,
+        private spinnerService: NgxSpinnerService
     ) {
         this.resetChips();
     }
@@ -52,7 +54,7 @@ export class AddFilesComponent implements OnInit {
     }
 
     async upload($event: any) {
-        this.isLoading = true;
+        this.spinnerService.show();
         let links: string[] = await this.uploadService.upload(
             $event.target.files,
             'post'
@@ -60,13 +62,12 @@ export class AddFilesComponent implements OnInit {
         for (let i = 0; i < links.length; i++) {
             this.items.push({ url: links[i], caption: '' });
         }
-        this.isLoading = false;
-
         let temp: TempAddData = {
             selectedChip: this.selectedChip,
             items: this.items,
         };
         this.authServices.setAddData(JSON.stringify(temp));
+        this.spinnerService.hide();
         console.log(`from add files component: ${links}`);
 
         console.log(`from add files component length: ${links.length}`);
@@ -90,6 +91,10 @@ export class AddFilesComponent implements OnInit {
             { name: 'Status', isSelected: false },
             { name: 'Both', isSelected: false },
         ];
+    }
+    onReset() {
+        this.authServices.delAddData();
+        window.location.reload();
     }
     onFinish() {
         let userId = this.authServices.getUserId() || 'admin';
