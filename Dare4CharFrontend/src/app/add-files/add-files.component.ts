@@ -6,6 +6,7 @@ import { AuthService } from 'src/Services/auth.service';
 import { UploadFileService } from '../../Services/upload-file.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Status } from 'src/Interfaces/status';
 
 interface chip {
     name: string;
@@ -98,17 +99,34 @@ export class AddFilesComponent implements OnInit {
     }
     onFinish() {
         let userId = this.authServices.getUserId() || 'admin';
-        let data: Post = {
-            items: this.items,
-            userid: userId,
-            date: new Date(),
-            likes: 0,
-            comments: [],
-        };
-        this.apiServices.addPost(data).subscribe((data_server: any) => {
-            let data_mongo: Post = data_server;
-            console.log('Added post !!!!' + data_mongo);
-        });
+        if (this.selectedChip === 'Post' || this.selectedChip === 'Both') {
+            let data: Post = {
+                items: this.items,
+                userid: userId,
+                date: new Date(),
+                likes: 0,
+                comments: [],
+            };
+            this.apiServices.addPost(data).subscribe((data_server: any) => {
+                let data_mongo: Post = data_server;
+                console.log('Added post !!!!' + data_mongo);
+            });
+        } else if (
+            this.selectedChip === 'Status' ||
+            this.selectedChip === 'Both'
+        ) {
+            let data: Status = {
+                items: this.items,
+                userid: userId,
+                date: new Date(),
+                views: 0,
+            };
+            this.apiServices.addStatus(data).subscribe((data_server: any) => {
+                let data_mongo: Post = data_server;
+                console.log('Added status !!!!' + data_mongo);
+            });
+        }
+
         this.authServices.delAddData();
     }
 }

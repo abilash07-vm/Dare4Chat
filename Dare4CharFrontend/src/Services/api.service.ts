@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from 'src/Interfaces/post';
+import { Status } from 'src/Interfaces/status';
 
 const baseurl = environment.baseurl;
 
@@ -14,5 +15,10 @@ export class ApiService {
     //post
     addPost(post: Post) {
         return this.http.post(baseurl + 'post', post);
+    }
+
+    //Status
+    addStatus(status: Status) {
+        return this.http.post(baseurl + 'status', status);
     }
 }

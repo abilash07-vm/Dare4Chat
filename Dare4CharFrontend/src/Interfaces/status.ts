@@ -4,4 +4,5 @@ export interface Status {
     items: Item[];
     date: Date;
     userid: string;
+    views: number;
 }
