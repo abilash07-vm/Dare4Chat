@@ -21,9 +21,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
-    declarations: [AppComponent, AddFilesComponent],
+    declarations: [AppComponent, AddFilesComponent, LoadingSpinnerComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

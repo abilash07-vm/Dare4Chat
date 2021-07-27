@@ -1,5 +1,8 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-
+<app-loading-spinner
+    class="spinner"
+    *ngIf="isLoading"
+    message="loading..."
+></app-loading-spinner>
 <div>
     <mat-card class="main" [ngClass]="{ loading: isLoading }">
         <mat-card-content>

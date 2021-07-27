@@ -10,6 +10,11 @@ interface chip {
     isSelected: boolean;
 }
 
+interface TempAddData {
+    selectedChip: string;
+    items?: Item[];
+}
+
 @Component({
     selector: 'app-add-files',
     templateUrl: './add-files.component.html',
@@ -28,7 +33,23 @@ export class AddFilesComponent implements OnInit {
         this.resetChips();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        let tempDataFromLocal = this.authServices.getAddData();
+        if (tempDataFromLocal) {
+            let data: TempAddData = JSON.parse(tempDataFromLocal);
+            if (data.selectedChip) {
+                this.selectedChip = data.selectedChip;
+                for (let i = 0; i < this.keywords.length; i++) {
+                    if (this.keywords[i].name === this.selectedChip) {
+                        this.keywords[i].isSelected = true;
+                    }
+                }
+            }
+            if (data.items) {
+                this.items = data.items;
+            }
+        }
+    }
 
     async upload($event: any) {
         this.isLoading = true;
@@ -40,6 +61,12 @@ export class AddFilesComponent implements OnInit {
             this.items.push({ url: links[i], caption: '' });
         }
         this.isLoading = false;
+
+        let temp: TempAddData = {
+            selectedChip: this.selectedChip,
+            items: this.items,
+        };
+        this.authServices.setAddData(JSON.stringify(temp));
         console.log(`from add files component: ${links}`);
 
         console.log(`from add files component length: ${links.length}`);
@@ -49,6 +76,10 @@ export class AddFilesComponent implements OnInit {
         let index = this.keywords.indexOf(keyword);
         this.resetChips();
         this.keywords[index].isSelected = true;
+        let temp: TempAddData = {
+            selectedChip: this.selectedChip,
+        };
+        this.authServices.setAddData(JSON.stringify(temp));
     }
     onCaptionChange(index: number, $event: any) {
         this.items[index].caption = $event.target.value;
@@ -73,5 +104,6 @@ export class AddFilesComponent implements OnInit {
             let data_mongo: Post = data_server;
             console.log('Added post !!!!' + data_mongo);
         });
+        this.authServices.delAddData();
     }
 }
