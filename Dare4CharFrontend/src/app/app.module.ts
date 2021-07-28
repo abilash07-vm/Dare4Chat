@@ -21,6 +21,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -47,7 +48,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         MatChipsModule,
         MatCardModule,
         MatSlideToggleModule,
-
+        MatSnackBarModule,
 
         // Loading Spinner
         NgxSpinnerModule,

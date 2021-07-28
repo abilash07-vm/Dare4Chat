@@ -38,7 +38,7 @@
                         <span
                             class="dot"
                             *ngFor="let i of numSequence(maxIndex);index as j"
-                            [ngClass]="{ 'filled': j == currIndex }" (click)="temp(j,currIndex)"
+                            [ngClass]="{ 'filled': j == currIndex }"
                         ></span>
                     </div>
                     <textarea
@@ -46,7 +46,7 @@
                         placeholder="caption {{ currIndex + 1 }}"
                         value="{{ items[currIndex].caption }}"
                     ></textarea>
-                    <mat-slide-toggle>Fill this caption with empty captions!</mat-slide-toggle>
+                    <mat-slide-toggle [(ngModel)]="autoCaption" (change)="onAutoCaption()">Fill this caption with empty captions! Slide Toggle Checked: {{autoCaption}}</mat-slide-toggle>
                 </mat-card-content>
             </mat-card>
             <!-- Image uploader -->

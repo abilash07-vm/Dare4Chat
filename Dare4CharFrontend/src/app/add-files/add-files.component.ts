@@ -8,6 +8,7 @@ import { UploadFileService } from '../../Services/upload-file.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Status } from 'src/Interfaces/status';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
+import { PopupsService } from 'src/Services/popups.service';
 
 interface chip {
     name: string;
@@ -30,12 +31,14 @@ export class AddFilesComponent implements OnInit {
     keywords!: chip[];
     currIndex = 0;
     maxIndex = 0;
+    autoCaption:boolean=false
     constructor(
         public uploadService: UploadFileService,
         private authServices: AuthService,
         private apiServices: ApiService,
         private spinnerService: NgxSpinnerService,
-        public swipeService: TouchSwipeService
+        private swipeService: TouchSwipeService,
+        private popups:PopupsService
     ) {
         this.resetChips();
     }
@@ -57,10 +60,6 @@ export class AddFilesComponent implements OnInit {
                 this.maxIndex = this.items.length;
             }
         }
-    }
-    temp(i:number,j:number){
-        console.log(`${i} , ${j}`);
-        
     }
 
     async upload($event: any) {
@@ -94,6 +93,27 @@ export class AddFilesComponent implements OnInit {
         this.items[index].caption = $event.target.value;
         this.storeToLocalStorage();
     }
+    onAutoCaption(){
+        let count=0;
+        if(this.autoCaption && this.items[this.currIndex].caption.length>0){
+            for(let i=this.currIndex+1;i<this.items.length;i++){
+                if(this.items[i].caption.length==0){
+                    this.items[i].caption=this.items[this.currIndex].caption
+                    count+=1
+                }
+            }
+            if(count==0){
+                this.popups.openSnackbar("There is no empty captions box")
+            }else{
+                this.popups.openSnackbar(`${count} captions changed`)
+            }
+        }else if(this.items[this.currIndex].caption.length==0){
+            this.popups.openSnackbar("Caption is empty")
+        }
+        
+    }
+
+    
     resetChips() {
         this.keywords = [
             { name: 'Post', isSelected: false },
