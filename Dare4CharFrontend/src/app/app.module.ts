@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MatSlideToggleModule} from '@angular/material/slide-toggle'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -45,6 +46,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         MatStepperModule,
         MatChipsModule,
         MatCardModule,
+        MatSlideToggleModule,
+
+
+        // Loading Spinner
         NgxSpinnerModule,
     ],
     providers: [],

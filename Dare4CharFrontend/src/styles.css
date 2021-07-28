@@ -1,53 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+* {
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 img {
-    height: 300px;
-    width: 200px;
-}
-
-/* .loading {
-    background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    min-height: 805px;
-} */
-
-/* .spinner {
-    position: absolute;
-    top: 40%;
-    left: 40%;
-    overflow: hidden;
-} */
-input[text] {
-    height: auto;
+    height: 400px;
 }
 
-.mat-spinner {
+textarea {
+    width: 100%;
+    padding: 10px;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
     display: inline-block;
-    vertical-align: middle;
 }
-
-.message {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-@media screen and (min-width: 700px) {
-    img {
-        height: 500px;
-        width: 400px;
-    }
-}
-
-@media screen and (min-width: 900px) {
-    img {
-        height: 500px;
-        width: 600px;
-    }
+.dot.filled {
+    background-color: rgba(0, 0, 0, 0.856);
 }

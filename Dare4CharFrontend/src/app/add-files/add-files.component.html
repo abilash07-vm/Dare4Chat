@@ -1,6 +1,9 @@
 <ngx-spinner></ngx-spinner>
 <div>
-    <mat-card class="main">
+    <mat-card
+        class="main"
+        
+    >
         <mat-card-content>
             <label for="chipList"><strong>Select action:</strong> </label>
             <mat-chip-list #chipList aria-label="Video keywords">
@@ -23,19 +26,30 @@
                     </mat-chip>
                 </div>
             </mat-chip-list>
-            <div *ngFor="let selected of items; index as i">
-                <mat-card class="child">
-                    <mat-card-content>
-                        <img src="{{ selected.url }}" /><br />
-                        <input
-                            type="text"
-                            (change)="onCaptionChange(i, $event)"
-                            placeholder="caption {{ i + 1 }}"
-                        />
-                    </mat-card-content>
-                </mat-card>
-            </div>
 
+            <!-- Card of Image/video with swipe -->
+            <mat-card *ngIf="maxIndex" class="child">
+                <mat-card-content>
+                    <img src="{{ items[currIndex].url }}" (touchstart)="onTouch('start', $event)"
+                    (touchend)="onTouch('end', $event)"
+                    (mousedown)="onDrag('start', $event)"
+                    (mouseup)="onDrag('end', $event)" /><br />
+                    <div style="text-align: center">
+                        <span
+                            class="dot"
+                            *ngFor="let i of numSequence(maxIndex);index as j"
+                            [ngClass]="{ 'filled': j == currIndex }" (click)="temp(j,currIndex)"
+                        ></span>
+                    </div>
+                    <textarea
+                        (change)="onCaptionChange(currIndex, $event)"
+                        placeholder="caption {{ currIndex + 1 }}"
+                        value="{{ items[currIndex].caption }}"
+                    ></textarea>
+                    <mat-slide-toggle>Fill this caption with empty captions!</mat-slide-toggle>
+                </mat-card-content>
+            </mat-card>
+            <!-- Image uploader -->
             <input
                 *ngIf="selectedChip"
                 class="fullwidth"

@@ -7,6 +7,7 @@ import { UploadFileService } from '../../Services/upload-file.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Status } from 'src/Interfaces/status';
+import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 
 interface chip {
     name: string;
@@ -27,11 +28,14 @@ export class AddFilesComponent implements OnInit {
     selectedChip: string = '';
     items: Item[] = [];
     keywords!: chip[];
+    currIndex = 0;
+    maxIndex = 0;
     constructor(
         public uploadService: UploadFileService,
         private authServices: AuthService,
         private apiServices: ApiService,
-        private spinnerService: NgxSpinnerService
+        private spinnerService: NgxSpinnerService,
+        public swipeService: TouchSwipeService
     ) {
         this.resetChips();
     }
@@ -50,25 +54,27 @@ export class AddFilesComponent implements OnInit {
             }
             if (data.items) {
                 this.items = data.items;
+                this.maxIndex = this.items.length;
             }
         }
+    }
+    temp(i:number,j:number){
+        console.log(`${i} , ${j}`);
+        
     }
 
     async upload($event: any) {
         this.spinnerService.show();
         let links: string[] = await this.uploadService.upload(
             $event.target.files,
-            'post'
+            this.selectedChip
         );
         for (let i = 0; i < links.length; i++) {
             this.items.push({ url: links[i], caption: '' });
         }
-        let temp: TempAddData = {
-            selectedChip: this.selectedChip,
-            items: this.items,
-        };
-        this.authServices.setAddData(JSON.stringify(temp));
+        this.storeToLocalStorage();
         this.spinnerService.hide();
+        this.maxIndex = this.items.length;
         console.log(`from add files component: ${links}`);
 
         console.log(`from add files component length: ${links.length}`);
@@ -84,7 +90,9 @@ export class AddFilesComponent implements OnInit {
         this.authServices.setAddData(JSON.stringify(temp));
     }
     onCaptionChange(index: number, $event: any) {
+        console.log(`changing ${index}`);
         this.items[index].caption = $event.target.value;
+        this.storeToLocalStorage();
     }
     resetChips() {
         this.keywords = [
@@ -93,10 +101,37 @@ export class AddFilesComponent implements OnInit {
             { name: 'Both', isSelected: false },
         ];
     }
+    onTouch(when: string, touch: TouchEvent) {
+        this.currIndex = this.swipeService.getSwipe(when, touch,this.currIndex,this.maxIndex);
+
+    }
+    onDrag(when: string, drag: MouseEvent) {
+        this.currIndex = this.swipeService.getMouseSwipe(when, drag,this.currIndex,this.maxIndex);
+    }
+    moveNext(){
+        if(this.currIndex<this.maxIndex-1)
+        this.currIndex+=1
+    }
+    movePrev(){
+        if(this.currIndex>0)
+        this.currIndex-=1
+    }
     onReset() {
         this.authServices.delAddData();
         window.location.reload();
     }
+    numSequence(n: number): Array<number> {
+        return Array(n);
+    }
+
+    storeToLocalStorage() {
+        let temp: TempAddData = {
+            selectedChip: this.selectedChip,
+            items: this.items,
+        };
+        this.authServices.setAddData(JSON.stringify(temp));
+    }
+    
     onFinish() {
         let userId = this.authServices.getUserId() || 'admin';
         if (this.selectedChip === 'Post' || this.selectedChip === 'Both') {
@@ -130,3 +165,4 @@ export class AddFilesComponent implements OnInit {
         this.authServices.delAddData();
     }
 }
+
