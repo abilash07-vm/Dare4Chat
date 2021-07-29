@@ -19,6 +19,18 @@ input {
 .mat-card-actions {
     text-align: center;
 }
-.spinnerContainer {
+/* .spinnerContainer {
     width: 100%;
+} */
+
+.delete{
+    font-size: 40px;
+    position:absolute;
+    top: 20px;
+    right: 40px;
+    color: red;
+}
+.delete:hover{
+    font-size: 50px;
+    right: 50px;
 }

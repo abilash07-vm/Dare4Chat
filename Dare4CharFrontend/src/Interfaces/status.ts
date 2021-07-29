@@ -1,8 +1,9 @@
 import { Item } from './post';
 
 export interface Status {
-    items: Item[];
+    items: Item;
     date: Date;
     userid: string;
     views: number;
+    statusid?:string
 }

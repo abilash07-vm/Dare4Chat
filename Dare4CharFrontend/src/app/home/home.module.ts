@@ -8,6 +8,7 @@ import { HomeRoutingModule } from './homes-routing.module';
 
 // Material
 import { MatTabsModule } from '@angular/material/tabs';
+import { PostModelComponent } from './post-model/post-model.component';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
         StatusComponent,
         ChatComponent,
         MainComponent,
+        PostModelComponent,
     ],
     imports: [
         CommonModule,

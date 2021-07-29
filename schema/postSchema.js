@@ -17,6 +17,9 @@ module.exports = mongoose.Schema({
 	userid: {
 		type: String,
 	},
+	postid: {
+		type: String,
+	},
 	likes: {
 		type: Number,
 	},

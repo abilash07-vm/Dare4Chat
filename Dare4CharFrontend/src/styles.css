@@ -20,11 +20,12 @@ textarea {
 }
 
 .dot {
-    height: 12px;
-    width: 12px;
+    height: 6px;
+    width: 6px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
+    margin-right: 3px;
 }
 .dot.filled {
     background-color: rgba(0, 0, 0, 0.856);

@@ -113,7 +113,6 @@ export class AddFilesComponent implements OnInit {
         
     }
 
-    
     resetChips() {
         this.keywords = [
             { name: 'Post', isSelected: false },
@@ -121,9 +120,21 @@ export class AddFilesComponent implements OnInit {
             { name: 'Both', isSelected: false },
         ];
     }
+
+    onDelete(){
+        this.items.splice(this.currIndex,1);
+        console.log(this.items);
+        
+        this.maxIndex-=1
+        this.currIndex=Math.max(Math.min(this.currIndex,this.maxIndex-1),0)
+    }
+
+    onDotClick(index:number){
+        this.currIndex=index
+    }
+
     onTouch(when: string, touch: TouchEvent) {
         this.currIndex = this.swipeService.getSwipe(when, touch,this.currIndex,this.maxIndex);
-
     }
     onDrag(when: string, drag: MouseEvent) {
         this.currIndex = this.swipeService.getMouseSwipe(when, drag,this.currIndex,this.maxIndex);
@@ -170,12 +181,15 @@ export class AddFilesComponent implements OnInit {
             this.selectedChip === 'Status' ||
             this.selectedChip === 'Both'
         ) {
-            let data: Status = {
-                items: this.items,
-                userid: userId,
-                date: new Date(),
-                views: 0,
-            };
+            let data: Status[] =[]
+            this.items.forEach(item=> {
+                let status={
+                    items: item,
+                    userid: userId,
+                    date: new Date(),
+                    views: 0,
+                }
+            })
             this.apiServices.addStatus(data).subscribe((data_server: any) => {
                 let data_mongo: Post = data_server;
                 console.log('Added status !!!!' + data_mongo);

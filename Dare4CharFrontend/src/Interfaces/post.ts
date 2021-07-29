@@ -2,6 +2,7 @@ export interface Post {
     items: Item[];
     date: Date;
     userid: string;
+    postid?:string
     likes: number;
     comments: Comment[];
 }
