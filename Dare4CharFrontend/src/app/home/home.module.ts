@@ -5,10 +5,14 @@ import { StatusComponent } from './status/status.component';
 import { ChatComponent } from './chat/chat.component';
 import { MainComponent } from './main/main.component';
 import { HomeRoutingModule } from './homes-routing.module';
+import { PostModelComponent } from './post-model/post-model.component';
 
 // Material
 import { MatTabsModule } from '@angular/material/tabs';
-import { PostModelComponent } from './post-model/post-model.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
     declarations: [
@@ -23,6 +27,9 @@ import { PostModelComponent } from './post-model/post-model.component';
         HomeRoutingModule,
         //Material
         MatTabsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule
     ],
 })
 export class HomeModule {}

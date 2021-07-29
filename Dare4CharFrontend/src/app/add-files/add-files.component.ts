@@ -127,6 +127,7 @@ export class AddFilesComponent implements OnInit {
         
         this.maxIndex-=1
         this.currIndex=Math.max(Math.min(this.currIndex,this.maxIndex-1),0)
+        this.storeToLocalStorage();
     }
 
     onDotClick(index:number){
@@ -139,14 +140,7 @@ export class AddFilesComponent implements OnInit {
     onDrag(when: string, drag: MouseEvent) {
         this.currIndex = this.swipeService.getMouseSwipe(when, drag,this.currIndex,this.maxIndex);
     }
-    moveNext(){
-        if(this.currIndex<this.maxIndex-1)
-        this.currIndex+=1
-    }
-    movePrev(){
-        if(this.currIndex>0)
-        this.currIndex-=1
-    }
+    
     onReset() {
         this.authServices.delAddData();
         window.location.reload();

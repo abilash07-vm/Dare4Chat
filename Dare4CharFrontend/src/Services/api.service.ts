@@ -16,6 +16,9 @@ export class ApiService {
     addPost(post: Post) {
         return this.http.post(baseurl + 'post', post);
     }
+    getAllpost(){
+        return this.http.get(baseurl+'post');
+    }
 
     //Status
     addStatus(status: Status[]) {

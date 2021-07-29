@@ -1,0 +1,17 @@
+<mat-card *ngIf="maxIndex" class="child">
+    <mat-card-content>
+        <img src="{{ post.items[currIndex].url }}" (touchstart)="onTouch('start', $event)"
+        (touchend)="onTouch('end', $event)"
+        (mousedown)="onDrag('start', $event)"
+        (mouseup)="onDrag('end', $event)" /><br />
+        <div style="text-align: center" *ngIf="maxIndex>1">
+            <span
+                class="dot"
+                *ngFor="let i of numSequence(maxIndex);index as j"
+                [ngClass]="{ 'filled': j == currIndex }"
+                (click)="onDotClick(j)"
+            ></span>
+        </div>
+        <h1>{{ post.items[currIndex].caption }}</h1>
+    </mat-card-content>
+</mat-card>
