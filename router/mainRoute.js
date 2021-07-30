@@ -1,5 +1,6 @@
 const express = require("express");
 const postRoute = require("./postRoute");
+const statusRoute = require("./statusRoute");
 
 const router = express.Router();
 
@@ -9,6 +10,7 @@ module.exports = () => {
 	});
 
 	router.use("/post", postRoute());
+	router.use("/status", statusRoute());
 
 	return router;
 };

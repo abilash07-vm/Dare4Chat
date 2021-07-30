@@ -171,23 +171,23 @@ export class AddFilesComponent implements OnInit {
                 let data_mongo: Post = data_server;
                 console.log('Added post !!!!' + data_mongo);
             });
-        } else if (
+        } 
+        if (
             this.selectedChip === 'Status' ||
             this.selectedChip === 'Both'
         ) {
-            let data: Status[] =[]
             this.items.forEach(item=> {
-                let status={
-                    items: item,
+                let status:Status={
+                    item: item,
                     userid: userId,
                     date: new Date(),
                     views: 0,
                 }
+                this.apiServices.addStatus(status).subscribe((data_server: any) => {
+                    let data_mongo: Status = data_server;
+                    console.log('Added status !!!!' + data_mongo);
+                });
             })
-            this.apiServices.addStatus(data).subscribe((data_server: any) => {
-                let data_mongo: Post = data_server;
-                console.log('Added status !!!!' + data_mongo);
-            });
         }
 
         this.authServices.delAddData();

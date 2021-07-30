@@ -1,7 +1,7 @@
 import { Item } from './post';
 
 export interface Status {
-    items: Item;
+    item: Item;
     date: Date;
     userid: string;
     views: number;

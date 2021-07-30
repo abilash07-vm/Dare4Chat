@@ -10,12 +10,15 @@ import { ApiService } from 'src/Services/api.service';
 export class PostComponent implements OnInit {
   posts:Post[]=[]
   constructor(private api:ApiService) { 
-    api.getAllpost().subscribe((data:any)=>{
-      this.posts=data;
-    })
+    
   }
 
   ngOnInit(): void {
+    this.api.getAllpost().subscribe((data:any)=>{
+      this.posts=data;
+      console.log('incoming post : ',this.posts);
+      
+    })
   }
 
 }

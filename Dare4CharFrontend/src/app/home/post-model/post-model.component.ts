@@ -15,7 +15,8 @@ export class PostModelComponent implements OnInit {
   @Input('post') post!:Post
   
   ngOnInit(): void {
-    
+    console.log('post is ',this.post);
+    this.maxIndex=this.post.items.length
   }
 
   onDotClick(index:number){

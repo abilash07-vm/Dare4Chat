@@ -1,9 +1,11 @@
+<p>From post model!</p>
 <mat-card *ngIf="maxIndex" class="child">
     <mat-card-content>
-        <img src="{{ post.items[currIndex].url }}" (touchstart)="onTouch('start', $event)"
-        (touchend)="onTouch('end', $event)"
-        (mousedown)="onDrag('start', $event)"
-        (mouseup)="onDrag('end', $event)" /><br />
+        <img src="{{ post.items[currIndex].url }}"
+            (touchstart)="onTouch('start', $event)"
+            (touchend)="onTouch('end', $event)"
+            (mousedown)="onDrag('start', $event)"
+            (mouseup)="onDrag('end', $event)" /><br />
         <div style="text-align: center" *ngIf="maxIndex>1">
             <span
                 class="dot"

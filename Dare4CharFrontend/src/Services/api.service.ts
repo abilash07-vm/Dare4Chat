@@ -21,7 +21,7 @@ export class ApiService {
     }
 
     //Status
-    addStatus(status: Status[]) {
+    addStatus(status: Status) {
         return this.http.post(baseurl + 'status', status);
     }
 }
