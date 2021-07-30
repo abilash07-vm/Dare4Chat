@@ -23,6 +23,11 @@ module.exports = mongoose.Schema({
 	likes: {
 		type: Number,
 	},
+	likeids:[
+		{
+			type: String
+		}
+	],
 	comments: [
 		{
 			date: {

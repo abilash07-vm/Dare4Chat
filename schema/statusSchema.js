@@ -21,6 +21,11 @@ module.exports = mongoose.Schema({
 	},
     views:{
         type:Number
-    }
+    },
+    viewsids:[
+        {
+            type:String
+        }
+    ]
 
 });

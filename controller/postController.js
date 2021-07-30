@@ -27,7 +27,18 @@ const getAllPost=(req,res)=>{
 		res.status(406).json({ message: "err in all post func" });
 	});
 }
+
+const updatePost=(req,res)=>{
+	let post=req.body;
+	Post.updateOne({postid:post.postid},post).then((data)=>{
+		console.log(`updated post : ${data}`);
+		res.status(201).send(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in all update post func" });
+	})
+}
 module.exports = {
 	addPost,
-	getAllPost
+	getAllPost,
+	updatePost
 };

@@ -165,6 +165,7 @@ export class AddFilesComponent implements OnInit {
                 userid: userId,
                 date: new Date(),
                 likes: 0,
+                likeids:[],
                 comments: [],
             };
             this.apiServices.addPost(data).subscribe((data_server: any) => {
@@ -182,6 +183,7 @@ export class AddFilesComponent implements OnInit {
                     userid: userId,
                     date: new Date(),
                     views: 0,
+                    viewsids:[]
                 }
                 this.apiServices.addStatus(status).subscribe((data_server: any) => {
                     let data_mongo: Status = data_server;

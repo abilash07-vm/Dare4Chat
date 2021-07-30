@@ -4,6 +4,7 @@ export interface Post {
     userid: string;
     postid?:string
     likes: number;
+    likeids:string[];
     comments: Comment[];
 }
 export interface Item {

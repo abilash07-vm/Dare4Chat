@@ -1,19 +1,34 @@
-<p>From post model!</p>
 <mat-card *ngIf="maxIndex" class="child">
+    <mat-card-header>
+        <div mat-card-avatar [ngStyle]="{'background': '#fff url(' + profileurl + ') no-repeat','background-size': 'cover'}"></div>
+        <mat-card-title>Abilash</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
         <img src="{{ post.items[currIndex].url }}"
             (touchstart)="onTouch('start', $event)"
             (touchend)="onTouch('end', $event)"
             (mousedown)="onDrag('start', $event)"
-            (mouseup)="onDrag('end', $event)" /><br />
-        <div style="text-align: center" *ngIf="maxIndex>1">
-            <span
-                class="dot"
-                *ngFor="let i of numSequence(maxIndex);index as j"
-                [ngClass]="{ 'filled': j == currIndex }"
-                (click)="onDotClick(j)"
-            ></span>
+            (mouseup)="onDrag('end', $event)" 
+            (dblclick)="onLike()"/><br />
+        <div class="iconsrow">
+            <div class="icons">
+                <mat-icon *ngIf="!isLike()" (click)="onLike()">favorite_border</mat-icon>
+                <mat-icon *ngIf="isLike()" (click)="onLike()">favorite</mat-icon>
+                <mat-icon>comment</mat-icon>
+            </div>
+            <div style="text-align: center" *ngIf="maxIndex>1">
+                <span
+                    class="dot"
+                    *ngFor="let i of numSequence(maxIndex);index as j"
+                    [ngClass]="{ 'filled': j == currIndex }"
+                    (click)="onDotClick(j)"
+                ></span>
+            </div>
+            <div>
+                <mat-icon>report</mat-icon>
+                <mat-icon>share</mat-icon>
+            </div>
         </div>
-        <h1>{{ post.items[currIndex].caption }}</h1>
+        <p><strong>Abilash </strong>{{ post.items[currIndex].caption }}</p>
     </mat-card-content>
 </mat-card>

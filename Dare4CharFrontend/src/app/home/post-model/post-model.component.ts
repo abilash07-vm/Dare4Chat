@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/Interfaces/post';
+import { ApiService } from 'src/Services/api.service';
+import { AuthService } from 'src/Services/auth.service';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 
 @Component({
@@ -10,8 +12,12 @@ import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 export class PostModelComponent implements OnInit {
   currIndex = 0;
   maxIndex = 0;
+  profileurl:string="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kindpng.com%2Fpicc%2Fm%2F252-2524695_dummy-profile-image-jpg-hd-png-download.png&f=1&nofb=1"
 
-  constructor(private swipeService: TouchSwipeService) { }
+  constructor(private swipeService: TouchSwipeService,
+    private auth:AuthService,
+    private api:ApiService) { }
+
   @Input('post') post!:Post
   
   ngOnInit(): void {
@@ -33,6 +39,34 @@ export class PostModelComponent implements OnInit {
 
   numSequence(n: number): Array<number> {
     return Array(n);
-}
+  }
+
+  isLike(){
+    let id=this.auth.getUserId();
+    if(id){
+      let ind=this.post.likeids.indexOf(id);
+      if(ind>=0){
+        return true
+      }
+    }
+    return false
+  }
+
+  onLike(){
+    let id=this.auth.getUserId();
+    if(id){
+      let ind=this.post.likeids.indexOf(id);
+      console.log(`index: ${ind}`);
+      
+      if(ind<0){
+        this.post.likeids.push(id);
+      }else{
+        this.post.likeids.splice(ind,1);
+      }
+      this.api.updatePost(this.post).subscribe((date)=>{
+        console.log('updated post');
+      })
+    }
+  }
 
 }

@@ -5,5 +5,6 @@ export interface Status {
     date: Date;
     userid: string;
     views: number;
+    viewsids: string[];
     statusid?:string
 }
