@@ -24,6 +24,12 @@ textarea {
 p{
     font-size: 20px;
 }
+.content,.mat-tab-body-wrapper{
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+    margin: 50px auto;
+}
 
 
 

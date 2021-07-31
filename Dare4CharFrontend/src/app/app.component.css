@@ -1,8 +1,10 @@
 .toolbar {
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
     padding: 0 20px;
+    height: 50px;
 }
 .toolbar .mat-toolbar-row {
     display: flex;
@@ -13,6 +15,7 @@
     bottom: 0;
     right: 0;
     left: 0;
+    height: 50px;
 }
 .navbar .mat-toolbar-row {
     display: flex;
@@ -26,3 +29,4 @@
 .mat-toolbar-row button {
     cursor: pointer;
 }
+

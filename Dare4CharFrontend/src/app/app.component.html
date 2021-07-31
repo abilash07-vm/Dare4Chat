@@ -1,33 +1,33 @@
-<div class="continer">
-    <!-- Toolbar -->
-    <mat-toolbar class="toolbar" color="primary">
-        <mat-toolbar-row>
-            <button mat-icon-button routerLink="#">
-                <mat-icon>logout</mat-icon>Logout
-            </button>
-        </mat-toolbar-row>
-    </mat-toolbar>
+<!-- Toolbar -->
+<mat-toolbar class="toolbar" color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button routerLink="#">
+            <mat-icon>logout</mat-icon>Logout
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
 
+<!-- Navigation bar -->
+<mat-toolbar class="navbar" color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button routerLink="home">
+            <mat-icon>home</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="search">
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="add">
+            <mat-icon>control_point</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="notifications">
+            <mat-icon>notifications</mat-icon>
+        </button>
+        <button mat-icon-button roterLink="profile">
+            <mat-icon>person</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="content">
     <router-outlet></router-outlet>
-
-    <!-- Navigation bar -->
-    <mat-toolbar class="navbar" color="primary">
-        <mat-toolbar-row>
-            <button mat-icon-button routerLink="home">
-                <mat-icon>home</mat-icon>
-            </button>
-            <button mat-icon-button routerLink="search">
-                <mat-icon>search</mat-icon>
-            </button>
-            <button mat-icon-button routerLink="add">
-                <mat-icon>control_point</mat-icon>
-            </button>
-            <button mat-icon-button routerLink="notifications">
-                <mat-icon>notifications</mat-icon>
-            </button>
-            <button mat-icon-button roterLink="profile">
-                <mat-icon>person</mat-icon>
-            </button>
-        </mat-toolbar-row>
-    </mat-toolbar>
 </div>

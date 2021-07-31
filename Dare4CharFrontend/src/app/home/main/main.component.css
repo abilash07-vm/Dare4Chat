@@ -1,3 +1,5 @@
-/* :host{
-    margin-bottom: 100px;
-} */
+:host ::ng-deep .mat-tab-header {
+    position: fixed !important;
+    z-index:100000;
+    width: 100%;
+}
