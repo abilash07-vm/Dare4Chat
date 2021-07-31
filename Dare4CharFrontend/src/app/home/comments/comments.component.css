@@ -1,0 +1,22 @@
+.commentbox{
+    position: absolute;
+    top:9%;
+    left: 0;
+    right: 0;
+}
+textarea{
+    width: 98%;
+    padding-right: 20px;
+}
+.mat-icon{
+    font-size: 30px;
+    position: absolute;
+    top: 7%;
+    right:3%
+}
+
+@media screen and (min-width: 650px) {
+    .commentbox{
+        top:12.5%;
+    }
+}

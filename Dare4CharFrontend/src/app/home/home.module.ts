@@ -12,6 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { CommentsComponent } from './comments/comments.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
         ChatComponent,
         MainComponent,
         PostModelComponent,
+        CommentsComponent,
     ],
     imports: [
         CommonModule,

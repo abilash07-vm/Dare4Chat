@@ -19,6 +19,12 @@ export class ApiService {
     getAllpost(){
         return this.http.get(baseurl+'post');
     }
+    getPostById(postid:string){
+        return this.http.get(`${baseurl}post/${postid}`)
+    }
+    getPostByUserId(userid:string){
+        return this.http.get(`${baseurl}post/user/${userid}`)
+    }
     updatePost(post:Post){
         return this.http.put(baseurl + 'post' , post)
     }

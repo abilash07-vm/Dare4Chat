@@ -14,7 +14,7 @@
             <div class="icons">
                 <mat-icon *ngIf="!isLike()" (click)="onLike()">favorite_border</mat-icon>
                 <mat-icon *ngIf="isLike()" (click)="onLike()">favorite</mat-icon>
-                <mat-icon>comment</mat-icon>
+                <mat-icon (click)="onComment()">comment</mat-icon>
             </div>
             <div style="text-align: center" *ngIf="maxIndex>1">
                 <span

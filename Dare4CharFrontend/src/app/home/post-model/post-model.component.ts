@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/Interfaces/post';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
@@ -16,7 +17,8 @@ export class PostModelComponent implements OnInit {
 
   constructor(private swipeService: TouchSwipeService,
     private auth:AuthService,
-    private api:ApiService) { }
+    private api:ApiService,
+    private router:Router) { }
 
   @Input('post') post!:Post
   
@@ -40,6 +42,8 @@ export class PostModelComponent implements OnInit {
   numSequence(n: number): Array<number> {
     return Array(n);
   }
+
+  // Likes
 
   isLike(){
     let id=this.auth.getUserId();
@@ -67,6 +71,11 @@ export class PostModelComponent implements OnInit {
         console.log('updated post');
       })
     }
+  }
+
+  // Comments
+  onComment(){
+    this.router.navigate(['/','home','comments',this.post.postid]);
   }
 
 }

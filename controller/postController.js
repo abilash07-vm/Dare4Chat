@@ -34,11 +34,35 @@ const updatePost=(req,res)=>{
 		console.log(`updated post : ${data}`);
 		res.status(201).send(data);
 	}).catch((err)=>{
-		res.status(406).json({ message: "err in all update post func" });
+		res.status(406).json({ message: "err in update post func" });
 	})
 }
+const getPostById=(req,res)=>{
+	let id=req.params.postid;
+	Post.findOne({postid:id}).then((data)=>{
+		console.log(`found post : ${data}`);
+		res.status(201).send(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in get post by id func" });
+	})
+}
+
+const getPostByUserId=(req,res)=>{
+	let id=req.params.userid;
+	Post.findOne({userid:id}).then((data)=>{
+		console.log(`found posts : ${data}`);
+		res.status(201).send(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in get post by userid func" });
+	})
+}
+
+
+
 module.exports = {
 	addPost,
 	getAllPost,
-	updatePost
+	updatePost,
+	getPostById,
+	getPostByUserId
 };
