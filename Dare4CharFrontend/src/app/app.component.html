@@ -1,14 +1,14 @@
 <!-- Toolbar -->
-<mat-toolbar class="toolbar" color="primary">
+<mat-toolbar *ngIf="userid && userid.length>0" class="toolbar" color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button routerLink="#">
+        <button mat-icon-button (click)="onLogout()">
             <mat-icon>logout</mat-icon>Logout
         </button>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <!-- Navigation bar -->
-<mat-toolbar class="navbar" color="primary">
+<mat-toolbar *ngIf="userid && userid.length>0" class="navbar" color="primary">
     <mat-toolbar-row>
         <button mat-icon-button routerLink="home">
             <mat-icon>home</mat-icon>

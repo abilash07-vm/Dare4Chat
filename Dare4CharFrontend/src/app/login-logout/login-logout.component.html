@@ -1,0 +1,31 @@
+<div>
+    <mat-card>
+        <mat-tab-group>
+            <mat-tab label="login">
+                <p *ngIf="loginErrors.length>0" class="error">{{loginErrors}}</p>
+                <mat-card-content>
+                    <input matInput [(ngModel)]="email" placeholder="email"/>
+                    <input matInput [(ngModel)]="loginPassword" placeholder="password"/>
+                </mat-card-content>
+                <p>forgot password?</p>
+                <mat-card-actions>
+                    <button color="primary" mat-raised-button (click)="onLogin()">Login</button>
+                </mat-card-actions>
+            </mat-tab>rgb
+            <mat-tab label="signup">
+                <p *ngIf="signupErrors.length>0" class="error">{{signupErrors}}</p>
+                <mat-card-content>
+                    <input matInput [(ngModel)]="username" placeholder="user name"/>
+                    <input matInput [(ngModel)]="email" placeholder="email"/>
+                    <input matInput [(ngModel)]="signupPassword" placeholder="password"/>
+                    <input *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button color="primary" mat-raised-button (click)="onVerify()">{{ openOtp ? "Resend OTP": "Send OTP" }}</button>
+                    <button [disabled]="otp.length==0" color="primary" mat-raised-button (click)="onSignup()">Sign up</button>
+                </mat-card-actions>
+            </mat-tab>
+        </mat-tab-group>
+        
+    </mat-card>
+</div>

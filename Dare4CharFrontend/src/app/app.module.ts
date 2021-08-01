@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddFilesComponent } from './add-files/add-files.component';
+import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -22,12 +23,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle'
 import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {MatTabsModule} from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
-    declarations: [AppComponent, AddFilesComponent],
+    declarations: [AppComponent, AddFilesComponent, LoginLogoutComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -49,6 +51,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         MatCardModule,
         MatSlideToggleModule,
         MatSnackBarModule,
+        MatTabsModule,
 
         // Loading Spinner
         NgxSpinnerModule,

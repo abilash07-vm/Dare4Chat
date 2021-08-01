@@ -10,6 +10,9 @@
     -ms-user-select: none;
 }
 
+body{
+    background-color: bisque;
+}
 
 img {
     width: 100%;
@@ -17,17 +20,16 @@ img {
 }
 
 textarea {
-    width: 100%;
     padding: 10px;
 }
-input{
+input,.full-width{
     width: 100%;
 }
 
 p{
     font-size: 20px;
 }
-.content,.mat-tab-body-wrapper{
+.mat-tab-body-wrapper{
     width: 100%;
     height: 80vh;
     overflow: auto;

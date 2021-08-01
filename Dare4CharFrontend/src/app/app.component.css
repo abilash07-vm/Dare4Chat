@@ -1,3 +1,10 @@
+
+.container{
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+    margin: 50px auto;
+}
 .toolbar {
     position: fixed;
     top: 0;

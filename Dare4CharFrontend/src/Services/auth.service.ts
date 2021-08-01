@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
+const baseurl = environment.baseurl;
 const USER_ID_KEY = 'user-id';
 const ADD_KEY = 'add-key';
 
@@ -7,7 +10,7 @@ const ADD_KEY = 'add-key';
     providedIn: 'root',
 })
 export class AuthService {
-    constructor() {}
+    constructor(private http:HttpClient) {}
     // Common Local storage methods
     setToStorage(key: string, value: string) {
         localStorage.setItem(key, value);
@@ -39,5 +42,13 @@ export class AuthService {
     }
     delAddData() {
         this.delItemFromStrong(ADD_KEY);
+    }
+
+    // OTP
+    sendOTP(mailid:string){
+        return this.http.get(`${baseurl}sendotp/${mailid}`);
+    }
+    verifyOTP(mailid:string,otp:string){
+        return this.http.get(`${baseurl}verify/${mailid}/${otp}`)
     }
 }

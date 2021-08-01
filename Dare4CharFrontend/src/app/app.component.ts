@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/Services/auth.service';
 
 @Component({
@@ -8,7 +9,18 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class AppComponent {
     title = 'Dare4CharFrontend';
-    constructor(private authServices: AuthService) {
-        this.authServices.setUserId('admin-123');
+    userid!:string
+    constructor(private auth: AuthService,private router:Router) {
+        let id= this.auth.getUserId();
+        if(id){
+            this.userid=id
+        }
+    }
+
+    onLogout(){
+        this.userid=''
+        this.auth.delUserId();
+        this.router.navigate(['/','auth'])
+
     }
 }

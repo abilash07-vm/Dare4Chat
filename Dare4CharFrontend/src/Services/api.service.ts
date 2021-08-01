@@ -33,4 +33,6 @@ export class ApiService {
     addStatus(status: Status) {
         return this.http.post(baseurl + 'status', status);
     }
+
+    
 }
