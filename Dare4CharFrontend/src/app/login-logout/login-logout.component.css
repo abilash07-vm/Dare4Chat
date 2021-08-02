@@ -10,6 +10,18 @@ p{
 .error{
     color: red;
 }
+.password{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    
+}
+.passwordeye{
+    justify-content: flex-end;
+    overflow: visible;
+    margin-top: 10px;
+}
 
 .mat-card{
     width: 400px;

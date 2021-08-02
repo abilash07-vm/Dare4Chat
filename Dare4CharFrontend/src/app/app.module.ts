@@ -27,9 +27,10 @@ import {MatTabsModule} from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-    declarations: [AppComponent, AddFilesComponent, LoginLogoutComponent],
+    declarations: [AppComponent, AddFilesComponent, LoginLogoutComponent, ProfileComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

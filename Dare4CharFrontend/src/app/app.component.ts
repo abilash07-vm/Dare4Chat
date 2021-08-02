@@ -13,14 +13,17 @@ export class AppComponent {
     constructor(private auth: AuthService,private router:Router) {
         let id= this.auth.getUserId();
         if(id){
-            this.userid=id
+            this.userid=id;
         }
+    }
+
+    isLogin(){
+        return this.auth.isLogin()
     }
 
     onLogout(){
         this.userid=''
-        this.auth.delUserId();
+        this.auth.onLogout()
         this.router.navigate(['/','auth'])
-
     }
 }

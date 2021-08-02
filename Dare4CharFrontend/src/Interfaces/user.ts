@@ -1,12 +1,14 @@
 export interface User {
     userid:string,
+    emailid:string,
     profileurl?:string,
     username:string,
-    postcount:string,
-    
+    postids:string[],
+    friendsids:string[],
+
 }
-export interface Auth{
-    userid:string,
+export interface UserCredientials{
     emailid:string,
+    admin:boolean,
     password:string
 }

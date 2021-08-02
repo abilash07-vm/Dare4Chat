@@ -1,3 +1,4 @@
+<ngx-spinner></ngx-spinner>
 <div>
     <mat-card>
         <mat-tab-group>
@@ -5,7 +6,10 @@
                 <p *ngIf="loginErrors.length>0" class="error">{{loginErrors}}</p>
                 <mat-card-content>
                     <input matInput [(ngModel)]="email" placeholder="email"/>
-                    <input matInput [(ngModel)]="loginPassword" placeholder="password"/>
+                    <div class="password">
+                        <input matInput type="{{loginhide ? 'password' : 'text'}}" [(ngModel)]="loginPassword" placeholder="password">
+                        <mat-icon class="passwordeye" (click)="loginhide=!loginhide">{{loginhide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </div>
                 </mat-card-content>
                 <p>forgot password?</p>
                 <mat-card-actions>
@@ -15,14 +19,17 @@
             <mat-tab label="signup">
                 <p *ngIf="signupErrors.length>0" class="error">{{signupErrors}}</p>
                 <mat-card-content>
-                    <input matInput [(ngModel)]="username" placeholder="user name"/>
-                    <input matInput [(ngModel)]="email" placeholder="email"/>
-                    <input matInput [(ngModel)]="signupPassword" placeholder="password"/>
-                    <input *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
+                    <input [disabled]="isVerified" matInput [(ngModel)]="username" placeholder="user name"/>
+                    <input [disabled]="isVerified" matInput [(ngModel)]="email" placeholder="email"/>
+                    <input [disabled]="isVerified" *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
+                    <div class="password" *ngIf="openOtp">
+                        <input matInput type="{{signuphide ? 'password' : 'text'}}" [(ngModel)]="signupPassword" placeholder="password">
+                        <mat-icon class="passwordeye" (click)="signuphide=!signuphide">{{signuphide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </div>
                 </mat-card-content>
                 <mat-card-actions>
                     <button color="primary" mat-raised-button (click)="onVerify()">{{ openOtp ? "Resend OTP": "Send OTP" }}</button>
-                    <button [disabled]="otp.length==0" color="primary" mat-raised-button (click)="onSignup()">Sign up</button>
+                    <button [disabled]="!openOtp" color="primary" mat-raised-button (click)="onSignup()">Sign up</button>
                 </mat-card-actions>
             </mat-tab>
         </mat-tab-group>

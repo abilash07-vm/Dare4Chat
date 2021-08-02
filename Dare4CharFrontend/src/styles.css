@@ -31,10 +31,11 @@ p{
 }
 .mat-tab-body-wrapper{
     width: 100%;
-    height: 80vh;
+    height: 76vh;
     overflow: auto;
-    margin: 50px auto;
+    margin: 100px auto;
 }
+
 
 
 
@@ -49,4 +50,13 @@ p{
 }
 .dot.filled {
     background-color: rgba(0, 0, 0, 0.856);
+}
+
+@media screen and (min-width: 500px) {
+    .mat-tab-body-wrapper{
+        width: 100%;
+        height: 70vh;
+        overflow: auto;
+        margin: 100px auto;
+    }
 }

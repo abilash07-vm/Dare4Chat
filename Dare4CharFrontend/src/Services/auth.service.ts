@@ -1,36 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { User, UserCredientials } from 'src/Interfaces/user';
 
 const baseurl = environment.baseurl;
-const USER_ID_KEY = 'user-id';
-const ADD_KEY = 'add-key';
-
+const ADD_KEY = 'dare4chat-add-key';
+const JWT_TOKEN='dare4chat-jwt-key';
+const USER_KEY='dare4chat-user-key';
+const USERID_KEY='dare4chat-userid-key'
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     constructor(private http:HttpClient) {}
     // Common Local storage methods
-    setToStorage(key: string, value: string) {
+    private setToStorage(key: string, value: string) {
         localStorage.setItem(key, value);
     }
-    getFromStorage(key: string) {
+    private getFromStorage(key: string) {
         return localStorage.getItem(key);
     }
-    delItemFromStrong(key: string) {
+    private delItemFromStrong(key: string) {
         localStorage.removeItem(key);
-    }
-
-    // user id
-    getUserId() {
-        return this.getFromStorage(USER_ID_KEY);
-    }
-    setUserId(id: string) {
-        this.setToStorage(USER_ID_KEY, id);
-    }
-    delUserId() {
-        this.delItemFromStrong(USER_ID_KEY);
     }
 
     //draft for add tab
@@ -51,4 +42,56 @@ export class AuthService {
     verifyOTP(mailid:string,otp:string){
         return this.http.get(`${baseurl}verify/${mailid}/${otp}`)
     }
+
+    //auth
+    createUser(userCrediential:UserCredientials){
+        return this.http.post(`${baseurl}auth/new`,userCrediential);
+    }
+    login(payload: UserCredientials) {
+        return this.http.post(baseurl + 'auth', payload);
+    }
+    isLogin(){
+        return this.getToken() && this.getUser() && this.getUserId();
+    }
+
+    //token
+    setToken(token:string){
+        this.setToStorage(JWT_TOKEN,token);
+    }
+    getToken(){
+        return this.getFromStorage(JWT_TOKEN);
+    }
+    delToken(){
+        this.delItemFromStrong(JWT_TOKEN);
+    }
+    onLogout(){
+        this.delAddData();
+        this.delToken();
+        this.delUser();
+        this.delUserId();
+    }
+
+
+    //User
+    setUser(user:string){
+        this.setToStorage(USER_KEY,user);
+    }
+    getUser(){
+        return this.getFromStorage(USER_KEY);
+    }
+    delUser(){
+        return this.delItemFromStrong(USER_KEY);
+    }
+
+    //User
+    setUserId(user:string){
+        this.setToStorage(USERID_KEY,user);
+    }
+    getUserId(){
+        return this.getFromStorage(USERID_KEY);
+    }
+    delUserId(){
+        return this.delItemFromStrong(USERID_KEY);
+    }
+
 }
