@@ -1,9 +1,16 @@
+:host{
+    display: block;
+    width: 100%;
+    height: 84vh;
+    overflow: auto;
+    margin-top: 55px;
+    margin-bottom: 90px;
+}
+
 .main {
     width: 100%;
     margin: auto;
-    margin-top: 20px;
     min-height: 300px;
-    margin-bottom: 100px;
 }
 .child {
     width: 100%;
@@ -34,4 +41,14 @@ input,textarea {
 .delete:hover{
     font-size: 50px;
     right: 50px;
+}
+@media screen and (min-width: 550px) {
+    :host{
+        display: block;
+        width: 100%;
+        height: 76vh;
+        overflow: auto;
+        margin-top: 64px;
+        margin-bottom: 30px;
+    }
 }
