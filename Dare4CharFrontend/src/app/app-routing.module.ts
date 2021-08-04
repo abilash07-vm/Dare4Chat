@@ -17,11 +17,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: AddFilesComponent,
     },
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-    },
+    
     {
         path: 'auth',
         component: LoginLogoutComponent
@@ -29,7 +25,12 @@ const routes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
-    }
+    },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddFilesComponent } from './add-files/add-files.component';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
+import { ProfileComponent } from './profile/profile.component';
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -22,12 +23,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle'
-import {MatSnackBarModule} from '@angular/material/snack-bar'
-import {MatTabsModule} from '@angular/material/tabs'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatTabsModule } from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [AppComponent, AddFilesComponent, LoginLogoutComponent, ProfileComponent],

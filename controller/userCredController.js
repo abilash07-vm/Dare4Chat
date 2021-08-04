@@ -63,7 +63,14 @@ const AuthenticateUser = (req, res) => {
     });
   };
 
+  const CheckExistingUser=(emailid)=>{
+    return UserCred.findOne({emailid:emailid}).then((data)=>{
+      return data
+    })
+  }
+
 module.exports = {
 	addUserCred,
-    AuthenticateUser
+    AuthenticateUser,
+    CheckExistingUser
 };

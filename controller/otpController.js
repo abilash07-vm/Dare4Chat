@@ -1,18 +1,24 @@
 const mongoose = require("mongoose");
 const otpSchema = require("../schema/otpSchema");
+const { CheckExistingUser } =require('./userCredController')
 
 
 const OTP = mongoose.model("otp", otpSchema);
 
-const addOtp = (emailid,otp) => {
+const addOtp = async(emailid,otp) => {
     let newotp={
         emailid,otp
     }
 	let otpNode = new OTP(newotp);
 	console.log(`before otp: ${newotp}`);
+	let existingUser=await CheckExistingUser(emailid);
+	if(existingUser){
+		return existingUser;
+	}
 	OTP.deleteMany({emailid}).then((data)=>{
 		console.log('deleted other');
 	})
+	
 	otpNode.save()
 		.then((data) => {
 			console.log(`otp: ${data}`);
@@ -36,8 +42,6 @@ const verifyOtp=(req,res)=>{
 		res.status(406).json({ message: "err in get otp by id func" });
 	})
 }
-
-
 
 
 module.exports = {

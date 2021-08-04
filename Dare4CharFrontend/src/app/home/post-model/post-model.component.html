@@ -1,7 +1,7 @@
 <mat-card *ngIf="maxIndex" class="child">
     <mat-card-header>
-        <div mat-card-avatar [ngStyle]="{'background': '#fff url(' + profileurl + ') no-repeat','background-size': 'cover'}"></div>
-        <mat-card-title>Abilash</mat-card-title>
+        <div *ngIf="postOwner" mat-card-avatar [ngStyle]="{'background': '#fff url(' + getProfileUrl() + ') no-repeat','background-size': 'cover'}"></div>
+        <mat-card-title *ngIf="postOwner">{{ postOwner.username }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <img src="{{ post.items[currIndex].url }}"
@@ -29,6 +29,7 @@
                 <mat-icon>share</mat-icon>
             </div>
         </div>
-        <p><strong>Abilash </strong>{{ post.items[currIndex].caption }}</p>
+        <p *ngIf="post.likeids.length || post.comments.length" >{{post.likeids.length}} likes and {{ post.comments.length }} comments</p>
+        <p *ngIf="post.items[currIndex].caption && postOwner"><strong>{{ postOwner.username }} </strong>{{ post.items[currIndex].caption }}</p>
     </mat-card-content>
 </mat-card>

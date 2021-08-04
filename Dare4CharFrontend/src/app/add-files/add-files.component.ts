@@ -96,7 +96,7 @@ export class AddFilesComponent implements OnInit {
     onAutoCaption(){
         let count=0;
         if(this.autoCaption && this.items[this.currIndex].caption.length>0){
-            for(let i=this.currIndex+1;i<this.items.length;i++){
+            for(let i=0;i<this.items.length;i++){
                 if(this.items[i].caption.length==0){
                     this.items[i].caption=this.items[this.currIndex].caption
                     count+=1

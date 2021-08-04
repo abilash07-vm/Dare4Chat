@@ -37,8 +37,6 @@ p{
 }
 
 
-
-
 /* Post and Status */
 .dot {
     height: 6px;
@@ -50,6 +48,13 @@ p{
 }
 .dot.filled {
     background-color: rgba(0, 0, 0, 0.856);
+}
+
+.dummy{
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    text-align: center;
 }
 
 @media screen and (min-width: 500px) {

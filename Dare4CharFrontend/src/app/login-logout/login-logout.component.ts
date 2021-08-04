@@ -84,9 +84,12 @@ export class LoginLogoutComponent implements OnInit {
       this.signupErrors="username is required"
       this.spinner.hide()
     }else{
-      this.auth.sendOTP(this.email).subscribe((data)=>{
-        this.openOtp=true;
-        this.popup.openSnackbar('OTP Sent to mail!!!')
+      this.auth.sendOTP(this.email).subscribe((data:any)=>{
+        let message=data.message;
+        if(message==='OTP sent'){
+          this.openOtp=true;
+        }
+        this.popup.openSnackbar(message);
         this.spinner.hide()
       })
     }

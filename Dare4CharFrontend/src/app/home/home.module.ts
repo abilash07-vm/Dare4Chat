@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommentsComponent } from './comments/comments.component';
+import { StatusModelComponent } from './status-model/status-model.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CommentsComponent } from './comments/comments.component';
         MainComponent,
         PostModelComponent,
         CommentsComponent,
+        StatusModelComponent,
     ],
     imports: [
         CommonModule,

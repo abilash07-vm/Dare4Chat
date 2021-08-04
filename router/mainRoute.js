@@ -22,9 +22,13 @@ module.exports = () => {
 	router.get("/sendotp/:mailid",(req,res)=>{
 		let mailid=req.params.mailid
 		let otp=generateotp();
+		let existingUser=addOtp(mailid,otp)
+		if(existingUser){
+			res.send({message:'Existing User please login'});
+			return;
+		}
 		sendMail(mailid,'OTP for account verification',`otp for email verification is ${otp}`)
-		addOtp(mailid,otp)
-		res.send({message:'otp sent'})
+		res.send({message:'OTP sent'})
 	});
 
 	

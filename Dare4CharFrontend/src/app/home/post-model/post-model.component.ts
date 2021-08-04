@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/Interfaces/post';
+import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
@@ -21,12 +22,19 @@ export class PostModelComponent implements OnInit {
     private router:Router) { }
 
   @Input('post') post!:Post
+  postOwner!:User
   
   ngOnInit(): void {
     console.log('post is ',this.post);
     this.maxIndex=this.post.items.length
+    this.api.getUserByid(this.post.userid).subscribe((data:any)=>{
+      this.postOwner=data;
+      this.postOwner.username;
+    })
   }
-
+  getProfileUrl(){
+    return this.postOwner.profileurl ? this.postOwner.profileurl : this.profileurl;
+  }
   onDotClick(index:number){
     this.currIndex=index
   }

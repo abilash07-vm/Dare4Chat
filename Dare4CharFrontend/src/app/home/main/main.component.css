@@ -1,7 +1,28 @@
 :host ::ng-deep .mat-tab-header {
-    position: fixed !important;
-    z-index:100000;
+    position: fixed;
+    z-index:auto;
     width: 100%;
     top: 50px;
     background-color: white;
+
 }
+/* .status .mat-tab-group{
+    position: fixed;
+    z-index:1000;
+    width: 100%;
+    top: 100px;
+    background-color: white;
+} */
+.mat-tab-body-wrapper{
+    z-index: 100;
+}
+
+/* .statuscontent{
+    opacity: 1;
+    
+} */
+.status .mat-tab-body-wrapper{
+    display: block;
+}
+
+

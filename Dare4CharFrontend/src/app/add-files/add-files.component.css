@@ -9,7 +9,7 @@
     width: 100%;
     margin: auto;
 }
-input {
+input,textarea {
     width: 100%;
 }
 .fullwidth {
