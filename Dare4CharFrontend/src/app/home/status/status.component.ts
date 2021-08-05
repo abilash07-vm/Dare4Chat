@@ -1,4 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { StatusUser } from 'src/Interfaces/status';
+import { ApiService } from 'src/Services/api.service';
+
+
 
 @Component({
   selector: 'app-status',
@@ -6,10 +10,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./status.component.css']
 })
 export class StatusComponent implements OnInit {
-
-  status:any=[]
+  currIndex:number=-1
+  statuses:StatusUser[]=[]
+  show:boolean=false
   @Output() isStatus=new EventEmitter()
-  constructor() { }
+  constructor(private api:ApiService) { }
 
   ngOnInit(): void {
     this.showStatus();
@@ -18,6 +23,10 @@ export class StatusComponent implements OnInit {
   showStatus(){
     console.log('calling show status func');
     this.isStatus.emit(true);
+  }
+
+  getDate(date:Date){
+    return new Date().getTime() - date.getTime();
   }
 
 }

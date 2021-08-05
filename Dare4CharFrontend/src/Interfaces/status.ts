@@ -1,4 +1,5 @@
 import { Item } from './post';
+import { User } from './user';
 
 export interface Status {
     item: Item;
@@ -7,4 +8,9 @@ export interface Status {
     views: number;
     viewsids: string[];
     statusid?:string
+}
+
+export interface StatusUser{
+    user:User,
+    statuses:Status[]
 }
