@@ -1,15 +1,17 @@
 <p *ngIf="statuses.length==0" class="dummy">No status found :(<br> Please make friends to have more fun</p>
 
 <div class="container">
-    <div *ngFor="let userstatus of statuses" class="status">
-        <mat-card>
+    <div *ngFor="let userstatus of statuses;index as i">
+        <mat-card *ngIf="userstatus" class="status" (click)="onStatusShow(i)">
             <div mat-card-avatar [ngStyle]="{'background': '#000 url(' + 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.aLheDZLdeJFEEIzFFArg8wHaHa%26pid%3DApi&f=1' + ') no-repeat','background-size': 'cover'}"></div>
             <div>
-                <mat-card-title>userstatus.user.username</mat-card-title>
-                <mat-card-subtitle>{{ getDate() | date:'shortTime' }}</mat-card-subtitle>    
+                <mat-card-title>{{ userstatus.user.username }}</mat-card-title>
+                <!-- <mat-card-subtitle>{{ getDate()) | date:'shortTime' }}</mat-card-subtitle>     -->
             </div>
         </mat-card>
     </div>
 </div>
 
-<app-status-model *ngIf="show && currIndex>=0 && statuses.length>currIndex" [userstatus]="statuses[currIndex]" ></app-status-model>
+<app-status-model *ngIf="show && currIndex>=0 && statuses.length>currIndex" 
+    [userstatus]="statuses[currIndex]" 
+    (stop)="onStop()"></app-status-model>

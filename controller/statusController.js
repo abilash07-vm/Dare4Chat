@@ -19,14 +19,21 @@ const addStatus = (req, res) => {
 		});
 };
 const getAllStatus=(req,res)=>{
-	Post.find({}).then((data)=>{
+	Status.find({}).then((data)=>{
 		console.log(`data sent : ${data}`);
 		res.send(data);
 	}).catch((err) => {
 		res.status(406).json({ message: "err in all post func" });
 	});
 }
+const getStatusByUserId=(req,res)=>{
+	let userid=req.params.userid;
+	Status.find({userid:userid}).then((data)=>{
+		res.json(data);
+	});
+}
 module.exports = {
 	addStatus,
-    getAllStatus
+    getAllStatus,
+	getStatusByUserId
 };

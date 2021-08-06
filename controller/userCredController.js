@@ -53,9 +53,7 @@ const AuthenticateUser = (req, res) => {
         username: data.emailid,
         admin: data.admin,
       };
-      const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "24h",
-      });
+      const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn:'365d'});
       res.status(201).json({
         message: "authenticated sucessfully",
         token: token,

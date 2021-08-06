@@ -8,7 +8,7 @@ export class TouchSwipeService {
     private coordinate!: [number, number];
     private prevtime!: number;
 
-    getSwipe(when: string, e: TouchEvent,currIndex:number,maxIndex:number) {
+    getSwipe(when: string, e: TouchEvent,currIndex:number,maxIndex:number,isStatus?:boolean) {
         const curr_coordinate: [number, number] = [
             e.changedTouches[0].clientX,
             e.changedTouches[0].clientY,
@@ -29,11 +29,16 @@ export class TouchSwipeService {
                 Math.abs(dirrection[0]) > Math.abs(dirrection[1] * 3)
             ) {
                 return dirrection[0] < 0 ? this.moveNext(currIndex,maxIndex) : this.movePrev(currIndex) ;
+            }else if(isStatus && timeDiff < 1000 && Math.abs(dirrection[1]) > 30 &&
+            Math.abs(dirrection[1]) > Math.abs(dirrection[0] * 3)){
+                let val= dirrection[1] < 0 ? 'swipe up': 'swipe down' ;
+                console.log(val);
+                
             }
         }
         return currIndex;
     }
-    getMouseSwipe(when: string, e: MouseEvent,currIndex:number,maxIndex:number) {
+    getMouseSwipe(when: string, e: MouseEvent,currIndex:number,maxIndex:number,isStatus?:boolean) {
         const curr_coordinate: [number, number] = [e.clientX, e.clientY];
         const curr_time = new Date().getTime();
         if (when === 'start') {
@@ -51,7 +56,12 @@ export class TouchSwipeService {
                 Math.abs(dirrection[0]) > Math.abs(dirrection[1] * 3)
             ) {
                 return dirrection[0] < 0 ? this.moveNext(currIndex,maxIndex) : this.movePrev(currIndex) ;
-            }
+            }else if(isStatus && timeDiff < 1000 && Math.abs(dirrection[1]) > 30 &&
+                Math.abs(dirrection[1]) > Math.abs(dirrection[0] * 3)){
+                    let val= dirrection[1] < 0 ? 'swipe up': 'swipe down' ;
+                    console.log(val);
+                    
+                }
         }
         return currIndex;
     }

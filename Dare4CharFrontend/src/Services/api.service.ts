@@ -47,6 +47,12 @@ export class ApiService {
     addStatus(status: Status) {
         return this.http.post(baseurl + 'status', status,{ headers: this.headers });
     }
+    getAllStatus(){
+        return this.http.get(baseurl + 'status',{ headers: this.headers });
+    }
+    getStatusByUserId(userid:string){
+        return this.http.get(`${baseurl}status/${userid}`,{headers:this.headers});
+    }
 
     // User 
     addUser(user:User){
