@@ -15,7 +15,7 @@ export class StatusComponent implements OnInit {
   currIndex:number=-1
   statuses:StatusUser[]=[]
   show:boolean=false
-  @Output() isStatus=new EventEmitter()
+
   constructor(private api:ApiService,private auth:AuthService) { }
 
   ngOnInit(): void {
@@ -37,24 +37,33 @@ export class StatusComponent implements OnInit {
     }
   }
 
-  showStatus(){
-    console.log('calling show status func');
-    this.isStatus.emit(true);
-  }
-
   onStatusShow(i:number){
     this.currIndex=i;
     this.show=true;
   }
 
-  onStop(){
-    console.log('invoved on stop in status component');
-    
+  onStop(isstop:boolean){
+    console.log(`invoved on stop in status component with isstop: ${isstop}`);
+    this.currIndex=-1;
     this.show=false;
+  }
+
+  onNext(isnext:boolean){
+    console.log(`invoved on next in status component with isnext: ${isnext},currentIndex ${this.currIndex}`);
+    this.currIndex+=1
+    if(this.currIndex>=this.statuses.length){
+      this.onStop(true)
+    }else{
+      console.log(this.statuses[this.currIndex]);
+    }
   }
 
   getDate(date:Date){
     return new Date().getTime() - date.getTime();
+  }
+
+  getProfile(i:number){
+    return this.statuses[i].user.profileurl ? this.statuses[i].user.profileurl : this.api.profileurl;
   }
 
 }

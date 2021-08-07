@@ -31,8 +31,7 @@ export class TouchSwipeService {
                 return dirrection[0] < 0 ? this.moveNext(currIndex,maxIndex) : this.movePrev(currIndex) ;
             }else if(isStatus && timeDiff < 1000 && Math.abs(dirrection[1]) > 30 &&
             Math.abs(dirrection[1]) > Math.abs(dirrection[0] * 3)){
-                let val= dirrection[1] < 0 ? 'swipe up': 'swipe down' ;
-                console.log(val);
+                return dirrection[1] < 0 ? currIndex: -1;
                 
             }
         }
@@ -58,8 +57,7 @@ export class TouchSwipeService {
                 return dirrection[0] < 0 ? this.moveNext(currIndex,maxIndex) : this.movePrev(currIndex) ;
             }else if(isStatus && timeDiff < 1000 && Math.abs(dirrection[1]) > 30 &&
                 Math.abs(dirrection[1]) > Math.abs(dirrection[0] * 3)){
-                    let val= dirrection[1] < 0 ? 'swipe up': 'swipe down' ;
-                    console.log(val);
+                    return dirrection[1] < 0 ? currIndex: -1 ;
                     
                 }
         }

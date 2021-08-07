@@ -14,12 +14,11 @@ import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 export class PostModelComponent implements OnInit {
   currIndex = 0;
   maxIndex = 0;
-  profileurl:string="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kindpng.com%2Fpicc%2Fm%2F252-2524695_dummy-profile-image-jpg-hd-png-download.png&f=1&nofb=1"
 
   constructor(private swipeService: TouchSwipeService,
     private auth:AuthService,
     private api:ApiService,
-    private router:Router) { }
+    private router:Router) {}
 
   @Input('post') post!:Post
   postOwner!:User
@@ -33,7 +32,7 @@ export class PostModelComponent implements OnInit {
     })
   }
   getProfileUrl(){
-    return this.postOwner.profileurl ? this.postOwner.profileurl : this.profileurl;
+    return this.postOwner.profileurl ? this.postOwner.profileurl : this.api.profileurl;
   }
   onDotClick(index:number){
     this.currIndex=index

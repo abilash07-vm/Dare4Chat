@@ -15,16 +15,28 @@ const baseurl = environment.baseurl;
 export class ApiService {
     token!:string
     headers!: HttpHeaders;
+    profileurl:string="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kindpng.com%2Fpicc%2Fm%2F252-2524695_dummy-profile-image-jpg-hd-png-download.png&f=1&nofb=1"
+
 
     constructor(private http: HttpClient,private auth:AuthService) {
         this.setTokenkey();
+        this.updateUserForLocalStorage()
     }
 
     setTokenkey() {
         this.headers = new HttpHeaders()
           .set('content-type', 'application/json')
           .set('Authorization', `Bearer ${this.auth.getToken()}`);
-      }
+    }
+    
+    updateUserForLocalStorage(){
+        let userid=this.auth.getUserId()
+        if(userid){
+            this.getUserByid(userid).subscribe((data:any)=>{
+                this.auth.setUser(JSON.stringify(data));
+            })
+        }
+    }
 
     //post
     addPost(post: Post) {
@@ -52,6 +64,9 @@ export class ApiService {
     }
     getStatusByUserId(userid:string){
         return this.http.get(`${baseurl}status/${userid}`,{headers:this.headers});
+    }
+    updateStatus(status:Status){
+        return this.http.put(baseurl + 'status' , status,{ headers: this.headers })
     }
 
     // User 

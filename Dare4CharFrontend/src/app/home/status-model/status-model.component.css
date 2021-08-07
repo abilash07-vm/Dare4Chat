@@ -17,3 +17,14 @@
     background: #000;
     color:#fff;
 }
+.mat-progress-bar{
+    margin-bottom: 5px;
+}
+
+.caption{
+    position: fixed;
+    bottom: 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+}

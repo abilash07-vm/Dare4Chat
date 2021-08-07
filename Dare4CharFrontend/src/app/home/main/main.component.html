@@ -1,5 +1,5 @@
 <!-- Tabs -->
-<mat-tab-group mat-stretch-tabs [ngClass]="{'status': isStatus}" (selectedTabChange)="tabChanged($event)">
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="tabChanged($event)">
     <mat-tab label="Post">
         <app-post></app-post>
     </mat-tab>
@@ -7,7 +7,7 @@
         <app-chat></app-chat>
     </mat-tab>
     <mat-tab label="Status">
-        <app-status class="statuscontent" (isStatus)="onStatusView($event)"></app-status>
+        <app-status class="statuscontent"></app-status>
     </mat-tab>
 </mat-tab-group>
 <!-- <router-outlet></router-outlet> -->

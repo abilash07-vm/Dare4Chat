@@ -32,8 +32,18 @@ const getStatusByUserId=(req,res)=>{
 		res.json(data);
 	});
 }
+const updateStatus=(req,res)=>{
+	let status=req.body;
+	Status.updateOne({statusid:status.status.id},status).then((data)=>{
+		console.log(`updated status : ${data}`);
+		res.status(201).send(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in update status func" });
+	})
+}
 module.exports = {
 	addStatus,
     getAllStatus,
-	getStatusByUserId
-};
+	getStatusByUserId,
+	updateStatus
+}

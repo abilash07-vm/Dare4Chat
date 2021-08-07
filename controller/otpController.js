@@ -13,6 +13,7 @@ const addOtp = async(emailid,otp) => {
 	console.log(`before otp: ${newotp}`);
 	let existingUser=await CheckExistingUser(emailid);
 	if(existingUser){
+		console.log('existing user: ',existingUser);
 		return existingUser;
 	}
 	OTP.deleteMany({emailid}).then((data)=>{
@@ -26,6 +27,7 @@ const addOtp = async(emailid,otp) => {
 		.catch((err) => {
 			console.log({ message: "err in add post func" });
 		});
+	return false
 };
 const verifyOtp=(req,res)=>{
 	let id=req.params.emailid;

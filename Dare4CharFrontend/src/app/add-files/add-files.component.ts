@@ -170,6 +170,8 @@ export class AddFilesComponent implements OnInit {
             };
             this.apiServices.addPost(data).subscribe((data_server: any) => {
                 let data_mongo: Post = data_server;
+                this.popups.openSnackbar('Added sucessfully!!!')
+                this.onReset();
                 console.log('Added post !!!!' + data_mongo);
             });
         } 
