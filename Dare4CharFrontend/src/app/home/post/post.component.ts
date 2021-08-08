@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/Interfaces/post';
+import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
+import { AuthService } from 'src/Services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -9,16 +11,24 @@ import { ApiService } from 'src/Services/api.service';
 })
 export class PostComponent implements OnInit {
   posts:Post[]=[]
-  constructor(private api:ApiService) { 
+  constructor(private api:ApiService,private auth:AuthService) { 
     
   }
 
   ngOnInit(): void {
-    this.api.getAllpost().subscribe((data:any)=>{
-      this.posts=data;
-      
-      
-    })
+    let ids=[]
+    let user=this.auth.getUser()
+    if(user){
+      let curruser:User=JSON.parse(user);
+      ids=curruser.friendsids
+      ids.push(curruser.userid)
+      ids.forEach((friendid)=>{
+        this.api.getPostByUserId(friendid).subscribe((data:any)=>{
+          this.posts.push(data);
+        })
+      })
+    }
+   
   }
 
 }

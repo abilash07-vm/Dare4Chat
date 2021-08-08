@@ -1,8 +1,19 @@
 <mat-card *ngIf="maxIndex" class="child">
+    
     <mat-card-header>
         <div *ngIf="postOwner" mat-card-avatar [ngStyle]="{'background': '#fff url(' + getProfileUrl() + ') no-repeat','background-size': 'cover'}"></div>
         <mat-card-title *ngIf="postOwner">{{ postOwner.username }}</mat-card-title>
+        <span class="spacer"></span>
+        <!-- post menu -->
+        <button class="menu" mat-button [matMenuTriggerFor]="postmenu"><mat-icon class="menuicon">more_vert</mat-icon></button>
+
+        <mat-menu #postmenu="matMenu">
+            <button mat-menu-item>delete</button>
+            <button mat-menu-item>report</button>
+        </mat-menu>
+        
     </mat-card-header>
+    
     <mat-card-content>
         <img src="{{ post.items[currIndex].url }}"
             (touchstart)="onTouch('start', $event)"

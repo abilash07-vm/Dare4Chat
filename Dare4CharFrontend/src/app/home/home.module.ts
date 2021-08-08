@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatMenuModule } from '@angular/material/menu'
 
 
 
@@ -36,7 +37,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
         MatIconModule,
         MatButtonModule,
         MatCardModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatMenuModule
     ],
 })
 export class HomeModule {}
