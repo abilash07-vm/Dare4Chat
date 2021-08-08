@@ -41,9 +41,21 @@ const updateStatus=(req,res)=>{
 		res.status(406).json({ message: "err in update status func" });
 	})
 }
+
+const deleteStatusById=(req,res)=>{
+	let statusid=req.params.statusid;
+	status.deleteOne({statusid}).then((data)=>{
+		console.log('deleted post',data);
+		res.json({"message":"deleted"});
+	}).catch((err)=>{
+		res.json({"message":err});
+	})
+}
+
 module.exports = {
 	addStatus,
     getAllStatus,
 	getStatusByUserId,
-	updateStatus
+	updateStatus,
+	deleteStatusById
 }

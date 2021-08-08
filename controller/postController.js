@@ -19,24 +19,7 @@ const addPost = (req, res) => {
 			res.status(406).json({ message: "err in add post func" });
 		});
 };
-const getAllPost=(req,res)=>{
-	Post.find({}).then((data)=>{
-		
-		res.send(data);
-	}).catch((err) => {
-		res.status(406).json({ message: "err in all post func" });
-	});
-}
 
-const updatePost=(req,res)=>{
-	let post=req.body;
-	Post.updateOne({postid:post.postid},post).then((data)=>{
-		
-		res.status(201).send(data);
-	}).catch((err)=>{
-		res.status(406).json({ message: "err in update post func" });
-	})
-}
 const getPostById=(req,res)=>{
 	let id=req.params.postid;
 	Post.findOne({postid:id}).then((data)=>{
@@ -57,6 +40,35 @@ const getPostByUserId=(req,res)=>{
 	})
 }
 
+const getAllPost=(req,res)=>{
+	Post.find({}).then((data)=>{
+		
+		res.send(data);
+	}).catch((err) => {
+		res.status(406).json({ message: "err in all post func" });
+	});
+}
+
+const updatePost=(req,res)=>{
+	let post=req.body;
+	Post.updateOne({postid:post.postid},post).then((data)=>{
+		
+		res.status(201).send(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in update post func" });
+	})
+}
+
+const deletePostById=(req,res)=>{
+	let postid=req.params.postid;
+	Post.deleteOne({postid}).then((data)=>{
+		console.log('deleted post',data);
+		res.json({"message":"deleted"});
+	}).catch((err)=>{
+		res.json({"message":err});
+	})
+}
+
 
 
 module.exports = {
@@ -64,5 +76,6 @@ module.exports = {
 	getAllPost,
 	updatePost,
 	getPostById,
-	getPostByUserId
+	getPostByUserId,
+	deletePostById
 };

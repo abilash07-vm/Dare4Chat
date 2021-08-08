@@ -58,6 +58,16 @@ p{
     text-align: center;
 }
 
+
+/* menu */
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+
+
+
 @media screen and (min-width: 500px) {
     .mat-tab-body-wrapper{
         width: 100%;
