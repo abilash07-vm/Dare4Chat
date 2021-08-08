@@ -24,7 +24,7 @@ module.exports = () => {
 		let otp=generateotp();
 		let existingUser=await addOtp(mailid,otp)
 		if(existingUser){
-			console.log('existing user main: ',existingUser);
+			
 			res.send({message:'Existing User please login'});
 			return;
 		}

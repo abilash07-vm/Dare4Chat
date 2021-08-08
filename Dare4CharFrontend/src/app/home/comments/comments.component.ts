@@ -18,7 +18,7 @@ export class CommentsComponent implements OnInit {
     if(postid){
       this.api.getPostById(postid).subscribe((post:any)=>{
         this.post=post;
-        console.log('post:',post);
+        
       })
     }
   }

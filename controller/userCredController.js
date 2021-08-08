@@ -10,16 +10,16 @@ const addUserCred = (req, res) => {
 	let newUserCred = req.body;
     newUserCred.password=bcrypt.hashSync(newUserCred.password,10);
 	let userCred = new UserCred(newUserCred);
-	console.log(`before cred: ${newUserCred}`);
+	
     UserCred.find({emailid:newUserCred.emailid}).then((data)=>{
         if(data.length){
           UserCred.deleteOne({emailid:newUserCred.emailid}).then((data)=>{
-            console.log(`deleted sucessfully!!!`);
+            
           })
         }
         userCred.save()
                 .then((data) => {
-                    console.log(`new cred: ${data}`);
+                    
                     const payload = {
                         username: data.emailid,
                         admin: data.admin,

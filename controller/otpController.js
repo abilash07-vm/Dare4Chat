@@ -10,22 +10,22 @@ const addOtp = async(emailid,otp) => {
         emailid,otp
     }
 	let otpNode = new OTP(newotp);
-	console.log(`before otp: ${newotp}`);
+	
 	let existingUser=await CheckExistingUser(emailid);
 	if(existingUser){
-		console.log('existing user: ',existingUser);
+		
 		return existingUser;
 	}
 	OTP.deleteMany({emailid}).then((data)=>{
-		console.log('deleted other');
+		
 	})
 	
 	otpNode.save()
 		.then((data) => {
-			console.log(`otp: ${data}`);
+			
 		})
 		.catch((err) => {
-			console.log({ message: "err in add post func" });
+			
 		});
 	return false
 };

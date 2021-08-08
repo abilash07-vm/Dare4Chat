@@ -24,7 +24,7 @@ export class PostModelComponent implements OnInit {
   postOwner!:User
   
   ngOnInit(): void {
-    console.log('post is ',this.post);
+    
     this.maxIndex=this.post.items.length
     this.api.getUserByid(this.post.userid).subscribe((data:any)=>{
       this.postOwner=data;
@@ -67,7 +67,7 @@ export class PostModelComponent implements OnInit {
     let id=this.auth.getUserId();
     if(id){
       let ind=this.post.likeids.indexOf(id);
-      console.log(`index: ${ind}`);
+      
       
       if(ind<0){
         this.post.likeids.push(id);
@@ -75,7 +75,7 @@ export class PostModelComponent implements OnInit {
         this.post.likeids.splice(ind,1);
       }
       this.api.updatePost(this.post).subscribe((date)=>{
-        console.log('updated post');
+        
       })
     }
   }

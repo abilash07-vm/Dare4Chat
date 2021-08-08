@@ -74,9 +74,9 @@ export class AddFilesComponent implements OnInit {
         this.storeToLocalStorage();
         this.spinnerService.hide();
         this.maxIndex = this.items.length;
-        console.log(`from add files component: ${links}`);
+        
 
-        console.log(`from add files component length: ${links.length}`);
+        
     }
     onChipClick(keyword: chip) {
         this.selectedChip = keyword.name;
@@ -89,7 +89,7 @@ export class AddFilesComponent implements OnInit {
         this.authServices.setAddData(JSON.stringify(temp));
     }
     onCaptionChange(index: number, $event: any) {
-        console.log(`changing ${index}`);
+        
         this.items[index].caption = $event.target.value;
         this.storeToLocalStorage();
     }
@@ -123,7 +123,7 @@ export class AddFilesComponent implements OnInit {
 
     onDelete(){
         this.items.splice(this.currIndex,1);
-        console.log(this.items);
+        
         
         this.maxIndex-=1
         this.currIndex=Math.max(Math.min(this.currIndex,this.maxIndex-1),0)
@@ -172,7 +172,7 @@ export class AddFilesComponent implements OnInit {
                 let data_mongo: Post = data_server;
                 this.popups.openSnackbar('Added sucessfully!!!')
                 this.onReset();
-                console.log('Added post !!!!' + data_mongo);
+                
             });
         } 
         if (
@@ -189,7 +189,7 @@ export class AddFilesComponent implements OnInit {
                 }
                 this.apiServices.addStatus(status).subscribe((data_server: any) => {
                     let data_mongo: Status = data_server;
-                    console.log('Added status !!!!' + data_mongo);
+                    
                 });
             })
         }

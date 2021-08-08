@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
   }
 
   onStatusView(isStatus:boolean){
-    console.log(isStatus);
+    
   }
 
 }

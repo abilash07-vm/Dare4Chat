@@ -39,7 +39,7 @@ export class UploadFileService {
                 );
                 return new Promise((resolve) => {
                     linkRef.getDownloadURL().subscribe((url: any) => {
-                        console.log(`uploaded url: ${url}`);
+                        
                         resolve(url);
                         //   this.contactFormGroup.controls['photourl'].setValue(url);
                     });

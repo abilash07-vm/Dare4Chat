@@ -2,11 +2,11 @@
 const { randomBytes,randomInt } =require('crypto')
 const nodemailer = require('nodemailer');
 require('dotenv').config()
-const log = console.log;
+const log = console.log
 
 const sendMail= (to,sub,body)=>{
     if(!to){
-        console.log('mailid is ',to);
+        
         return;
     }
 

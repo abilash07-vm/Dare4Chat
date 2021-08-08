@@ -8,10 +8,10 @@ const addStatus = (req, res) => {
 	let newStatus = req.body;
     newStatus.statusid=generateKey()
 	let status = new Status(newStatus);
-	console.log(`before status: ${newStatus}`);
+	
 	status.save()
 		.then((data) => {
-			console.log(`posted status: ${data}`);
+			
 			res.status(201).send(data);
 		})
 		.catch((err) => {
@@ -20,7 +20,7 @@ const addStatus = (req, res) => {
 };
 const getAllStatus=(req,res)=>{
 	Status.find({}).then((data)=>{
-		console.log(`data sent : ${data}`);
+		
 		res.send(data);
 	}).catch((err) => {
 		res.status(406).json({ message: "err in all post func" });
@@ -35,7 +35,7 @@ const getStatusByUserId=(req,res)=>{
 const updateStatus=(req,res)=>{
 	let status=req.body;
 	Status.updateOne({statusid:status.status.id},status).then((data)=>{
-		console.log(`updated status : ${data}`);
+		
 		res.status(201).send(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in update status func" });

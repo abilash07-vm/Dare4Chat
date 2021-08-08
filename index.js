@@ -17,14 +17,14 @@ const PORT = process.env.PORT || 3000;
 mongoose
 	.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => {
-		console.log("connected to mongodb!!!");
+		
 
 		app.listen(PORT, () => {
-			console.log(`server running at ${PORT}`);
+			console.log(`connect to port  ${PORT}`);
 
 			app.use("", mainRoute());
 		});
 	})
 	.catch((err) => {
-		console.log(`mongo err: ${err}`);
+		
 	});

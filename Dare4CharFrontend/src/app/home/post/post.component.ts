@@ -16,7 +16,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.api.getAllpost().subscribe((data:any)=>{
       this.posts=data;
-      console.log('incoming post : ',this.posts);
+      
       
     })
   }

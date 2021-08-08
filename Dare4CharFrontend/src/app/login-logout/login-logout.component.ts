@@ -45,12 +45,12 @@ export class LoginLogoutComponent implements OnInit {
     }else{
       this.auth.login({"admin":false,"emailid":this.email,"password":this.loginPassword}).subscribe((data:any)=>{
         let token=data.token;
-        console.log('token',token);
-        console.log('data',data);
+        
+        
         
         
         if(token){
-          console.log('token stored',token);
+          
           
           this.auth.setToken(token);
           this.api.setTokenkey();
@@ -120,12 +120,12 @@ export class LoginLogoutComponent implements OnInit {
       this.auth.createUser(userCrediential).subscribe((data:any)=>{
         let token=data.token;
         let userid=data.userid
-        console.log('token',token);
-        console.log('data',data);
+        
+        
         
         
         if(token){
-          console.log('token stored',token);
+          
           
           this.auth.setToken(token);
           this.api.setTokenkey();
@@ -138,7 +138,7 @@ export class LoginLogoutComponent implements OnInit {
           }
           this.auth.setUser(JSON.stringify(user));
           this.api.addUser(user).subscribe((data:any)=>{
-            console.log(data);
+            
             this.auth.setUserId(user.userid);
             this.spinner.hide()
             this.router.navigate(['/','profile']);
