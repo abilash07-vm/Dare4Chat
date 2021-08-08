@@ -13,6 +13,7 @@ export class StatusModelComponent implements OnInit,OnChanges {
   time:number=0
   @Input('userstatus') userStatus!:StatusUser
   @Output() stop=new EventEmitter();
+  @Output() prev=new EventEmitter();
   @Output() next=new EventEmitter();
 
   date:Date=new Date();
@@ -39,6 +40,28 @@ export class StatusModelComponent implements OnInit,OnChanges {
     }
   }
 
+  onCurrentNext(){
+    this.time=0
+    this.currIndex+=1
+    if(this.currIndex>=this.maxIndex){
+      this.refreshInterval()
+      this.currIndex=0
+      this.next.emit(true);
+    }
+  }
+
+  onCurrentPrev(){
+    this.time=0
+    if(this.currIndex>0){
+      this.currIndex-=1
+      this.next.emit(true);
+    }else{
+      this.refreshInterval()
+      this.currIndex=0
+      this.prev.emit(true);
+    }
+  }
+
   updateStatusView(){
     let userid=this.auth.getUserId()
     if(userid && this.currIndex>=0 && this.currIndex<this.maxIndex){
@@ -49,41 +72,51 @@ export class StatusModelComponent implements OnInit,OnChanges {
   
   setTime(){
     this.time+=10;
+    console.log(`time=${this.time}`,this.userStatus.statuses[this.currIndex]);
     if(this.time>100){
-      console.log('current index',this.currIndex,'user',this.userStatus.user);
       this.time=0;
-      this.currIndex+=1
-      if(this.currIndex>=this.maxIndex){
-        clearInterval(this.intervalId)
-        this.intervalId=''
-        this.next.emit(true);
-        this.currIndex=0;
-      }
+      this.onCurrentNext();
     }
   }
 
   onTouch(when: string, touch: TouchEvent) {
-    let touchVal= this.swipeService.getSwipe(when, touch,this.currIndex,this.maxIndex+1,true);
+    let touchVal= this.swipeService.getSwipe(when, touch,1,3,true);
     if(touchVal==-1){
-      console.log('exit');
-      clearInterval(this.intervalId)
-      this.intervalId=''
+      
+      this.refreshInterval()
       this.stop.emit(true);
-    }else{
-      this.currIndex=touchVal
+    }else if(touchVal==0){
+      this.refreshInterval()
+      this.currIndex=0
+      this.prev.emit(true);
+    }else if(touchVal==2){
+      
+      this.refreshInterval()
+      this.currIndex=0
+      this.next.emit(true);
     }
   }
 
   onDrag(when: string, drag: MouseEvent) {
-    let touchVal= this.swipeService.getMouseSwipe(when, drag,this.currIndex,this.maxIndex+1,true);
+    let touchVal= this.swipeService.getMouseSwipe(when, drag,1,3,true);
     if(touchVal==-1){
-      console.log('exit');
-      clearInterval(this.intervalId)
-      this.intervalId=''
+      
+      this.refreshInterval()
       this.stop.emit(true);
-    }else{
-      this.currIndex=touchVal
+    }else if(touchVal==0){
+      
+      this.refreshInterval()
+      this.prev.emit(true);
+    }else if(touchVal==2){
+      
+      this.refreshInterval()
+      this.next.emit(true);
     }
+  }
+  refreshInterval(){
+    clearInterval(this.intervalId)
+    this.intervalId=''
+    this.time=0
   }
 
   getProfileUrl(){

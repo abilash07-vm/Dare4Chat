@@ -28,3 +28,13 @@
     max-width: 600px;
     margin: auto;
 }
+#next{
+    position: fixed;
+    top: 40%;
+    right: 0;
+}
+#prev{
+    position: fixed;
+    top: 40%;
+    left: 0;
+}

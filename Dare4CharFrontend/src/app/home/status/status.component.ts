@@ -43,20 +43,31 @@ export class StatusComponent implements OnInit {
   }
 
   onStop(isstop:boolean){
-    console.log(`invoved on stop in status component with isstop: ${isstop}`);
+    
     this.currIndex=-1;
     this.show=false;
   }
 
   onNext(isnext:boolean){
-    console.log(`invoved on next in status component with isnext: ${isnext},currentIndex ${this.currIndex}`);
     this.currIndex+=1
+    console.log('onNext is called ',this.currIndex);
     if(this.currIndex>=this.statuses.length){
       this.onStop(true)
     }else{
-      console.log(this.statuses[this.currIndex]);
+      
     }
   }
+
+  onPrev(isprev:boolean){
+    
+    if(this.currIndex>0){
+      this.currIndex-=1
+    }else{
+      this.currIndex=-1
+      this.show=false
+    }
+  }
+
 
   getDate(date:Date){
     return new Date().getTime() - date.getTime();

@@ -16,4 +16,5 @@
 <app-status-model *ngIf="show && currIndex>=0 && statuses.length>currIndex" 
     [userstatus]="statuses[currIndex]" 
     (stop)="onStop($event)"
+    (prev)="onPrev($event)"
     (next)="onNext($event)"></app-status-model>

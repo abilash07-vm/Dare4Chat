@@ -4,6 +4,8 @@
     (mouseup)="onDrag('end', $event)" 
     *ngIf="userStatus.statuses[this.currIndex]">
     <mat-progress-bar mode="determinate" value="{{time}}"></mat-progress-bar>
+    <mat-icon id="next" (click)="onCurrentNext()">navigate_next</mat-icon>
+    <mat-icon id="prev" (click)="onCurrentPrev()">navigate_before</mat-icon>
     <mat-card-header>
         <div mat-card-avatar [ngStyle]="{'background': '#000 url(' + getProfileUrl() + ') no-repeat','background-size': 'cover'}"></div>
         <mat-card-title>{{ userStatus.user.username }}</mat-card-title>
