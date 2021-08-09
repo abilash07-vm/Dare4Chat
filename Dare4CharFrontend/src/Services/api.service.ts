@@ -54,6 +54,9 @@ export class ApiService {
     updatePost(post:Post){
         return this.http.put(baseurl + 'post' , post,{ headers: this.headers })
     }
+    deletePostById(postid:string,postUserid:string){
+        return this.http.delete(`${baseurl}post/delete/${postUserid}/${postid}`,{ headers: this.headers })
+    }
 
     //Status
     addStatus(status: Status) {
@@ -67,6 +70,9 @@ export class ApiService {
     }
     updateStatus(status:Status){
         return this.http.put(baseurl + 'status' , status,{ headers: this.headers })
+    }
+    deleteStatusById(statusid:string){
+        return this.http.get(`${baseurl}status/${statusid}`,{ headers: this.headers })
     }
 
     // User 
@@ -86,5 +92,49 @@ export class ApiService {
         return this.http.get(baseurl+'user/user/'+emailid,{headers:this.headers})
     }
 
+    // likes
+    addLike(userid:string,postid:string){
+        return this.http.put(`${baseurl}post/addlike/${userid}/${postid}`,{},{headers:this.headers})
+    }
+    removeLike(userid:string,postid:string){
+        return this.http.put(`${baseurl}post/removelike/${userid}/${postid}`,{},{headers:this.headers})
+    }
+
+    // date difference
+    getDateDiffFromNowInMS(date:Date){
+        return new Date().getTime()-date.getTime()
+    }
+    getDateDiffInWord(diffInMS:number){
+        let aSec=1000;
+        let aMin=60*aSec
+        let aHour=60*aMin
+        let aDay=24*aHour
+        let res=""
+        if(diffInMS>=aDay){
+            let days=Math.floor(diffInMS/aDay)
+            res=`${days} day${this.getSuffixS(days)}`
+        }else{
+            if(diffInMS>aHour){
+                let hours=Math.floor(diffInMS/aHour)
+                res=`${hours} hour${this.getSuffixS(hours)}`
+            }else{
+                if(diffInMS>aMin){
+                    let mins=Math.floor(diffInMS/aMin)
+                    res=`${mins} minute${this.getSuffixS(mins)}`
+                }else{
+                    res=`${diffInMS} second${this.getSuffixS(diffInMS)}`
+                }
+            }
+
+        }
+        return res;
+
+    }
+    getSuffixS(val:number){
+        if(val==1){
+            return ' ago'
+        }
+        return 's ago'
+    }
     
 }

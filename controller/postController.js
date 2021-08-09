@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const postSchema = require("../schema/postSchema");
-const {generateKey}=require('./methods')
+const {generateKey}=require('./methods');
+const { removeUserPostid, addUserPostid } = require("./userController");
 
 
 const Post = mongoose.model("post", postSchema);
@@ -12,11 +13,12 @@ const addPost = (req, res) => {
 	
 	post.save()
 		.then((data) => {
-			
+			let userid=newPost.userid
+			addUserPostid(post.postid,userid)
 			res.status(201).send(data);
 		})
 		.catch((err) => {
-			res.status(406).json({ message: "err in add post func" });
+			res.status(406).json({ message: err });
 		});
 };
 
@@ -32,7 +34,7 @@ const getPostById=(req,res)=>{
 
 const getPostByUserId=(req,res)=>{
 	let id=req.params.userid;
-	Post.findOne({userid:id}).then((data)=>{
+	Post.find({userid:id}).then((data)=>{
 		
 		res.status(201).send(data);
 	}).catch((err)=>{
@@ -61,11 +63,45 @@ const updatePost=(req,res)=>{
 
 const deletePostById=(req,res)=>{
 	let postid=req.params.postid;
+	let userid=req.params.userid;
 	Post.deleteOne({postid}).then((data)=>{
+		removeUserPostid(postid,userid)
 		console.log('deleted post',data);
 		res.json({"message":"deleted"});
 	}).catch((err)=>{
 		res.json({"message":err});
+	})
+}
+
+const addLikeToPost=(req,res)=>{
+	let userid=req.params.userid;
+	let postid=req.params.postid;
+	Post.updateOne({postid},{
+		$push:{
+			likeids: userid
+		}
+	}).then((data)=>{
+		console.log("added like");
+		res.json({"message": "added like"})
+	}).catch((err)=>{
+		console.log("not added like");
+		res.json({"message": err})
+	})
+}
+
+const removeLikeToPost=(req,res)=>{
+	let userid=req.params.userid;
+	let postid=req.params.postid;
+	Post.updateOne({postid},{
+		$pull: {
+			likeids: userid
+		}
+	}).then((data)=>{
+		console.log("removed like");
+		res.json({"message": "removed like"})
+	}).catch((err)=>{
+		console.log("not removed like");
+		res.json({"message": err})
 	})
 }
 
@@ -77,5 +113,7 @@ module.exports = {
 	updatePost,
 	getPostById,
 	getPostByUserId,
-	deletePostById
+	deletePostById,
+	addLikeToPost,
+	removeLikeToPost
 };

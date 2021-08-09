@@ -35,7 +35,10 @@ export class StatusComponent implements OnInit {
       })
       
     }
+    
   }
+
+
 
   onStatusShow(i:number){
     this.currIndex=i;

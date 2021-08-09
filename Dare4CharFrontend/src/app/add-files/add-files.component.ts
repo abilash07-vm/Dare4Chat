@@ -171,7 +171,9 @@ export class AddFilesComponent implements OnInit {
             this.apiServices.addPost(data).subscribe((data_server: any) => {
                 let data_mongo: Post = data_server;
                 this.popups.openSnackbar('Added sucessfully!!!')
-                this.onReset();
+                setTimeout(()=>{
+                    this.onReset()
+                },1000)
                 
             });
         } 

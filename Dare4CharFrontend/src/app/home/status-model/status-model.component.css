@@ -17,17 +17,18 @@
     background: #000;
     color:#fff;
 }
+
 .mat-progress-bar{
     margin-bottom: 5px;
 }
 
 .caption{
-    position: fixed;
-    bottom: 20px;
     text-align: center;
-    max-width: 600px;
+    width: 90%;
     margin: auto;
 }
+
+/* navigation of status */
 #next{
     position: fixed;
     top: 40%;
@@ -37,4 +38,17 @@
     position: fixed;
     top: 40%;
     left: 0;
+}
+
+/* Dot */
+.dot {
+    height: 6px;
+    width: 6px;
+    background-color: rgb(55, 11, 248);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 3px;
+}
+.dot.filled {
+    background-color: rgba(234, 233, 240, 0.856);
 }

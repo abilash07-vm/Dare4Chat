@@ -14,22 +14,34 @@ import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 export class PostModelComponent implements OnInit {
   currIndex = 0;
   maxIndex = 0;
+  currUserid!:string
 
   constructor(private swipeService: TouchSwipeService,
     private auth:AuthService,
     private api:ApiService,
-    private router:Router) {}
+    private router:Router) {
+      let id=auth.getUserId();
+      if(id){
+        this.currUserid=id;
+      }
+    }
 
   @Input('post') post!:Post
   postOwner!:User
   
   ngOnInit(): void {
+    if(this.post.items){
     
-    this.maxIndex=this.post.items.length
-    this.api.getUserByid(this.post.userid).subscribe((data:any)=>{
-      this.postOwner=data;
-      this.postOwner.username;
-    })
+      this.maxIndex=this.post.items.length
+      this.api.getUserByid(this.post.userid).subscribe((data:any)=>{
+        this.postOwner=data;
+      })
+    }
+  }
+
+  getDateInString(){
+    let postDate:Date=new Date(this.post.date);
+    return this.api.getDateDiffInWord(new Date().getTime()-postDate.getTime())
   }
   getProfileUrl(){
     return this.postOwner.profileurl ? this.postOwner.profileurl : this.api.profileurl;
@@ -50,12 +62,20 @@ export class PostModelComponent implements OnInit {
     return Array(n);
   }
 
+  onDelete(){
+    if(this.post.postid){
+      this.api.deletePostById(this.post.postid,this.post.userid).subscribe((data)=>{
+        console.log('deleted post: ',data);
+        window.location.reload();
+      })
+    }
+  }
+
   // Likes
 
   isLike(){
-    let id=this.auth.getUserId();
-    if(id){
-      let ind=this.post.likeids.indexOf(id);
+    if(this.currUserid){
+      let ind=this.post.likeids.indexOf(this.currUserid);
       if(ind>=0){
         return true
       }
@@ -64,19 +84,19 @@ export class PostModelComponent implements OnInit {
   }
 
   onLike(){
-    let id=this.auth.getUserId();
-    if(id){
-      let ind=this.post.likeids.indexOf(id);
-      
-      
+    if(this.currUserid && this.post.postid){
+      let ind=this.post.likeids.indexOf(this.currUserid);
       if(ind<0){
-        this.post.likeids.push(id);
+        this.post.likeids.push(this.currUserid);
+        this.api.addLike(this.currUserid,this.post.postid).subscribe((data)=>{
+          console.log(data);
+        })
       }else{
         this.post.likeids.splice(ind,1);
+        this.api.removeLike(this.currUserid,this.post.postid).subscribe((data)=>{
+          console.log(data);
+        })
       }
-      this.api.updatePost(this.post).subscribe((date)=>{
-        
-      })
     }
   }
 

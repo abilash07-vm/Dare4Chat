@@ -24,7 +24,11 @@ export class PostComponent implements OnInit {
       ids.push(curruser.userid)
       ids.forEach((friendid)=>{
         this.api.getPostByUserId(friendid).subscribe((data:any)=>{
-          this.posts.push(data);
+          let postArr:Post[]=data;
+          postArr.forEach((post)=>{
+            this.posts.push(post)
+          })
+          
         })
       })
     }

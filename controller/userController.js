@@ -55,10 +55,36 @@ const getUserByEmailId=(req,res)=>{
 	})
 }
 
+const removeUserPostid=(postid,userid)=>{
+	User.updateOne({userid},{
+		$pull: {
+			postids: postid
+		}
+	}).then((data)=>{
+		console.log('removed postid from user',postid);
+	}).catch((err)=>{
+		console.log(err);
+	})
+}
+
+const addUserPostid=(postid,userid)=>{
+	User.updateOne({userid},{
+		$push :{
+			postids: postid
+		}
+	}).then((data)=>{
+		console.log('added postid to user',postid);
+	}).catch((err)=>{
+		console.log(err);
+	})
+}
+
 module.exports = {
 	addUser,
 	getAllUser,
 	updateUser,
 	getUserById,
-	getUserByEmailId
+	getUserByEmailId,
+	removeUserPostid,
+	addUserPostid
 };

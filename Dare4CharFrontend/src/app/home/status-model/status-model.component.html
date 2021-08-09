@@ -9,8 +9,15 @@
     <mat-card-header>
         <div mat-card-avatar [ngStyle]="{'background': '#000 url(' + getProfileUrl() + ') no-repeat','background-size': 'cover'}"></div>
         <mat-card-title>{{ userStatus.user.username }}</mat-card-title>
-        <mat-card-subtitle>{{ date | date:'shortTime' }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ getDateInWords() }}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-img src="{{ userStatus.statuses[this.currIndex].item.url }}">
+    <div style="text-align: center" *ngIf="maxIndex>1">
+        <span
+            class="dot"
+            *ngFor="let i of numSequence(maxIndex);index as j"
+            [ngClass]="{ 'filled': j != currIndex }"
+        ></span>
+    </div>
     <p class="caption">{{ userStatus.statuses[this.currIndex].item.caption }}</p>
 </mat-card>

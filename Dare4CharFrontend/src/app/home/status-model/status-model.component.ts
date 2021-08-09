@@ -16,7 +16,6 @@ export class StatusModelComponent implements OnInit,OnChanges {
   @Output() prev=new EventEmitter();
   @Output() next=new EventEmitter();
 
-  date:Date=new Date();
   currIndex=0
   maxIndex=0
   intervalId:any
@@ -38,6 +37,23 @@ export class StatusModelComponent implements OnInit,OnChanges {
       },400)
       this.maxIndex=this.userStatus.statuses.length
     }
+  }
+
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  }
+
+  getDateInWords(){
+    let statusDate:Date=new Date(this.userStatus.statuses[this.currIndex].date);
+    let diff=new Date().getTime()- statusDate.getTime()
+    let aDay=24*60*60*1000
+    // let statusid=this.userStatus.statuses[this.currIndex].statusid
+    // if(diff>aDay && statusid){
+    //   this.api.deleteStatusById(statusid).subscribe((data)=>{
+    //     console.log(data);
+    //   })
+    // }
+    return this.api.getDateDiffInWord(diff);
   }
 
   onCurrentNext(){
