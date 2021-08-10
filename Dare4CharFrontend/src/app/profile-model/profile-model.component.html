@@ -1,0 +1,25 @@
+<div class="profile">
+    <mat-card>
+        <mat-card-header>
+            <img class="circle" src="{{ getProfileUrl() }}" alt="profile">
+            <h4 class="center">Friends <br> 0</h4>
+            <h4 class="center">Posts <br> 0</h4>
+        </mat-card-header>
+        <p style="margin: 0;">Abilash</p>
+        <p style="font-size: 15px;color: gray;">Bio</p>
+        <mat-card-actions>
+            <button color="primary" mat-raised-button>Edit</button>
+            <button color="primary" mat-raised-button>Add friend</button>
+            <button color="primary" mat-raised-button>Unfriend</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <h3 style="background-color: rgb(178, 116, 236);color: azure;text-align: center;">All Post</h3>
+            <p *ngIf="posts.length==0" style="text-align: center;">No Post found :(<br> Please make friends to have more fun</p>
+        </mat-card-content>
+    </mat-card>
+    <app-post-model *ngFor="let post of posts" [post]="post"></app-post-model>
+
+   
+</div>
