@@ -30,6 +30,8 @@ import { MatTabsModule } from '@angular/material/tabs'
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostModelComponent } from './post-model/post-model.component';
+import { SearchComponent } from './search/search.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +41,8 @@ import { PostModelComponent } from './post-model/post-model.component';
         ProfileComponent,
         PostModelComponent,
         ProfileModelComponent,
+        SearchComponent,
+        NotificationsComponent,
     ],
     imports: [
         BrowserModule,

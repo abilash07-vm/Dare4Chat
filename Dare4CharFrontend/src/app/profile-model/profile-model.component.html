@@ -1,16 +1,16 @@
-<div class="profile">
+<div class="profile" *ngIf="user">
     <mat-card>
         <mat-card-header>
             <img class="circle" src="{{ getProfileUrl() }}" alt="profile">
-            <h4 class="center">Friends <br> 0</h4>
-            <h4 class="center">Posts <br> 0</h4>
+            <h4 class="center">Friends <br> {{ user.friendsids.length }}</h4>
+            <h4 class="center">Posts <br> {{ user.postids.length }}</h4>
         </mat-card-header>
-        <p style="margin: 0;">Abilash</p>
+        <p style="margin: 0;">{{ user.username }}</p>
         <p style="font-size: 15px;color: gray;">Bio</p>
         <mat-card-actions>
-            <button color="primary" mat-raised-button>Edit</button>
-            <button color="primary" mat-raised-button>Add friend</button>
-            <button color="primary" mat-raised-button>Unfriend</button>
+            <button *ngIf="type==='me'" color="primary" mat-raised-button>Edit</button>
+            <button *ngIf="type==='other'" color="primary" mat-raised-button>Request</button>
+            <button *ngIf="type==='other'" color="primary" mat-raised-button>Unfriend</button>
         </mat-card-actions>
     </mat-card>
     <mat-card>

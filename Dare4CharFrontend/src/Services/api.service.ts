@@ -79,7 +79,7 @@ export class ApiService {
     addUser(user:User){
         return this.http.post(baseurl+'user',user,{ headers: this.headers });
     }
-    addAllUsers(){
+    getAllUsers(){
         return this.http.get(baseurl+'user',{ headers: this.headers });
     }
     updateUser(user:User){
@@ -122,7 +122,8 @@ export class ApiService {
                     let mins=Math.floor(diffInMS/aMin)
                     res=`${mins} minute${this.getSuffixS(mins)}`
                 }else{
-                    res=`${diffInMS} second${this.getSuffixS(diffInMS)}`
+                    let seconds=Math.floor(diffInMS/1000)
+                    res=`${seconds} second${this.getSuffixS(seconds)}`
                 }
             }
 

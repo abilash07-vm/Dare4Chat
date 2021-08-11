@@ -1,0 +1,17 @@
+<div class="container">
+    <div *ngIf="!user && !type" >
+        <mat-card *ngFor="let user of users;index as i" class="status" (click)="onProfileClick(user)">
+            <div mat-card-avatar 
+                [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
+            <div>
+                <mat-card-title>{{ user.username }}</mat-card-title>
+            </div>
+        </mat-card>
+    </div>
+    <button color="primary" 
+        *ngIf="user && type" 
+        mat-raised-button 
+        style="width: 100px;text-align: center;margin: auto;margin-top: 5px;margin-bottom: 5px;" 
+        (click)="onGoBack()">Go back</button>
+    <app-profile-model *ngIf="user && type" [user]="user" [type]="type"></app-profile-model>
+</div>

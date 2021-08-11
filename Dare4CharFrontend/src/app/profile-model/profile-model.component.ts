@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/Interfaces/post';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
@@ -10,8 +10,12 @@ import { AuthService } from 'src/Services/auth.service';
   styleUrls: ['./profile-model.component.css']
 })
 export class ProfileModelComponent implements OnInit {
+  @Input() type:string='other'
+  @Input() user!:User
+
   posts:Post[]=[]
-  constructor(private api:ApiService,private auth:AuthService) { }
+
+  constructor(private api:ApiService,private auth:AuthService) {}
 
   ngOnInit(): void {
     let user=this.auth.getUser()
@@ -31,7 +35,7 @@ export class ProfileModelComponent implements OnInit {
   }
 
   getProfileUrl(){
-    return this.api.profileurl;
+    return this.user.profileurl ? this.user.profileurl:this.api.profileurl;
   }
 
 }

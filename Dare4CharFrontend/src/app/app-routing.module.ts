@@ -4,6 +4,8 @@ import { AddFilesComponent } from './add-files/add-files.component';
 import { AuthGuard } from './auth.guard';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SearchComponent } from './search/search.component'
+import { NotificationsComponent } from './notifications/notifications.component'
 
 const routes: Routes = [
     {
@@ -25,6 +27,13 @@ const routes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
+    },{
+        path: 'search',
+        component: SearchComponent
+    },
+    {
+        path: 'notifications',
+        component: NotificationsComponent
     },
     {
         path: '',

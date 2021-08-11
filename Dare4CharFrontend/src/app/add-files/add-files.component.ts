@@ -172,6 +172,7 @@ export class AddFilesComponent implements OnInit {
                 let data_mongo: Post = data_server;
                 this.popups.openSnackbar('Added sucessfully!!!')
                 setTimeout(()=>{
+                    this.apiServices.updateUserForLocalStorage()
                     this.onReset()
                 },1000)
                 
@@ -190,8 +191,11 @@ export class AddFilesComponent implements OnInit {
                     viewsids:[]
                 }
                 this.apiServices.addStatus(status).subscribe((data_server: any) => {
-                    let data_mongo: Status = data_server;
-                    
+                    this.popups.openSnackbar('Added sucessfully!!!')
+                    this.apiServices.updateUserForLocalStorage()
+                    setTimeout(()=>{
+                        this.onReset()
+                    },1000)                    
                 });
             })
         }
