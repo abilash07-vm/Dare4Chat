@@ -1,0 +1,40 @@
+.mat-icon{
+    font-size: 35px;
+    margin-right: 20px;
+}
+
+.mat-card-title{
+    display: contents;
+    margin: 5px;
+}
+.mat-card-subtitle{
+    margin: 0;
+}
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.iconsrow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+button{
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.menuicon{
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.menuitem{
+    text-align: center;
+}

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AddFilesComponent } from './add-files/add-files.component';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileModelComponent } from './profile-model/profile-model.component'
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -28,9 +29,17 @@ import { MatTabsModule } from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PostModelComponent } from './post-model/post-model.component';
 
 @NgModule({
-    declarations: [AppComponent, AddFilesComponent, LoginLogoutComponent, ProfileComponent],
+    declarations: [
+        AppComponent,
+        AddFilesComponent, 
+        LoginLogoutComponent, 
+        ProfileComponent,
+        PostModelComponent,
+        ProfileModelComponent,
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
