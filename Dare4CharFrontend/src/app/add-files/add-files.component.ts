@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Item, Post } from 'src/Interfaces/post';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
@@ -9,6 +9,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Status } from 'src/Interfaces/status';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 import { PopupsService } from 'src/Services/popups.service';
+import { ComponentCanDeactivate } from '../../Services/pending-changes-guard.guard'
+import { Observable } from 'rxjs';
 
 interface chip {
     name: string;
@@ -25,13 +27,22 @@ interface TempAddData {
     templateUrl: './add-files.component.html',
     styleUrls: ['./add-files.component.css'],
 })
-export class AddFilesComponent implements OnInit {
+export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
     selectedChip: string = '';
     items: Item[] = [];
     keywords!: chip[];
     currIndex = 0;
     maxIndex = 0;
     autoCaption:boolean=false
+
+    @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+      // insert logic to check if there are pending changes here;
+      // returning true will navigate without confirmation
+      // returning false will show a confirm dialog before navigating away
+      return false;
+    }
+
     constructor(
         public uploadService: UploadFileService,
         private authServices: AuthService,

@@ -14,6 +14,7 @@ const baseurl = environment.baseurl;
 })
 export class ApiService {
     token!:string
+    userid!:string
     headers!: HttpHeaders;
     profileurl:string="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kindpng.com%2Fpicc%2Fm%2F252-2524695_dummy-profile-image-jpg-hd-png-download.png&f=1&nofb=1"
 
@@ -32,6 +33,7 @@ export class ApiService {
     updateUserForLocalStorage(){
         let userid=this.auth.getUserId()
         if(userid){
+            this.userid=userid
             this.getUserByid(userid).subscribe((data:any)=>{
                 this.auth.setUser(JSON.stringify(data));
             })
@@ -91,6 +93,12 @@ export class ApiService {
     getUserByEmailid(emailid:string){
         return this.http.get(baseurl+'user/user/'+emailid,{headers:this.headers})
     }
+    addFriendid(friendid:string,userid:string){
+        return this.http.get(`${baseurl}user/addfriend/${friendid}/${userid}`,{headers:this.headers})
+    }
+    removeFriendid(friendid:string,userid:string){
+        return this.http.get(`${baseurl}user/removefriend/${friendid}/${userid}`,{headers:this.headers})
+    }
 
     // likes
     addLike(userid:string,postid:string){
@@ -137,5 +145,14 @@ export class ApiService {
         }
         return 's ago'
     }
+
+    // online and offline
+    onOffline(){
+        console.log('went offline');
+    }
+    onOnline(){
+        console.log('online');
+    }
+    
     
 }

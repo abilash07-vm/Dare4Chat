@@ -6,11 +6,13 @@ import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component'
 import { NotificationsComponent } from './notifications/notifications.component'
+import { PendingChangesGuard } from '../Services/pending-changes-guard.guard';
 
 const routes: Routes = [
     {
         path: 'home',
         canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
         loadChildren: () =>
             import('./home/home.module').then((m) => m.HomeModule),
     },
@@ -18,6 +20,7 @@ const routes: Routes = [
         path: 'add',
         canActivate: [AuthGuard],
         component: AddFilesComponent,
+        canDeactivate: [PendingChangesGuard]
     },
     
     {
@@ -26,13 +29,19 @@ const routes: Routes = [
     },
     {
         path: 'profile',
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
         component: ProfileComponent
     },{
         path: 'search',
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
         component: SearchComponent
     },
     {
         path: 'notifications',
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
         component: NotificationsComponent
     },
     {

@@ -14,6 +14,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.api.updateUserForLocalStorage();
     if(this.auth.isLogin()){
+      this.api.onOnline();
       return true;
     }else{
       this.router.navigate(['/','auth']);
