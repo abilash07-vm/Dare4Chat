@@ -5,10 +5,23 @@ export interface User {
     username:string,
     postids:string[],
     friendsids:string[],
+    isOnline:boolean,
+    lastseen:Date,
+    isPro:boolean
 
 }
 export interface UserCredientials{
     emailid:string,
     admin:boolean,
     password:string
+}
+
+export interface RequestSent{
+    userid:string,
+    sentids:string[]
+}
+
+export interface RequestRecieved{
+    userid:string,
+    receivedids:string[]
 }

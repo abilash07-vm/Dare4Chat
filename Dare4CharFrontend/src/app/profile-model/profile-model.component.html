@@ -8,9 +8,11 @@
         <p style="margin: 0;">{{ user.username }}</p>
         <p style="font-size: 15px;color: gray;">Bio</p>
         <mat-card-actions>
-            <button *ngIf="type==='me'" color="primary" mat-raised-button>Edit</button>
-            <button *ngIf="type==='other'" color="primary" mat-raised-button>Request</button>
-            <button *ngIf="type==='other'" color="primary" mat-raised-button>Unfriend</button>
+            <button *ngIf="type==='me'" color="primary" mat-raised-button (click)="onEditButtonClick()">Edit</button>
+            <button *ngIf="type==='other'" color="primary" mat-raised-button (click)="onRequest()">Request</button>
+            <button *ngIf="type==='requestSent' || type==='requestrecieved'" color="primary" mat-raised-button (click)="onCancel()">Cancel</button>
+            <button *ngIf="type==='requestRecieved'" color="primary" mat-raised-button (click)="onAccept()">Accept</button>
+            <button *ngIf="type==='friend'" color="primary" mat-raised-button (click)="onUnfriend()">Unfriend</button>
         </mat-card-actions>
     </mat-card>
     <mat-card>

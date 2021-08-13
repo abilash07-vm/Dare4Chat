@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/Interfaces/user';
+import { RequestSent, User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 
@@ -26,8 +26,30 @@ export class SearchComponent implements OnInit {
       this.type='me';
     }else if(currUserid && user.friendsids.indexOf(currUserid)>=0){
       this.type='friend'
-    }else{
-      this.type='other'
+    }else if(currUserid){
+      this.api.getUserSentFriendRequest(currUserid).subscribe((data:any)=>{
+        console.log('search',data);
+        if(data){
+          let requestSent:RequestSent=data;
+          if(requestSent.sentids.indexOf(user.userid)>=0){
+            this.type='requestSent'
+            return;
+          }
+        }
+        this.type='other'
+      })
+    }else if(currUserid){
+      this.api.getUserReceivedFriendRequest(currUserid).subscribe((data:any)=>{
+        console.log('search-rec',data);
+        if(data){
+          let requestSent:RequestSent=data;
+          if(requestSent.sentids.indexOf(user.userid)>=0){
+            this.type='requestRecieved'
+            return;
+          }
+        }
+        this.type='other'
+      })
     }
   }
   onGoBack(){

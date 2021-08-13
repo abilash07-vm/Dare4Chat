@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const userSchema = require("../schema/userSchema");
+const { addSendRequest, addRecieveRequest } = require("./friend-request");
 
 
 const User = mongoose.model("user", userSchema);
@@ -10,7 +11,8 @@ const addUser = (req, res) => {
 	
 	user.save()
 		.then((data) => {
-			
+			addSendRequest(user.userid)
+			addRecieveRequest(user.userid)
 			res.status(201).json(data);
 		})
 		.catch((err) => {

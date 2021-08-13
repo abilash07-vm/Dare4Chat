@@ -12,6 +12,7 @@ import { AuthService } from 'src/Services/auth.service';
 export class ProfileModelComponent implements OnInit {
   @Input() type:string='other'
   @Input() user!:User
+  currUserid!:string
 
   posts:Post[]=[]
 
@@ -22,6 +23,7 @@ export class ProfileModelComponent implements OnInit {
     if(user){
       let id=this.auth.getUserId()
       if(id){
+        this.currUserid=id
         this.api.getPostByUserId(id).subscribe((data:any)=>{
           let postArr:Post[]=data;
           postArr.forEach((post)=>{
@@ -36,6 +38,27 @@ export class ProfileModelComponent implements OnInit {
 
   getProfileUrl(){
     return this.user.profileurl ? this.user.profileurl:this.api.profileurl;
+  }
+
+
+  onEditButtonClick(){
+
+  }
+  onRequest(){
+    this.api.sendFriendRequest(this.currUserid,this.user.userid).subscribe((data)=>{
+      console.log('request sent',data);
+    })
+  }
+  onUnfriend(){
+    
+  }
+  onCancel(){
+    this.api.cancelFriendRequest(this.currUserid,this.user.userid).subscribe((data)=>{
+      console.log('request cancel',data);
+    })
+  }
+  onAccept(){
+    
   }
 
 }

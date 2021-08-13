@@ -108,6 +108,21 @@ export class ApiService {
         return this.http.put(`${baseurl}post/removelike/${userid}/${postid}`,{},{headers:this.headers})
     }
 
+    // Friend Request
+    sendFriendRequest(userid:string,friendid:string){
+        return this.http.put(`${baseurl}friendrequest/sent/${userid}/${friendid}`,{},{headers:this.headers})
+    }
+    cancelFriendRequest(userid:string,friendid:string){
+        return this.http.put(`${baseurl}friendrequest/cancel/${userid}/${friendid}`,{},{headers:this.headers})
+    }
+    getUserSentFriendRequest(userid:string){
+        return this.http.get(`${baseurl}friendrequest/sent/${userid}`,{headers:this.headers})
+    }
+    getUserReceivedFriendRequest(userid:string){
+        return this.http.get(`${baseurl}friendrequest/recieved/${userid}`,{headers:this.headers})
+    }
+
+
     // date difference
     getDateDiffFromNowInMS(date:Date){
         return new Date().getTime()-date.getTime()

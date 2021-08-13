@@ -18,5 +18,14 @@ module.exports = mongoose.Schema({
 	},
     friendsids:{
         type: [String]
-    }
+	},
+	isOnline:{
+		type: Boolean
+	},
+    lastseen:{
+		type: Date
+	},
+    isPro:{
+		type: Boolean
+	},
 });

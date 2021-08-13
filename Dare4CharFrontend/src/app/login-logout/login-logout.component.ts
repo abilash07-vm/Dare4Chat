@@ -120,13 +120,8 @@ export class LoginLogoutComponent implements OnInit {
       this.auth.createUser(userCrediential).subscribe((data:any)=>{
         let token=data.token;
         let userid=data.userid
-        
-        
-        
-        
+                
         if(token){
-          
-          
           this.auth.setToken(token);
           this.api.setTokenkey();
           let user:User={
@@ -134,7 +129,10 @@ export class LoginLogoutComponent implements OnInit {
             "userid":userid,
             "username":this.username,
             "friendsids":[],
-            "postids":[]
+            "postids":[],
+            "isPro":false,
+            "isOnline":true,
+            "lastseen":new Date()
           }
           this.auth.setUser(JSON.stringify(user));
           this.api.addUser(user).subscribe((data:any)=>{
