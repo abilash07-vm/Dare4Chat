@@ -7,7 +7,7 @@ const { sendMail,generateotp } =require('../controller/methods')
 const { addUserCred,AuthenticateUser } =require('../controller/userCredController')
 const checkjwt=require('express-jwt');
 const friendRequestRoute = require("./friendRequestRoute");
-
+require('dotenv').config()
 const router = express.Router();
 
 module.exports = () => {
@@ -19,6 +19,13 @@ module.exports = () => {
 	  });
 	router.route("/").get((req, res) => {
 		res.status(201).json({ message: "connected..." });
+	});
+	router.route("/proVerify").post((req, res) => {
+		let user=req.body;
+		let emailid=user.emailid;
+		sendMail(emailid,'Waiting For Approval','Your request for verfied account in Dare4Chat is pending approval');
+		sendMail(process.env.MAIL_ID,'Request For Account Verification',JSON.stringify(user));
+		res.status(201).json({ message: "waiting approval..." });
 	});
 	router.get("/sendotp/:mailid",async(req,res)=>{
 		let mailid=req.params.mailid

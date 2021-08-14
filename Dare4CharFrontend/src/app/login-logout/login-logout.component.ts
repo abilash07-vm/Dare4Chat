@@ -46,12 +46,7 @@ export class LoginLogoutComponent implements OnInit {
       this.auth.login({"admin":false,"emailid":this.email,"password":this.loginPassword}).subscribe((data:any)=>{
         let token=data.token;
         
-        
-        
-        
         if(token){
-          
-          
           this.auth.setToken(token);
           this.api.setTokenkey();
           this.api.getUserByEmailid(this.email).subscribe((data2:any)=>{
@@ -82,6 +77,9 @@ export class LoginLogoutComponent implements OnInit {
       this.spinner.hide()
     }else if(this.username.length==0){
       this.signupErrors="username is required"
+      this.spinner.hide()
+    }else if(this.username.length>20){
+      this.signupErrors="username is too long"
       this.spinner.hide()
     }else{
       this.auth.sendOTP(this.email).subscribe((data:any)=>{
@@ -132,7 +130,9 @@ export class LoginLogoutComponent implements OnInit {
             "postids":[],
             "isPro":false,
             "isOnline":true,
-            "lastseen":new Date()
+            "lastseen":new Date(),
+            "bio":'',
+            "category":"Public"
           }
           this.auth.setUser(JSON.stringify(user));
           this.api.addUser(user).subscribe((data:any)=>{

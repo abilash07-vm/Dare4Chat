@@ -27,5 +27,10 @@ module.exports = mongoose.Schema({
 	},
     isPro:{
 		type: Boolean
+	},bio:{
+		type: String
 	},
+    category:{
+		type: String
+	}
 });

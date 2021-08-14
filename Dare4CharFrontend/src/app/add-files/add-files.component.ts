@@ -40,6 +40,7 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
       // insert logic to check if there are pending changes here;
       // returning true will navigate without confirmation
       // returning false will show a confirm dialog before navigating away
+      this.apiServices.onOffline()
       return false;
     }
 
@@ -85,8 +86,6 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
         this.storeToLocalStorage();
         this.spinnerService.hide();
         this.maxIndex = this.items.length;
-        
-
         
     }
     onChipClick(keyword: chip) {
@@ -169,7 +168,11 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
     }
     
     onFinish() {
-        let userId = this.authServices.getUserId() || 'admin';
+        let userId = this.authServices.getUserId() || "admin";
+        if(this.items.length>10){
+            this.popups.openSnackbar('maximum 10 images are allowed')
+        }
+
         if (this.selectedChip === 'Post' || this.selectedChip === 'Both') {
             let data: Post = {
                 items: this.items,
@@ -189,10 +192,7 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
                 
             });
         } 
-        if (
-            this.selectedChip === 'Status' ||
-            this.selectedChip === 'Both'
-        ) {
+        if (this.selectedChip === 'Status' || this.selectedChip === 'Both') {
             this.items.forEach(item=> {
                 let status:Status={
                     item: item,

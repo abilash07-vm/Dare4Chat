@@ -1,3 +1,9 @@
+.mat-card-header {
+    display: flex;
+    flex-direction: row;
+    position:relative;
+    left: -25px;
+}
 
 .profile{
     width: 100%;
@@ -6,13 +12,18 @@
 }
 .circle{
     border-radius: 40px;
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
+}
+.centerrow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.centerrow *{
+    margin-top: 10px;
 }
 .center{
     width: 100px;
     text-align: center;
 }
-
-
-

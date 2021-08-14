@@ -32,6 +32,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostModelComponent } from './post-model/post-model.component';
 import { SearchComponent } from './search/search.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
         ProfileModelComponent,
         SearchComponent,
         NotificationsComponent,
+        UserListComponent,
     ],
     imports: [
         BrowserModule,

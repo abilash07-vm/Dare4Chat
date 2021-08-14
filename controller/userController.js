@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const userSchema = require("../schema/userSchema");
-const { addSendRequest, addRecieveRequest } = require("./friend-request");
+const { addSendRequest, addRecieveRequest, onCancleFriendRequest } = require("./friend-request");
 
 
 const User = mongoose.model("user", userSchema);
@@ -31,7 +31,32 @@ const getAllUser=(req,res)=>{
 const updateUser=(req,res)=>{
 	let user=req.body;
 	User.updateOne({userid:user.userid},user).then((data)=>{
+		res.status(201).json(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in update user func" });
+	})
+}
+const updateUserProfileEdit=(req,res)=>{
+	let user=req.body;
+	User.updateOne({userid:user.userid},{
+		profileurl: user.profileurl,
+		username:user.username,
+		bio:user.bio
+	}).then((data)=>{
 		
+		res.status(201).json(data);
+	}).catch((err)=>{
+		res.status(406).json({ message: "err in update user func" });
+	})
+}
+const updateUserOnlineOrOffline=(req,res)=>{
+	let user=req.body;
+	User.updateOne({userid:user.userid},{
+		profileurl: user.profileurl,
+		isOnline:user.isOnline,
+		lastseen:user.lastseen
+	}).then((data)=>{
+		console.log('online/offline',user);
 		res.status(201).json(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in update user func" });
@@ -57,17 +82,6 @@ const getUserByEmailId=(req,res)=>{
 	})
 }
 
-const removeUserPostid=(postid,userid)=>{
-	User.updateOne({userid},{
-		$pull: {
-			postids: postid
-		}
-	}).then((data)=>{
-		console.log('removed postid from user',postid);
-	}).catch((err)=>{
-		console.log(err);
-	})
-}
 
 const addUserPostid=(postid,userid)=>{
 	User.updateOne({userid},{
@@ -81,20 +95,18 @@ const addUserPostid=(postid,userid)=>{
 	})
 }
 
-const removeUserFriendsid=(req,res)=>{
-	let friendid=req.params.friendid,userid=req.params.userid
+const removeUserPostid=(postid,userid)=>{
 	User.updateOne({userid},{
 		$pull: {
-			friendsids: friendid
+			postids: postid
 		}
 	}).then((data)=>{
-		console.log('removed postid from user',friendid);
-		res.json({"message":"remove friend"})
+		console.log('removed postid from user',postid);
 	}).catch((err)=>{
 		console.log(err);
-		res.json({"message":"remove friend err occured"})
 	})
 }
+
 
 const addUserFriendsid=(req,res)=>{
 	let friendid=req.params.friendid,userid=req.params.userid
@@ -103,13 +115,31 @@ const addUserFriendsid=(req,res)=>{
 			friendsids: friendid
 		}
 	}).then((data)=>{
-		console.log('added postid from user',friendid);
+		onCancleFriendRequest(userid,friendid)
+		console.log('added friendid from user',friendid);
 		res.json({"message":"added friend"})
 	}).catch((err)=>{
 		console.log(err);
 		res.json({"message":"add friend err occured"})
 	})
 }
+
+const removeUserFriendsid=(req,res)=>{
+	let friendid=req.params.friendid,userid=req.params.userid
+	User.updateOne({userid},{
+		$pull: {
+			friendsids: friendid
+		}
+	}).then((data)=>{
+		console.log('removed friendid from user',friendid);
+		res.json({"message":"remove friend"})
+	}).catch((err)=>{
+		console.log(err);
+		res.json({"message":"remove friend err occured"})
+	})
+}
+
+
 
 module.exports = {
 	addUser,
@@ -118,7 +148,9 @@ module.exports = {
 	getUserById,
 	getUserByEmailId,
 	removeUserPostid,
+	updateUserProfileEdit,
 	addUserPostid,
 	removeUserFriendsid,
-	addUserFriendsid
+	addUserFriendsid,
+	updateUserOnlineOrOffline
 };

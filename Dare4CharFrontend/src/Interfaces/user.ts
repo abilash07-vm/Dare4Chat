@@ -7,7 +7,9 @@ export interface User {
     friendsids:string[],
     isOnline:boolean,
     lastseen:Date,
-    isPro:boolean
+    isPro:boolean,
+    bio:string,
+    category:string
 
 }
 export interface UserCredientials{

@@ -52,10 +52,18 @@
                 </mat-card-content>
             </mat-card>
             <!-- Image uploader -->
-            <input
-                *ngIf="selectedChip"
+            <button 
+                color="primary"
                 class="fullwidth"
+                style="width: 100px;"
+                mat-raised-button
+                *ngIf="selectedChip"
+                onclick="document.getElementById('file').click()"
+                >Add Image</button>
+            <input
+                style="display: none;"
                 type="file"
+                id="file"
                 accept="image/*"
                 value="Upload"
                 multiple

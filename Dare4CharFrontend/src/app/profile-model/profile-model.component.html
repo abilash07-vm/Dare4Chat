@@ -1,27 +1,68 @@
+<ngx-spinner></ngx-spinner>
 <div class="profile" *ngIf="user">
-    <mat-card>
+    <button 
+        *ngIf="isEdit || isProRequest" 
+        color="primary" 
+        mat-raised-button 
+        style="width: 100px;display: block;text-align: center;margin: auto;margin-top: 5px;margin-bottom: 5px;" 
+        (click)=" onGoBack()">Back</button>
+    <mat-card *ngIf="isEdit">
+        <mat-card-content class="centerrow">
+            <img class="circle" src="{{ newUrlOfProfile }}">
+
+            <!-- Image uploader -->
+            <button 
+                color="primary"
+                mat-raised-button
+                onclick="document.getElementById('file').click()"
+                >Choose Image</button>
+            <input
+                style="display: none;"
+                type="file"
+                id="file"
+                accept="image/*"
+                value="Upload"
+                (change)="upload($event)"
+            />
+
+            <input type="text" matInput placeholder="User Name" [(ngModel)]="update_user.username">
+            <input type="bio" matInput placeholder="bio" [(ngModel)]="update_user.bio">
+            <button color="primary" mat-raised-button (click)="onEditSave()">Save</button>
+        </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="isProRequest">
+        <mat-card-content class="centerrow">
+            <input type="text" matInput placeholder="category" [(ngModel)]="category">
+            <input type="text" matInput placeholder="describe how?" [(ngModel)]="detail_verify">
+            <button color="primary" mat-raised-button (click)="onVerifyRequest()">Request</button>
+        </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="!isProRequest && !isEdit">
         <mat-card-header>
             <img class="circle" src="{{ getProfileUrl() }}" alt="profile">
             <h4 class="center">Friends <br> {{ user.friendsids.length }}</h4>
             <h4 class="center">Posts <br> {{ user.postids.length }}</h4>
         </mat-card-header>
         <p style="margin: 0;">{{ user.username }}</p>
-        <p style="font-size: 15px;color: gray;">Bio</p>
+        <p style="font-size: 15px;color: gray;font-style: italic">{{ user.category }}</p>
+        <p style="font-size: 15px;color: gray;">{{ user.bio }}</p>
         <mat-card-actions>
-            <button *ngIf="type==='me'" color="primary" mat-raised-button (click)="onEditButtonClick()">Edit</button>
+            <button *ngIf="type==='me'" color="primary" mat-raised-button (click)="showEdit()">Edit</button>
+            <button *ngIf="type==='me'" color="primary" mat-raised-button (click)="showVerify()">Get Verified</button>
             <button *ngIf="type==='other'" color="primary" mat-raised-button (click)="onRequest()">Request</button>
-            <button *ngIf="type==='requestSent' || type==='requestrecieved'" color="primary" mat-raised-button (click)="onCancel()">Cancel</button>
+            <button *ngIf="type==='requestSent' || type==='requestRecieved'" color="primary" mat-raised-button (click)="onCancel()">Cancel</button>
             <button *ngIf="type==='requestRecieved'" color="primary" mat-raised-button (click)="onAccept()">Accept</button>
             <button *ngIf="type==='friend'" color="primary" mat-raised-button (click)="onUnfriend()">Unfriend</button>
         </mat-card-actions>
     </mat-card>
-    <mat-card>
+    <mat-card *ngIf="!isProRequest && !isEdit">
         <mat-card-content>
             <h3 style="background-color: rgb(178, 116, 236);color: azure;text-align: center;">All Post</h3>
             <p *ngIf="posts.length==0" style="text-align: center;">No Post found :(<br> Please make friends to have more fun</p>
         </mat-card-content>
     </mat-card>
-    <app-post-model *ngFor="let post of posts" [post]="post"></app-post-model>
-
+    <div *ngIf="!isProRequest && !isEdit">
+        <app-post-model *ngFor="let post of posts" [post]="post"></app-post-model>
+    </div>
    
 </div>

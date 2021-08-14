@@ -45,19 +45,19 @@ const cancelSentRequest=(userid,friendid)=>{
     })
 }   
 const receiveRequest=(userid,friendid)=>{
-    Recieved.updateOne({friendid},{
+    Recieved.updateOne({userid:friendid},{
         $push:{
             receivedids: userid
         }
-    }).then(()=>{
-        console.log('request receive recorded',friendid,'userid',userid);
+    }).then((data)=>{
+        console.log('request receive recorded',friendid,'userid',userid,data);
     }).catch((err)=>{
         console.log(err);
     })
 }   
 
 const cancelRecieveRequest=(userid,friendid)=>{
-    Recieved.updateOne({friendid},{
+    Recieved.updateOne({userid:friendid},{
         $pull:{
             receivedids: userid
         }
@@ -99,21 +99,30 @@ const onFriendRequest=(req,res)=>{
     let friendid=req.params.friendid;
     sendRequest(userid,friendid);
     receiveRequest(userid,friendid);
+
     res.json({"message":"added friend"})
 }
 const onFriendRequestCancel=(req,res)=>{
     let userid=req.params.userid;
     let friendid=req.params.friendid;
-    cancelSentRequest(userid,friendid);
-    cancelRecieveRequest(userid,friendid);
+    onCancleFriendRequest(userid,friendid)
+    
     res.json({"message":"canceled friend request"})
 }
 
+const onCancleFriendRequest=(userid,friendid)=>{
+    cancelSentRequest(userid,friendid);
+    cancelRecieveRequest(userid,friendid);
+    // Since both have cancel option
+    cancelSentRequest(friendid,userid);
+    cancelRecieveRequest(friendid,userid);
+}
 module.exports={
     getSentRequest,
     getRecievedRequest,
     onFriendRequest,
     onFriendRequestCancel,
     addSendRequest,
-    addRecieveRequest
+    addRecieveRequest,
+    onCancleFriendRequest
 }

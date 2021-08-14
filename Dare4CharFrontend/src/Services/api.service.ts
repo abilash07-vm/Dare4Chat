@@ -87,6 +87,9 @@ export class ApiService {
     updateUser(user:User){
         return this.http.put(baseurl+'user',user,{ headers: this.headers });
     }
+    updateUserProfile(user:User){
+        return this.http.put(baseurl+'user/update',user,{ headers: this.headers });
+    }
     getUserByid(id:string){
         return this.http.get(baseurl+'user/'+id,{ headers: this.headers });
     }
@@ -94,10 +97,14 @@ export class ApiService {
         return this.http.get(baseurl+'user/user/'+emailid,{headers:this.headers})
     }
     addFriendid(friendid:string,userid:string){
-        return this.http.get(`${baseurl}user/addfriend/${friendid}/${userid}`,{headers:this.headers})
+        return this.http.put(`${baseurl}user/addfriend/${friendid}/${userid}`,{},{headers:this.headers})
     }
     removeFriendid(friendid:string,userid:string){
-        return this.http.get(`${baseurl}user/removefriend/${friendid}/${userid}`,{headers:this.headers})
+        return this.http.put(`${baseurl}user/removefriend/${friendid}/${userid}`,{},{headers:this.headers})
+    }
+    verifyAccount(user:User,detail:any){
+        let payload=Object.assign({},user,detail);
+        return this.http.post(`${baseurl}proVerify`,payload,{headers:this.headers})
     }
 
     // likes
@@ -163,10 +170,19 @@ export class ApiService {
 
     // online and offline
     onOffline(){
-        console.log('went offline');
+        this.http.put(baseurl+'user/updateLastseen',{userid:this.userid,isOnline:false,lastseen:new Date()},{ headers: this.headers }).subscribe((data)=>{
+            this.getUserByid(this.userid).subscribe((data)=>{
+                console.log('onOffline',data);
+            })
+        });
     }
     onOnline(){
-        console.log('online');
+        this.http.put(baseurl+'user/updateLastseen',{userid:this.userid,isOnline:true,lastseen:new Date()},{ headers: this.headers }).subscribe((data)=>{
+            this.getUserByid(this.userid).subscribe((data)=>{
+                console.log('onOnline',data);
+            })
+        });
+
     }
     
     
