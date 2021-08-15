@@ -12,6 +12,7 @@ import { ComponentCanDeactivate } from 'src/Services/pending-changes-guard.guard
 })
 export class SearchComponent implements OnInit,ComponentCanDeactivate {
   users:User[]=[]
+  query=''
   user:User | undefined
   type:string | undefined
   constructor(private api:ApiService,private auth:AuthService) { }

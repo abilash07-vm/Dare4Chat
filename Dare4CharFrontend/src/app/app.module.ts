@@ -10,6 +10,10 @@ import { AddFilesComponent } from './add-files/add-files.component';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileModelComponent } from './profile-model/profile-model.component'
+import { UserListComponent } from './user-list/user-list.component';
+import { PostModelComponent } from './post-model/post-model.component';
+import { SearchComponent } from './search/search.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -29,10 +33,7 @@ import { MatTabsModule } from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { PostModelComponent } from './post-model/post-model.component';
-import { SearchComponent } from './search/search.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { SearchFilterPipe } from 'src/Services/search-filter.pipe';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,10 @@ import { UserListComponent } from './user-list/user-list.component';
         SearchComponent,
         NotificationsComponent,
         UserListComponent,
+
+        
+         // pipe
+        SearchFilterPipe,
     ],
     imports: [
         BrowserModule,

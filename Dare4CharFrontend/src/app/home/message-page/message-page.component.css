@@ -1,0 +1,34 @@
+.mat-icon{
+    font-size: 30px;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+}
+
+.messagebox{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+}
+.messagebox textarea{
+    width: 100%;
+    padding-right: 10px;
+}
+.messagebox .mat-icon{
+    font-size: 40px;
+    position: absolute;
+    right: 0;
+}
+
+

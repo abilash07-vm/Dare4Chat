@@ -1,12 +1,13 @@
 <ngx-spinner></ngx-spinner>
 <div class="profile" *ngIf="user">
-    <button 
+    <!-- <button 
         *ngIf="isEdit || isProRequest" 
         color="primary" 
         mat-raised-button 
         style="width: 100px;display: block;text-align: center;margin: auto;margin-top: 5px;margin-bottom: 5px;" 
-        (click)=" onGoBack()">Back</button>
+        (click)=" onGoBack()">Back</button> -->
     <mat-card *ngIf="isEdit">
+        <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
         <mat-card-content class="centerrow">
             <img class="circle" src="{{ newUrlOfProfile }}">
 
@@ -31,6 +32,7 @@
         </mat-card-content>
     </mat-card>
     <mat-card *ngIf="isProRequest">
+        <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
         <mat-card-content class="centerrow">
             <input type="text" matInput placeholder="category" [(ngModel)]="category">
             <input type="text" matInput placeholder="describe how?" [(ngModel)]="detail_verify">

@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatMenuModule } from '@angular/material/menu'
+import { UserListComponent } from './user-list/user-list.component';
+import { MessagePageComponent } from './message-page/message-page.component';
 
 
 
@@ -28,6 +30,8 @@ import { MatMenuModule } from '@angular/material/menu'
         PostModelComponent,
         CommentsComponent,
         StatusModelComponent,
+        UserListComponent,
+        MessagePageComponent
     ],
     imports: [
         CommonModule,

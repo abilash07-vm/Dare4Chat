@@ -10,7 +10,6 @@ import { ApiService } from 'src/Services/api.service';
 })
 export class UserListComponent implements OnInit {
   @Input() users:User[]=[]
-  @Input() query:string=''
   @Output() userclick=new EventEmitter();
   constructor(private api:ApiService) { }
 

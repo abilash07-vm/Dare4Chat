@@ -29,6 +29,7 @@ export class StatusComponent implements OnInit {
         this.api.getStatusByUserId(userid).subscribe((data:any)=>{
           let statusArr:Status[]=data;
           this.api.getUserByid(userid).subscribe((user:any)=>{
+            if(statusArr.length>0)
             this.statuses.push({"user":user,"statuses":statusArr});
           })
         })

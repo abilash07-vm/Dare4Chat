@@ -14,8 +14,9 @@ module.exports = () => {
 	router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
 	router.use((err, req, res, next) => {
 		if (err.name === "UnauthorizedError") {
-		  res.status(401).json({ error: "Unauthorized user :(" });
-		}
+		//   res.status(401).json({ error: "Unauthorized user :(" });
+		res.redirect('http://localhost:4200/auth')
+	}
 	  });
 	router.route("/").get((req, res) => {
 		res.status(201).json({ message: "connected..." });

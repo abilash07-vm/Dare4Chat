@@ -1,0 +1,13 @@
+<mat-card class="header" (click)="onProfileClick()" style="background-color: green;">
+    <mat-icon>arrow_back</mat-icon>
+    <div mat-card-avatar 
+        [ngStyle]="{'background': '#000 url(' + getProfile() + ') no-repeat','background-size': 'cover'}"></div>
+    <div>
+        <mat-card-title>{{ user.username }}</mat-card-title>
+    </div>
+</mat-card>
+
+<div class="messagebox">
+    <textarea placeholder="message"></textarea>
+    <mat-icon>send</mat-icon>
+</div>

@@ -1,4 +1,4 @@
-<mat-card *ngFor="let user of users | searchFilter : query;index as i" class="status" (click)="onClickUser(user)">
+<mat-card *ngFor="let user of users;index as i" class="status" (click)="onClickUser(user)">
     <div mat-card-avatar 
         [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
     <div>

@@ -6,6 +6,12 @@
     margin-top: 55px;
     margin-bottom: 90px;
 }
+.mat-icon{
+    position: fixed;
+    z-index: 100;
+    font-size: 35px;
+    text-align: center;
+}
 
 
 
