@@ -10,8 +10,6 @@ import { AddFilesComponent } from './add-files/add-files.component';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileModelComponent } from './profile-model/profile-model.component'
-import { UserListComponent } from './user-list/user-list.component';
-import { PostModelComponent } from './post-model/post-model.component';
 import { SearchComponent } from './search/search.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { environment } from '../environments/environment';
@@ -33,7 +31,7 @@ import { MatTabsModule } from '@angular/material/tabs'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { SearchFilterPipe } from 'src/Services/search-filter.pipe';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -41,15 +39,10 @@ import { SearchFilterPipe } from 'src/Services/search-filter.pipe';
         AddFilesComponent, 
         LoginLogoutComponent, 
         ProfileComponent,
-        PostModelComponent,
         ProfileModelComponent,
         SearchComponent,
         NotificationsComponent,
-        UserListComponent,
 
-        
-         // pipe
-        SearchFilterPipe,
     ],
     imports: [
         BrowserModule,
@@ -58,6 +51,7 @@ import { SearchFilterPipe } from 'src/Services/search-filter.pipe';
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
+        SharedModule,
 
         // Initialize Firebase
         AngularFireModule.initializeApp(environment.firebaseConfig),

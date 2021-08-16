@@ -1,8 +1,0 @@
-<input type="text" style="width: 100%;padding: 10px;" placeholder="Search" [(ngModel)]="query">
-<mat-card *ngFor="let user of users | searchFilter : query;index as i" class="status" (click)="onClickUser(user)">
-    <div mat-card-avatar 
-        [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
-    <div>
-        <mat-card-title>{{ user.username }}</mat-card-title>
-    </div>
-</mat-card>
