@@ -1,12 +1,17 @@
 const express = require("express");
+
 const postRoute = require("./postRoute");
 const statusRoute = require("./statusRoute");
 const userRoute=require('./userRoute')
+const friendRequestRoute = require("./friendRequestRoute");
+const messageRoute = require("./messageRoute");
+
+
 const { addOtp,verifyOtp }=require('../controller/otpController')
 const { sendMail,generateotp } =require('../controller/methods')
 const { addUserCred,AuthenticateUser } =require('../controller/userCredController')
 const checkjwt=require('express-jwt');
-const friendRequestRoute = require("./friendRequestRoute");
+
 require('dotenv').config()
 const router = express.Router();
 
@@ -50,6 +55,7 @@ module.exports = () => {
 	router.use("/status", statusRoute());
 	router.use("/user",userRoute());
 	router.use("/friendrequest",friendRequestRoute())
+	router.use("/message",messageRoute())
 
 	return router;
 };

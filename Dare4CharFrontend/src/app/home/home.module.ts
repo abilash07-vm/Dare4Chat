@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MessagePageComponent } from './message-page/message-page.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DateChatModelComponent } from './date-chat-model/date-chat-model.component';
+import { MessageModelComponent } from './message-model/message-model.component';
 
 
 
@@ -30,6 +32,8 @@ import { SharedModule } from '../shared/shared.module';
         CommentsComponent,
         StatusModelComponent,
         MessagePageComponent,
+        DateChatModelComponent,
+        MessageModelComponent,
     ],
     imports: [
         CommonModule,

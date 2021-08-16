@@ -1,0 +1,16 @@
+
+.chat-model{
+    display: block;
+    width: 60%;
+    max-width: 600px;
+    padding: 10px;
+}
+
+.right{
+    margin: 0 0 0 auto;
+}
+
+.center{
+    text-align: center;
+    margin: 0;
+}

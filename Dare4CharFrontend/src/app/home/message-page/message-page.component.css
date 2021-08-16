@@ -1,3 +1,4 @@
+
 .mat-icon{
     font-size: 30px;
     text-align: center;
@@ -5,12 +6,21 @@
     margin-top: 2px;
 }
 .header{
+    position: absolute;
     display: flex;
     flex-direction: row;
     flex: 1 1 auto;
     width: 100%;
     padding: 5px;
     margin: 0;
+    top: 0;
+    z-index: 150;
+    
+}
+
+.messages{
+    margin: 50px 0;
+    overflow: hidden;
 }
 
 .messagebox{
@@ -23,7 +33,7 @@
 }
 .messagebox textarea{
     width: 100%;
-    padding-right: 10px;
+    padding-right: 40px;
 }
 .messagebox .mat-icon{
     font-size: 40px;

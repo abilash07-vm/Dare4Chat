@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Message } from 'src/Interfaces/chat';
 import { Post } from 'src/Interfaces/post';
 import { Status } from 'src/Interfaces/status';
 import { User } from 'src/Interfaces/user';
@@ -113,6 +114,17 @@ export class ApiService {
     }
     removeLike(userid:string,postid:string){
         return this.http.put(`${baseurl}post/removelike/${userid}/${postid}`,{},{headers:this.headers})
+    }
+
+    // Message
+    addMessage(message: Message) {
+        return this.http.post(baseurl + 'message', message,{ headers: this.headers });
+    }
+    getMessageById(messageid:string){
+        return this.http.get(`${baseurl}message/${messageid}`,{ headers: this.headers })
+    }
+    getMessageByUserId(userid:string){
+        return this.http.get(`${baseurl}message/user/${userid}`,{ headers: this.headers })
     }
 
     // Friend Request

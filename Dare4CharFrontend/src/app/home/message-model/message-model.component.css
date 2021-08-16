@@ -1,0 +1,26 @@
+.mat-card{
+    padding: 3px 3px 10px 3px
+}
+p{
+    margin: 0;
+    font-size: 19px;
+}
+.messageend{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+}
+
+.messageend .maticon{
+    font-size: 20px;
+}
+.messageend p{
+    margin: 0;
+    font-size: 15px;
+}
+.message{
+    text-align: center;
+}

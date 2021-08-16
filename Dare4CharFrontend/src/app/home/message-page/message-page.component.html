@@ -6,8 +6,11 @@
         <mat-card-title>{{ user.username }}</mat-card-title>
     </div>
 </mat-card>
+<div class="messages">
+    <app-date-chat-model></app-date-chat-model>
 
+</div>
 <div class="messagebox">
-    <textarea placeholder="message"></textarea>
-    <mat-icon>send</mat-icon>
+    <textarea placeholder="message" [(ngModel)]="curr_message"></textarea>
+    <mat-icon *ngIf="curr_message.length>0" (click)="onMessageSend()">send</mat-icon>
 </div>

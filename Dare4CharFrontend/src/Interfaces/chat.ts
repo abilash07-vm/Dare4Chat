@@ -3,5 +3,13 @@ export interface Message {
     to: string,
     message: string,
     messageid:string,
-    date:Date
+    date:Date,
+    isRead: boolean
 }
+
+export interface DateMessage {
+    date:Date,
+    messages:Message[]
+}
+
+
