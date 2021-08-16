@@ -10,8 +10,10 @@ import { ApiService } from 'src/Services/api.service';
 })
 export class UserListComponent implements OnInit {
   @Input() users:User[]=[]
-  @Input() query:string=''
   @Output() userclick=new EventEmitter();
+
+  query:string=''
+
   constructor(private api:ApiService) { }
 
   ngOnInit(): void {

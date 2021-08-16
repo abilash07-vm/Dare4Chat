@@ -18,6 +18,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatMenuModule } from '@angular/material/menu'
 import { UserListComponent } from './user-list/user-list.component';
 import { MessagePageComponent } from './message-page/message-page.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -31,11 +32,13 @@ import { MessagePageComponent } from './message-page/message-page.component';
         CommentsComponent,
         StatusModelComponent,
         UserListComponent,
-        MessagePageComponent
+        MessagePageComponent,
     ],
     imports: [
         CommonModule,
         HomeRoutingModule,
+        FormsModule,
+
         //Material
         MatTabsModule,
         MatIconModule,

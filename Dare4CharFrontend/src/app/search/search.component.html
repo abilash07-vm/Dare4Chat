@@ -1,13 +1,7 @@
 <div class="container">
     <div *ngIf="!user && !type">
-        <input type="text" style="width: 100%;" placeholder="Search" [(ngModel)]="query">
-        <app-user-list [users]="users" [query]="query" (userclick)="onRefresh($event)"></app-user-list>
+        <app-user-list [users]="users"(userclick)="onRefresh($event)"></app-user-list>
     </div>
-    <!-- <button color="primary" 
-        *ngIf="user && type" 
-        mat-raised-button 
-        style="width: 100px;text-align: center;margin: auto;margin-top: 5px;margin-bottom: 5px;" 
-        (click)="onGoBack()">Go back</button> -->
     <mat-icon *ngIf="user && type"  (click)=" onGoBack()">arrow_back</mat-icon>
     <app-profile-model 
         *ngIf="user && type" 
