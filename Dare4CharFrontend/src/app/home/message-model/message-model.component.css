@@ -1,5 +1,5 @@
 .mat-card{
-    padding: 3px 3px 10px 3px
+    padding: 3px 5px 17px 5px
 }
 p{
     margin: 0;
@@ -9,8 +9,8 @@ p{
     display: flex;
     align-items: center;
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 1px;
+    bottom: 1px;
     margin: 0;
 }
 

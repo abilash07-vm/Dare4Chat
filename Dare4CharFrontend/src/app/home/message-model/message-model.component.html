@@ -1,9 +1,9 @@
 <mat-card>
-    <p><strong>Name</strong></p>
-    <p class="message">The margin property in CSS creates a space around the element. Also, you can choose any color you want from the color picker for the text.</p>
+    <p *ngIf="curr_userid!=message.from"><strong>{{ user.username }}</strong></p>
+    <p class="message">{{ message.message }}</p>
     <div class="messageend">
-        <p>time</p>
-        <mat-icon color="primary">done</mat-icon>
-        <p>R</p>
+        <p>{{ message.date | date:'shortTime' }}</p>
+        <mat-icon color="primary" *ngIf="curr_userid==message.from">done</mat-icon>
+        <p *ngIf="curr_userid==message.from && message.isRead">R</p>
     </div>
 </mat-card>

@@ -43,7 +43,7 @@ const updateUserProfileEdit=(req,res)=>{
 		username:user.username,
 		bio:user.bio
 	}).then((data)=>{
-		
+		console.log(user,data);
 		res.status(201).json(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in update user func" });
@@ -52,7 +52,6 @@ const updateUserProfileEdit=(req,res)=>{
 const updateUserOnlineOrOffline=(req,res)=>{
 	let user=req.body;
 	User.updateOne({userid:user.userid},{
-		profileurl: user.profileurl,
 		isOnline:user.isOnline,
 		lastseen:user.lastseen
 	}).then((data)=>{

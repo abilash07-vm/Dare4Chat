@@ -1,3 +1,4 @@
+import { Output,EventEmitter } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { DateMessage, Message } from 'src/Interfaces/chat';
 import { User } from 'src/Interfaces/user';
@@ -11,6 +12,7 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class MessagePageComponent implements OnInit {
   @Input() user!:User
+  @Output() back=new EventEmitter();
 
   allMessages:DateMessage[]=[]
   curr_message:string=''
@@ -21,7 +23,38 @@ export class MessagePageComponent implements OnInit {
     let userid=this.auth.getUserId();
     if(userid){
       this.curr_userid=userid
+      this.getMessages()
     }
+  }
+
+  getMessages(){
+    this.api.getMessageByUserId(this.user.userid).subscribe((data:any)=>{
+      this.segregateByDate(data);
+    })
+  }
+  segregateByDate(messages:Message[]){
+    for(let msg of messages){
+      this.addToAllMessage(msg);
+    }
+  }
+  addToAllMessage(msg:Message){
+    let len=this.allMessages.length
+      if(len==0 || this.isDifferentDay(new Date(this.allMessages[len-1].date),new Date(msg.date))){
+        this.allMessages.push({"date":msg.date,"messages":[msg]})
+      }else{
+        this.allMessages[len-1].messages.push(msg);
+      }
+  }
+
+  isDifferentDay(date1: Date, date2: Date): boolean {
+    let d1=`${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}`
+    let d2=`${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}`
+    
+    if(d1===d2){
+
+      return false
+    }
+    return true
   }
 
   getProfile(){
@@ -42,11 +75,17 @@ export class MessagePageComponent implements OnInit {
       "isRead": false,
       "messageid": '12345'
     }
-    console.log('sending',message);
     
     this.api.addMessage(message).subscribe((data:any)=>{
-      console.log(data);
+      this.curr_message=''
+      this.addToAllMessage(data)
     })
   }
 
+  onGoBack(){
+    this.back.emit();
+  }
+
 }
+
+

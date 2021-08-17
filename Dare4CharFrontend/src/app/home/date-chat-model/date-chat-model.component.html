@@ -1,2 +1,8 @@
-<p class="center">date</p>
-<app-message-model  class="chat-model"></app-message-model>
+<p class="center"><strong>{{ (date_message.date | date: 'mediumDate')== (today | date: 'mediumDate') ? 'Today': date_message.date | date: 'mediumDate' }}</strong></p>
+<app-message-model *ngFor="let message of date_message.messages" 
+    [user]="user"
+    [message]="message"
+    [curr_userid]="curr_userid"
+    class="chat-model"
+    [ngClass]="{'right' : message.from==curr_userid}"
+    ></app-message-model>

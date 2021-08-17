@@ -3,6 +3,6 @@
     <div mat-card-avatar 
         [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
     <div>
-        <mat-card-title>{{ user.username }}</mat-card-title>
+        <mat-card-title>{{ user.username }} <mat-icon *ngIf="user.isPro">verified</mat-icon></mat-card-title>
     </div>
 </mat-card>

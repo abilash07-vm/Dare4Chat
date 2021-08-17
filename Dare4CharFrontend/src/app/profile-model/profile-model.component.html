@@ -1,11 +1,5 @@
 <ngx-spinner></ngx-spinner>
 <div class="profile" *ngIf="user">
-    <!-- <button 
-        *ngIf="isEdit || isProRequest" 
-        color="primary" 
-        mat-raised-button 
-        style="width: 100px;display: block;text-align: center;margin: auto;margin-top: 5px;margin-bottom: 5px;" 
-        (click)=" onGoBack()">Back</button> -->
     <mat-card *ngIf="isEdit">
         <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
         <mat-card-content class="centerrow">
@@ -26,16 +20,17 @@
                 (change)="upload($event)"
             />
 
-            <input type="text" matInput placeholder="User Name" [(ngModel)]="update_user.username">
-            <input type="bio" matInput placeholder="bio" [(ngModel)]="update_user.bio">
+            <input type="text" placeholder="User Name" [(ngModel)]="update_user.username">
+            <input type="bio" placeholder="bio" [(ngModel)]="update_user.bio">
             <button color="primary" mat-raised-button (click)="onEditSave()">Save</button>
         </mat-card-content>
     </mat-card>
     <mat-card *ngIf="isProRequest">
         <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
+        <br>
         <mat-card-content class="centerrow">
-            <input type="text" matInput placeholder="category" [(ngModel)]="category">
-            <input type="text" matInput placeholder="describe how?" [(ngModel)]="detail_verify">
+            <input type="text" placeholder="category" [(ngModel)]="category">
+            <input type="text" placeholder="describe how?" [(ngModel)]="detail_verify">
             <button color="primary" mat-raised-button (click)="onVerifyRequest()">Request</button>
         </mat-card-content>
     </mat-card>
@@ -45,8 +40,8 @@
             <h4 class="center">Friends <br> {{ user.friendsids.length }}</h4>
             <h4 class="center">Posts <br> {{ user.postids.length }}</h4>
         </mat-card-header>
-        <p style="margin: 0;">{{ user.username }}</p>
-        <p style="font-size: 15px;color: gray;font-style: italic">{{ user.category }}</p>
+        <p style="margin: 0;">{{ user.username }}<mat-icon *ngIf="user.isPro">verified</mat-icon></p>
+        <p style="font-size: 15px;color: rgb(90, 59, 88);font-style: italic"><strong>{{ user.category }}</strong></p>
         <p style="font-size: 15px;color: gray;">{{ user.bio }}</p>
         <mat-card-actions>
             <button *ngIf="type==='me'" color="primary" mat-raised-button (click)="showEdit()">Edit</button>

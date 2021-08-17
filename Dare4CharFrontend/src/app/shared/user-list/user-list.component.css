@@ -1,7 +1,21 @@
+
+.mat-card{
+    padding: 3px;
+    margin: 2px 0;
+    border-radius: 0;
+}
+.mat-card-title{
+    margin: 0;
+    margin-left: 6px;
+}
 .status{
     display: flex;
     flex-direction: row;
     width: 100%;
     margin: 0;
+}
+.mat-card-avatar {
+    width: 55px;
+    height: 55px;
 }
 

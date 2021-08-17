@@ -1,5 +1,5 @@
 <mat-card class="header" (click)="onProfileClick()" style="background-color: green;">
-    <mat-icon>arrow_back</mat-icon>
+    <mat-icon (click)="onGoBack()">arrow_back</mat-icon>
     <div mat-card-avatar 
         [ngStyle]="{'background': '#000 url(' + getProfile() + ') no-repeat','background-size': 'cover'}"></div>
     <div>
@@ -7,7 +7,11 @@
     </div>
 </mat-card>
 <div class="messages">
-    <app-date-chat-model></app-date-chat-model>
+    <app-date-chat-model 
+        *ngFor="let date_message of allMessages"
+        [date_message]="date_message"
+        [user]="user"
+        [curr_userid]="curr_userid"></app-date-chat-model>
 
 </div>
 <div class="messagebox">

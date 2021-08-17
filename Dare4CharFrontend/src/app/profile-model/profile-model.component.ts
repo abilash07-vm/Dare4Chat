@@ -92,16 +92,13 @@ export class ProfileModelComponent implements OnInit {
       this.api.addFriendid(this.user.userid,this.currUserid).subscribe((data)=>{
         console.log('onAccept 2',data);
         this.refresh.emit(this.user);
-
       })
       
     })
   }
 
   onEditSave(){
-    if(this.newUrlOfProfile){
-      this.update_user.profileurl=this.newUrlOfProfile
-    }
+    this.update_user.profileurl=this.newUrlOfProfile
     if(this.update_user.username.length==0){
       this.popups.openSnackbar('username cannot be empty')
     }else if(this.update_user.username.length>20){

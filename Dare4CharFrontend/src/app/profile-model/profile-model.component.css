@@ -4,6 +4,9 @@
     position:relative;
     left: -25px;
 }
+p{
+    margin: 0;
+}
 .mat-icon{
     position: absolute;
     font-size: 30px;

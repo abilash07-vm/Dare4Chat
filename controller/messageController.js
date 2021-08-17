@@ -34,7 +34,15 @@ const getMessageById=(req,res)=>{
 
 const getMessageByUserId=(req,res)=>{
 	let id=req.params.userid;
-	Message.find({userid:id}).then((data)=>{
+	Message.find({
+		$or : [{
+			from: id
+		},
+		{
+			to: id
+		}
+		]
+	}).then((data)=>{
 		
 		res.status(201).send(data);
 	}).catch((err)=>{

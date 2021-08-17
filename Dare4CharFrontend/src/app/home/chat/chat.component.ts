@@ -10,7 +10,7 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class ChatComponent implements OnInit {
   users:User[]=[]
-  selected_user!:User
+  selected_user!:User | undefined
 
   constructor(private api:ApiService,private auth:AuthService) { }
 
@@ -29,6 +29,10 @@ export class ChatComponent implements OnInit {
   onUserClick(user:any){
     console.log(user);
     this.selected_user=user;
+  }
+
+  onUnselectUser(){
+    this.selected_user=undefined
   }
 
 }
