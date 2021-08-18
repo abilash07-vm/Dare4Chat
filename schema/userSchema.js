@@ -32,5 +32,8 @@ module.exports = mongoose.Schema({
 	},
     category:{
 		type: String
+	},
+	lastMessage:{
+		type: String
 	}
 });

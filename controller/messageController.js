@@ -1,20 +1,24 @@
 const mongoose = require("mongoose");
 const { generateKey } =require('./methods')
 
-const messageSchema=require("../schema/messageSchema")
+const messageSchema=require("../schema/messageSchema");
+const { updateLastMessage } = require("./userController");
 
 
 const Message = mongoose.model("messages", messageSchema);
 
-const addMessage = (req, res) => {
+const addMessage = (req, res, io) => {
 	let newMessage = req.body;
 	newMessage.messageid=generateKey()
 
-    console.log('adding message..',newMessage);
 	let message = new Message(newMessage);
 	
 	message.save()
 		.then((data) => {
+			updateLastMessage(message.to,message.message)
+				// sendSocket('message',message);
+				console.log('sending to '+message.to + 'message');
+			
 			res.json(data);
 		})
 		.catch((err) => {
@@ -40,10 +44,8 @@ const getMessageByUserId=(req,res)=>{
 		},
 		{
 			to: id
-		}
-		]
+		}]
 	}).then((data)=>{
-		
 		res.status(201).send(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in get message by userid func" });

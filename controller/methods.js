@@ -4,6 +4,24 @@ const nodemailer = require('nodemailer');
 require('dotenv').config()
 const log = console.log
 
+
+
+const sendSocket=(app,key,value)=>{
+    const http=require('http').Server(app)
+    const io=require('socket.io')(http,{
+        cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Access-Control-Allow-Origin"],
+        }
+    })
+	io.on('connection',(socket)=>{
+        console.log("sending message");
+		socket.emit(key,value)
+	})
+}
+
+
 const sendMail= (to,sub,body)=>{
     if(!to){
         
@@ -45,5 +63,6 @@ const generateotp=()=>{
 module.exports={
     generateKey,
     sendMail,
-    generateotp
+    generateotp,
+    sendSocket
 }

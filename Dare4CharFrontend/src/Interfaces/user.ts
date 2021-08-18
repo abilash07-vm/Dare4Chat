@@ -9,7 +9,8 @@ export interface User {
     lastseen:Date,
     isPro:boolean,
     bio:string,
-    category:string
+    category:string,
+    lastMessage?:string
 
 }
 export interface UserCredientials{

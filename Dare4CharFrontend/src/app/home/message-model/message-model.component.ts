@@ -16,10 +16,7 @@ export class MessageModelComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-    console.log('curr',this.curr_userid);
-    console.log(this.message);
-    
+  ngOnInit(): void {    
     
   }
 

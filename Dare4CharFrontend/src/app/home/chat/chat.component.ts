@@ -27,7 +27,6 @@ export class ChatComponent implements OnInit {
   }
 
   onUserClick(user:any){
-    console.log(user);
     this.selected_user=user;
   }
 

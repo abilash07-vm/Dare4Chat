@@ -5,6 +5,13 @@ import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 
+import { io } from 'socket.io-client'
+import { environment } from 'src/environments/environment';
+
+
+const socket=io("http://localhost:3000/",{
+  transports: ["websocket", "polling"] 
+});
 @Component({
   selector: 'app-message-page',
   templateUrl: './message-page.component.html',
@@ -17,13 +24,25 @@ export class MessagePageComponent implements OnInit {
   allMessages:DateMessage[]=[]
   curr_message:string=''
   curr_userid!:string
-  constructor(private api:ApiService,private auth:AuthService) { }
+  constructor(private api:ApiService,
+    private auth:AuthService,
+    ) { }
 
   ngOnInit(): void {
     let userid=this.auth.getUserId();
     if(userid){
       this.curr_userid=userid
       this.getMessages()
+
+      console.log('socket.io',this.curr_userid+"message");
+      
+      socket.on('message',(data:any)=>{
+        console.log('socket.io',data);
+      })
+
+      socket.on('first',(data:any)=>{
+        console.log('socket.io',data);
+      })
     }
   }
 
@@ -65,7 +84,6 @@ export class MessagePageComponent implements OnInit {
     
   }
   onMessageSend(){
-    console.log('clicking!!');
     
     let message:Message={
       "from":this.curr_userid,

@@ -138,6 +138,14 @@ const removeUserFriendsid=(req,res)=>{
 	})
 }
 
+const updateLastMessage=(userid,msg)=>{
+	User.updateOne({userid:userid},{
+		lastMessage: msg
+	}).then((data)=>{
+		console.log('updated last message');
+	})
+}
+
 
 
 module.exports = {
@@ -151,5 +159,6 @@ module.exports = {
 	addUserPostid,
 	removeUserFriendsid,
 	addUserFriendsid,
-	updateUserOnlineOrOffline
+	updateUserOnlineOrOffline,
+	updateLastMessage
 };

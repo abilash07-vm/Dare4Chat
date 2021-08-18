@@ -15,7 +15,7 @@ const checkjwt=require('express-jwt');
 require('dotenv').config()
 const router = express.Router();
 
-module.exports = () => {
+module.exports = (io) => {
 	router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
 	router.use((err, req, res, next) => {
 		if (err.name === "UnauthorizedError") {
@@ -55,7 +55,7 @@ module.exports = () => {
 	router.use("/status", statusRoute());
 	router.use("/user",userRoute());
 	router.use("/friendrequest",friendRequestRoute())
-	router.use("/message",messageRoute())
+	router.use("/message",messageRoute(io))
 
 	return router;
 };

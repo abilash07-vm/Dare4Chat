@@ -3,8 +3,8 @@ const { addMessage, getMessageById, getMessageByUserId, deleteMessageById,} = re
 
 const router = express.Router();
 
-module.exports = () => {
-	router.route("/").post(addMessage)
+module.exports = (io) => {
+	router.route("/").post((req,res)=>addMessage(req,res,io));
 
 	router.route("/:messageid").get(getMessageById).delete(deleteMessageById)
 	router.route("/user/:userid").get(getMessageByUserId);
