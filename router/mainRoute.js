@@ -33,13 +33,13 @@ module.exports = (io) => {
 		sendMail(process.env.MAIL_ID,'Request For Account Verification',JSON.stringify(user));
 		res.status(201).json({ message: "waiting approval..." });
 	});
-	router.get("/sendotp/:mailid",async(req,res)=>{
+	router.get("/sendotp/:mailid/:isForgotPass",async(req,res)=>{
+		let isForgotPass=req.params.isForgotPass
 		let mailid=req.params.mailid
 		let otp=generateotp();
 		let existingUser=await addOtp(mailid,otp)
-		if(existingUser){
-			
-			res.send({message:'Existing User please login'});
+		if(existingUser && !isForgotPass){
+			res.json({message:'Existing User please login'});
 			return;
 		}
 		sendMail(mailid,'OTP for account verification',`otp for email verification is ${otp}`)

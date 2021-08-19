@@ -57,7 +57,7 @@ const generateKey=()=>{
     return randomBytes(5).toString('hex');
 }
 const generateotp=()=>{
-    return randomInt(100000,999999).toString()
+    return randomInt(1000,9999).toString()
 }
 
 module.exports={

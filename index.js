@@ -33,8 +33,9 @@ mongoose
 			// io=socketIo(http.Server(app))
 			io.on('connection',(socket)=>{
 				sendSocket(app,'message',{"message":"hi i am abilash"})
-				app.use("", mainRoute(socket));
 			})
+			app.use("", mainRoute(io));
+
 		});
 		
 	})

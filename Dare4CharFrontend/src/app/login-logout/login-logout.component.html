@@ -2,37 +2,56 @@
 <div>
     <mat-card>
         <mat-tab-group>
+            <!-- Login -->
             <mat-tab label="login">
                 <p *ngIf="loginErrors.length>0" class="error">{{loginErrors}}</p>
                 <mat-card-content>
                     <input matInput [(ngModel)]="email" placeholder="email"/>
-                    <div class="password">
+                    <div class="password" *ngIf="!isForget">
                         <input matInput type="{{loginhide ? 'password' : 'text'}}" [(ngModel)]="loginPassword" placeholder="password">
                         <mat-icon class="passwordeye" (click)="loginhide=!loginhide">{{loginhide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </div>
+
+                    <!-- forgot password -->
+                    <input [disabled]="isVerified" *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
+                    <div class="password" *ngIf="isVerified && isForget">
+                        <input matInput type="{{signuphide ? 'password' : 'text'}}" [(ngModel)]="signupPassword" placeholder="password">
+                        <mat-icon class="passwordeye" (click)="signuphide=!signuphide">{{signuphide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </div>
                 </mat-card-content>
-                <p>forgot password?</p>
+                <p *ngIf="!isForget" (click)="onClickForgotPassword()">forgot password?</p>
                 <mat-card-actions>
-                    <button color="primary" mat-raised-button (click)="onLogin()">Login</button>
+
+                    <!-- forgot password -->
+                    <button color="primary" *ngIf="isForget" mat-raised-button [disabled]="isVerified" (click)="onSendOTP(true)">Resend OTP</button>
+                    <button [disabled]="!openOtp ||isVerified "  *ngIf="isForget" color="primary" mat-raised-button (click)="onVerify()">Verify</button>
+                    <button color="primary" *ngIf="isForget" mat-raised-button (click)="onSignup()">Reset password</button>
+
+
+                    <button color="primary"  *ngIf="!isForget" mat-raised-button (click)="onLogin()">Login</button>
                 </mat-card-actions>
-            </mat-tab>rgb
+            </mat-tab>
+
+            <!-- Signup -->
             <mat-tab label="signup">
                 <p *ngIf="signupErrors.length>0" class="error">{{signupErrors}}</p>
                 <mat-card-content>
                     <input [disabled]="isVerified" matInput [(ngModel)]="username" placeholder="user name"/>
                     <input [disabled]="isVerified" matInput [(ngModel)]="email" placeholder="email"/>
                     <input [disabled]="isVerified" *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
-                    <div class="password" *ngIf="openOtp">
+                    <div class="password" *ngIf="isVerified">
                         <input matInput type="{{signuphide ? 'password' : 'text'}}" [(ngModel)]="signupPassword" placeholder="password">
                         <mat-icon class="passwordeye" (click)="signuphide=!signuphide">{{signuphide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </div>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button color="primary" mat-raised-button (click)="onVerify()">{{ openOtp ? "Resend OTP": "Send OTP" }}</button>
-                    <button [disabled]="!openOtp" color="primary" mat-raised-button (click)="onSignup()">Sign up</button>
+                    <button color="primary" mat-raised-button [disabled]="isVerified" (click)="onSendOTP()">{{ openOtp ? "Resend OTP": "Send OTP" }}</button>
+                    <button [disabled]="!openOtp || isVerified" color="primary" mat-raised-button (click)="onVerify()">Verify</button>
+                    <button [disabled]="!isVerified" color="primary" mat-raised-button (click)="onSignup()">Sign up</button>
                 </mat-card-actions>
             </mat-tab>
         </mat-tab-group>
+        
         
     </mat-card>
 </div>

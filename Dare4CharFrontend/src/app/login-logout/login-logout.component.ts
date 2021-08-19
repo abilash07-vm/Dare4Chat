@@ -12,18 +12,23 @@ import { PopupsService } from 'src/Services/popups.service';
   styleUrls: ['./login-logout.component.css']
 })
 export class LoginLogoutComponent implements OnInit {
-
+  // Login
   email:string=""
   loginPassword:string=""
-  signupPassword:string=""
-  username:string=""
-  otp:string=""
   loginErrors:string=""
+  loginhide:boolean=true
+
+  // Signup 
+  otp:string=""
+  username:string=""
+  signupPassword:string=""
   signupErrors:string=""
   openOtp:boolean=false
   signuphide:boolean=true
-  loginhide:boolean=true
   isVerified: boolean=false;
+
+  // Forgot Password
+  isForget=false
 
   constructor(private auth:AuthService,
     private popup:PopupsService,
@@ -70,19 +75,19 @@ export class LoginLogoutComponent implements OnInit {
     }
     
   }
-  onVerify(){
+  onSendOTP(isForgotPass?:boolean){
     this.spinner.show()
     if(this.email.length==0){
       this.signupErrors="Email is required";
       this.spinner.hide()
-    }else if(this.username.length==0){
+    }else if(this.username.length==0 && !isForgotPass){
       this.signupErrors="username is required"
       this.spinner.hide()
-    }else if(this.username.length>20){
+    }else if(this.username.length>20 && !isForgotPass){
       this.signupErrors="username is too long"
       this.spinner.hide()
     }else{
-      this.auth.sendOTP(this.email).subscribe((data:any)=>{
+      this.auth.sendOTP(this.email,isForgotPass || false).subscribe((data:any)=>{
         let message=data.message;
         if(message==='OTP sent'){
           this.openOtp=true;
@@ -91,20 +96,36 @@ export class LoginLogoutComponent implements OnInit {
         this.spinner.hide()
       })
     }
+    if(isForgotPass){
+      this.loginErrors=this.signupErrors;
+    }
+  }
+  onVerify(isForgotPass?:boolean){
+    if(this.otp.length<4){
+      this.popup.openSnackbar('otp is required!!');
+      return;
+    }
+    this.spinner.show()
+    this.auth.verifyOTP(this.email,this.otp).subscribe((data:any)=>{
+      if(data["message"]==="verified"){
+        this.popup.openSnackbar('OTP verified!!!')
+        this.isVerified=true
+        this.spinner.hide()
+      }else{
+        this.signupErrors="Wrong OTP"
+        this.spinner.hide()
+      }
+    })
+  }
+  onResetPassword(){
+    
   }
   onSignup(){
     this.spinner.show()
     if(!this.isVerified){
-      this.auth.verifyOTP(this.email,this.otp).subscribe((data:any)=>{
-        if(data["message"]==="verified"){
-          this.popup.openSnackbar('OTP verified!!!')
-          this.isVerified=true
-        }else{
-          this.signupErrors="Please verify OTP"
-          this.spinner.hide()
-          return;
-        }
-      })
+      this.signupErrors="Please verify OTP"
+      this.spinner.hide()
+      return;
     }
     if(this.signupPassword.length<5){
       this.signupErrors="Password length should be minimum 5 characters"
@@ -149,6 +170,10 @@ export class LoginLogoutComponent implements OnInit {
       })
     }
     
+  }
+  onClickForgotPassword(){
+    this.isForget=true
+    this.onSendOTP(true);
   }
 
 }

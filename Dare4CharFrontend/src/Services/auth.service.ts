@@ -36,8 +36,8 @@ export class AuthService {
     }
 
     // OTP
-    sendOTP(mailid:string){
-        return this.http.get(`${baseurl}sendotp/${mailid}`);
+    sendOTP(mailid:string,isForgotPass:boolean){
+        return this.http.get(`${baseurl}sendotp/${mailid}/${isForgotPass}`);
     }
     verifyOTP(mailid:string,otp:string){
         return this.http.get(`${baseurl}verify/${mailid}/${otp}`)

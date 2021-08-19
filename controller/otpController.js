@@ -13,7 +13,6 @@ const addOtp = async(emailid,otp) => {
 	
 	let existingUser=await CheckExistingUser(emailid);
 	if(existingUser){
-		
 		return existingUser;
 	}
 	OTP.deleteMany({emailid}).then((data)=>{
@@ -41,7 +40,7 @@ const verifyOtp=(req,res)=>{
             res.status(201).json({message:"wrong OTP"})
         }
 	}).catch((err)=>{
-		res.status(406).json({ message: "err in get otp by id func" });
+		res.status(201).json({ message: "err in get otp by id func" });
 	})
 }
 

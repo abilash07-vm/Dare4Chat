@@ -55,7 +55,7 @@
     <mat-card *ngIf="!isProRequest && !isEdit">
         <mat-card-content>
             <h3 style="background-color: rgb(178, 116, 236);color: azure;text-align: center;">All Post</h3>
-            <p *ngIf="posts.length==0" style="text-align: center;">No Post found :(<br> Please make friends to have more fun</p>
+            <p *ngIf="posts.length==0" class="nopost" style="text-align: center;">No Post found :(</p>
         </mat-card-content>
     </mat-card>
     <div *ngIf="!isProRequest && !isEdit">

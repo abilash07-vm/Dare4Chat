@@ -7,6 +7,9 @@
 p{
     margin: 0;
 }
+.nopost{
+    padding: 100px 10px;
+}
 .mat-icon{
     position: absolute;
     font-size: 30px;

@@ -12,7 +12,7 @@
 }
 
 body{
-    background-color: rgb(206, 177, 252);
+    background-color: rgb(219, 218, 218);
     overflow: hidden;
 }
 
@@ -54,9 +54,10 @@ p{
 
 .dummy{
     position: absolute;
-    top: 45%;
-    left: 35%;
     text-align: center;
+    align-self: center;
+    justify-self: center;
+    top: 40%;
 }
 
 
