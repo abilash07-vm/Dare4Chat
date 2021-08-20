@@ -100,13 +100,15 @@ export class LoginLogoutComponent implements OnInit {
       this.loginErrors=this.signupErrors;
     }
   }
-  onVerify(isForgotPass?:boolean){
+  onVerify(){
     if(this.otp.length<4){
       this.popup.openSnackbar('otp is required!!');
       return;
     }
     this.spinner.show()
     this.auth.verifyOTP(this.email,this.otp).subscribe((data:any)=>{
+      console.log(data);
+      
       if(data["message"]==="verified"){
         this.popup.openSnackbar('OTP verified!!!')
         this.isVerified=true
@@ -117,17 +119,13 @@ export class LoginLogoutComponent implements OnInit {
       }
     })
   }
-  onResetPassword(){
-    
-  }
+
   onSignup(){
     this.spinner.show()
     if(!this.isVerified){
       this.signupErrors="Please verify OTP"
       this.spinner.hide()
-      return;
-    }
-    if(this.signupPassword.length<5){
+    }else if(this.signupPassword.length<5){
       this.signupErrors="Password length should be minimum 5 characters"
       this.spinner.hide()
     }else{
@@ -143,25 +141,17 @@ export class LoginLogoutComponent implements OnInit {
         if(token){
           this.auth.setToken(token);
           this.api.setTokenkey();
-          let user:User={
-            "emailid":this.email,
-            "userid":userid,
-            "username":this.username,
-            "friendsids":[],
-            "postids":[],
-            "isPro":false,
-            "isOnline":true,
-            "lastseen":new Date(),
-            "bio":'',
-            "category":"Public"
+          if(this.isForget){
+            this.api.getUserByEmailid(this.email).subscribe((data:any)=>{
+              let user:User=data
+              this.auth.setUser(JSON.stringify(user));
+              this.auth.setUserId(user.userid);
+              this.router.navigate(['/','home'])
+            })
+          }else{
+            this.onCreateAccount(userid);
           }
-          this.auth.setUser(JSON.stringify(user));
-          this.api.addUser(user).subscribe((data:any)=>{
-            
-            this.auth.setUserId(user.userid);
-            this.spinner.hide()
-            this.router.navigate(['/','profile']);
-          }) 
+          
         }else{
           this.signupErrors="token not found"
           this.spinner.hide()
@@ -171,6 +161,29 @@ export class LoginLogoutComponent implements OnInit {
     }
     
   }
+
+  onCreateAccount(userid:string){
+    let user:User={
+      "emailid":this.email,
+      "userid":userid,
+      "username":this.username,
+      "friendsids":[],
+      "postids":[],
+      "isPro":false,
+      "isOnline":true,
+      "lastseen":new Date(),
+      "bio":'',
+      "category":"Public"
+    }
+    this.auth.setUser(JSON.stringify(user));
+    this.api.addUser(user).subscribe((data:any)=>{
+      
+      this.auth.setUserId(user.userid);
+      this.spinner.hide()
+      this.router.navigate(['/','profile']);
+    }) 
+  }
+
   onClickForgotPassword(){
     this.isForget=true
     this.onSendOTP(true);

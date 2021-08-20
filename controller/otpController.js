@@ -40,6 +40,7 @@ const verifyOtp=(req,res)=>{
             res.status(201).json({message:"wrong OTP"})
         }
 	}).catch((err)=>{
+		console.log(err);
 		res.status(201).json({ message: "err in get otp by id func" });
 	})
 }

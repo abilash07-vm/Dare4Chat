@@ -24,8 +24,8 @@
 
                     <!-- forgot password -->
                     <button color="primary" *ngIf="isForget" mat-raised-button [disabled]="isVerified" (click)="onSendOTP(true)">Resend OTP</button>
-                    <button [disabled]="!openOtp ||isVerified "  *ngIf="isForget" color="primary" mat-raised-button (click)="onVerify()">Verify</button>
-                    <button color="primary" *ngIf="isForget" mat-raised-button (click)="onSignup()">Reset password</button>
+                    <button [disabled]="!openOtp || isVerified "  *ngIf="isForget" color="primary" mat-raised-button (click)="onVerify()">Verify</button>
+                    <button color="primary" *ngIf="isForget && isVerified" mat-raised-button (click)="onSignup()">Reset password</button>
 
 
                     <button color="primary"  *ngIf="!isForget" mat-raised-button (click)="onLogin()">Login</button>
