@@ -62,13 +62,26 @@ const AuthenticateUser = (req, res) => {
   };
 
   const CheckExistingUser=(emailid)=>{
+    console.log('exist:',emailid);
     return UserCred.findOne({emailid:emailid}).then((data)=>{
+      console.log(data);
       return data
+    })
+  }
+  const updateUserCred=(req,res)=>{
+    let emailid=req.params.emailid;
+    let userCred=req.body;
+    userCred.password=bcrypt.hashSync(userCred.password,10);
+    UserCred.updateOne({emailid},userCred).then((data)=>{
+      res.json({"message": "updated password"})
+    }).catch((err)=>{
+      res.json(err);
     })
   }
 
 module.exports = {
 	addUserCred,
-    AuthenticateUser,
-    CheckExistingUser
+  AuthenticateUser,
+  CheckExistingUser,
+  updateUserCred
 };

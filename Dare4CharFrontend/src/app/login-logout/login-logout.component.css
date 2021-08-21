@@ -3,6 +3,13 @@
     width: 100%;
     height: 100vh;
 }
+
+.custom-tabs.mat-tab-body-wrapper{
+    display: block;
+    margin: 50px auto;
+}
+
+
 p{
     color: blueviolet;
     font-size: 15px;
@@ -38,6 +45,8 @@ input{
     display: flex;
     justify-content: center;
 }
+
+
 
 @media screen and (max-width: 400px) {
     .mat-card{

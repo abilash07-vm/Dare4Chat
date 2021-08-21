@@ -37,7 +37,11 @@ p{
     overflow: auto;
     margin: 100px auto;
 }
-
+.custom-tabs .mat-tab-body-wrapper {
+    display: block;
+    margin: 50px auto;
+    overflow: hidden;
+}
 
 /* Post and Status */
 .dot {
@@ -57,6 +61,7 @@ p{
     text-align: center;
     align-self: center;
     justify-self: center;
+    margin: auto;
     top: 40%;
 }
 

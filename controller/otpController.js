@@ -5,27 +5,23 @@ const { CheckExistingUser } =require('./userCredController')
 
 const OTP = mongoose.model("otp", otpSchema);
 
-const addOtp = async(emailid,otp) => {
+const addOtp = async(emailid,otp,isForgotPass) => {
     let newotp={
         emailid,otp
     }
 	let otpNode = new OTP(newotp);
 	
 	let existingUser=await CheckExistingUser(emailid);
-	if(existingUser){
-		return existingUser;
+	console.log('addotp',existingUser);
+	if(existingUser && !isForgotPass){
+		console.log('returning..');
+		return true;
 	}
-	OTP.deleteMany({emailid}).then((data)=>{
-		
-	})
+	OTP.deleteMany({emailid}).then((data)=>{})
 	
 	otpNode.save()
-		.then((data) => {
-			
-		})
-		.catch((err) => {
-			
-		});
+		.then((data) => {})
+		.catch((err) => {});
 	return false
 };
 const verifyOtp=(req,res)=>{

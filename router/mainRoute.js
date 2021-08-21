@@ -9,7 +9,7 @@ const messageRoute = require("./messageRoute");
 
 const { addOtp,verifyOtp }=require('../controller/otpController')
 const { sendMail,generateotp } =require('../controller/methods')
-const { addUserCred,AuthenticateUser } =require('../controller/userCredController')
+const { addUserCred,AuthenticateUser, updateUserCred } =require('../controller/userCredController')
 const checkjwt=require('express-jwt');
 
 require('dotenv').config()
@@ -34,10 +34,10 @@ module.exports = (io) => {
 		res.status(201).json({ message: "waiting approval..." });
 	});
 	router.get("/sendotp/:mailid/:isForgotPass",async(req,res)=>{
-		let isForgotPass=req.params.isForgotPass
+		let isForgotPass=JSON.parse(req.params.isForgotPass)
 		let mailid=req.params.mailid
 		let otp=generateotp();
-		let existingUser=await addOtp(mailid,otp)
+		let existingUser=await addOtp(mailid,otp,isForgotPass)
 		if(existingUser && !isForgotPass){
 			res.json({message:'Existing User please login'});
 			return;
@@ -50,6 +50,7 @@ module.exports = (io) => {
 	router.route("/auth").post(AuthenticateUser)
 	router.route("/auth/new").post(addUserCred)
 	router.get("/verify/:emailid/:userotp",verifyOtp)
+	router.post("/auth/resetpass",updateUserCred)
 
 	router.use("/post", postRoute());
 	router.use("/status", statusRoute());

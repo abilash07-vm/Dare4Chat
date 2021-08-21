@@ -6,6 +6,8 @@ import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 import { PopupsService } from 'src/Services/popups.service';
 
+const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 @Component({
   selector: 'app-login-logout',
   templateUrl: './login-logout.component.html',
@@ -44,7 +46,10 @@ export class LoginLogoutComponent implements OnInit {
     if(this.email.length==0){
       this.spinner.hide()
       this.loginErrors="Email is required";
-    }else if(this.loginPassword.length==0){
+    }else if(!emailRegexp.test(this.email)){
+      this.spinner.hide()
+      this.loginErrors="Invaid Email id";
+    } else if(this.loginPassword.length==0){
       this.spinner.hide()
       this.loginErrors="Password is required"
     }else{
@@ -80,7 +85,10 @@ export class LoginLogoutComponent implements OnInit {
     if(this.email.length==0){
       this.signupErrors="Email is required";
       this.spinner.hide()
-    }else if(this.username.length==0 && !isForgotPass){
+    }else if(!emailRegexp.test(this.email)){
+      this.spinner.hide()
+      this.signupErrors="Invalid Email id";
+    } else if(this.username.length==0 && !isForgotPass){
       this.signupErrors="username is required"
       this.spinner.hide()
     }else if(this.username.length>20 && !isForgotPass){
@@ -91,6 +99,7 @@ export class LoginLogoutComponent implements OnInit {
         let message=data.message;
         if(message==='OTP sent'){
           this.openOtp=true;
+          this.signupErrors=""
         }
         this.popup.openSnackbar(message);
         this.spinner.hide()
@@ -112,6 +121,7 @@ export class LoginLogoutComponent implements OnInit {
       if(data["message"]==="verified"){
         this.popup.openSnackbar('OTP verified!!!')
         this.isVerified=true
+        this.signupErrors=""
         this.spinner.hide()
       }else{
         this.signupErrors="Wrong OTP"
@@ -142,12 +152,7 @@ export class LoginLogoutComponent implements OnInit {
           this.auth.setToken(token);
           this.api.setTokenkey();
           if(this.isForget){
-            this.api.getUserByEmailid(this.email).subscribe((data:any)=>{
-              let user:User=data
-              this.auth.setUser(JSON.stringify(user));
-              this.auth.setUserId(user.userid);
-              this.router.navigate(['/','home'])
-            })
+           this.onResetPassword();
           }else{
             this.onCreateAccount(userid);
           }
@@ -160,6 +165,24 @@ export class LoginLogoutComponent implements OnInit {
       })
     }
     
+  }
+
+  onResetPassword(){
+    if(this.signupPassword.length<5){
+      this.signupErrors="Password length should be minimum 5 characters"
+      this.spinner.hide()
+      return;
+    }
+    this.auth.updatePassword({"admin":false,"emailid":this.email,"password":this.signupPassword}).subscribe((data)=>{
+      console.log(data);
+      this.api.getUserByEmailid(this.email).subscribe((data:any)=>{
+        let user:User=data
+        this.auth.setUser(JSON.stringify(user));
+        this.auth.setUserId(user.userid);
+        this.router.navigate(['/','home'])
+      })
+    })
+  
   }
 
   onCreateAccount(userid:string){

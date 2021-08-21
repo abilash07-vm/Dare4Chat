@@ -1,19 +1,19 @@
 <ngx-spinner></ngx-spinner>
 <div>
     <mat-card>
-        <mat-tab-group>
+        <mat-tab-group class="custom-tabs">
             <!-- Login -->
             <mat-tab label="login">
                 <p *ngIf="loginErrors.length>0" class="error">{{loginErrors}}</p>
                 <mat-card-content>
-                    <input matInput [(ngModel)]="email" placeholder="email"/>
+                    <input matInput [disabled]="isVerified" [(ngModel)]="email" placeholder="email"/>
                     <div class="password" *ngIf="!isForget">
                         <input matInput type="{{loginhide ? 'password' : 'text'}}" [(ngModel)]="loginPassword" placeholder="password">
                         <mat-icon class="passwordeye" (click)="loginhide=!loginhide">{{loginhide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </div>
 
                     <!-- forgot password -->
-                    <input [disabled]="isVerified" *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
+                    <input [disabled]="isVerified" *ngIf="openOtp && isForget" matInput [(ngModel)]="otp" placeholder="otp"/>
                     <div class="password" *ngIf="isVerified && isForget">
                         <input matInput type="{{signuphide ? 'password' : 'text'}}" [(ngModel)]="signupPassword" placeholder="password">
                         <mat-icon class="passwordeye" (click)="signuphide=!signuphide">{{signuphide ? 'visibility_off' : 'visibility'}}</mat-icon>

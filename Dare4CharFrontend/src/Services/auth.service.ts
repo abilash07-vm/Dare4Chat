@@ -47,6 +47,9 @@ export class AuthService {
     createUser(userCrediential:UserCredientials){
         return this.http.post(`${baseurl}auth/new`,userCrediential);
     }
+    updatePassword(userCred:UserCredientials){
+        return this.http.post(baseurl + 'auth/resetpass', userCred);
+    }
     login(payload: UserCredientials) {
         return this.http.post(baseurl + 'auth', payload);
     }
