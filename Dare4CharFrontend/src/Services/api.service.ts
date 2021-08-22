@@ -7,8 +7,15 @@ import { Status } from 'src/Interfaces/status';
 import { User } from 'src/Interfaces/user';
 import { AuthService } from './auth.service';
 
-const baseurl = environment.baseurl;
+//socket
+import { io } from 'socket.io-client'
 
+import { Subject } from 'rxjs';
+
+const baseurl = environment.baseurl;
+const socket=io("http://localhost:3000/",{
+  transports: ["websocket", "polling"] 
+});
 
 @Injectable({
     providedIn: 'root',
@@ -19,10 +26,27 @@ export class ApiService {
     headers!: HttpHeaders;
     profileurl:string="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.kindpng.com%2Fpicc%2Fm%2F252-2524695_dummy-profile-image-jpg-hd-png-download.png&f=1&nofb=1"
 
+    private newMessage:Subject<any>=new Subject<any>();
+    messageObs=this.newMessage.asObservable();
 
-    constructor(private http: HttpClient,private auth:AuthService) {
+
+    constructor(private http: HttpClient,
+        private auth:AuthService) {
         this.setTokenkey();
         this.updateUserForLocalStorage()
+
+        this.socketTasks()
+
+    }
+
+    socketTasks(){
+        // Sockets
+        console.log(this.userid+'message');
+        
+        socket.on(this.userid+'message',(data:any)=>{
+            console.log('socket.io',data);
+            this.newMessage.next(data);
+        })
     }
 
     setTokenkey() {
@@ -196,6 +220,7 @@ export class ApiService {
         });
 
     }
-    
+
+   
     
 }

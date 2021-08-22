@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { DateMessage } from 'src/Interfaces/chat';
 import { User } from 'src/Interfaces/user';
 
@@ -11,10 +11,11 @@ export class DateChatModelComponent implements OnInit {
   @Input() date_message!:DateMessage
   @Input() user!:User
   @Input() curr_userid!:string
+  @Input() change!:boolean
 
   today=new Date()
 
-  constructor() { }
+  constructor(private zone:NgZone) { }
 
   ngOnInit(): void {
   }

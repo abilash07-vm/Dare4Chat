@@ -5,13 +5,8 @@ import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 
-import { io } from 'socket.io-client'
-import { environment } from 'src/environments/environment';
 
 
-const socket=io("http://localhost:3000/",{
-  transports: ["websocket", "polling"] 
-});
 @Component({
   selector: 'app-message-page',
   templateUrl: './message-page.component.html',
@@ -20,6 +15,8 @@ const socket=io("http://localhost:3000/",{
 export class MessagePageComponent implements OnInit {
   @Input() user!:User
   @Output() back=new EventEmitter();
+
+  change:boolean=true
 
   allMessages:DateMessage[]=[]
   curr_message:string=''
@@ -33,17 +30,19 @@ export class MessagePageComponent implements OnInit {
     if(userid){
       this.curr_userid=userid
       this.getMessages()
-
-      console.log('socket.io',this.curr_userid+"message");
-      
-      socket.on('message',(data:any)=>{
-        console.log('socket.io',data);
-      })
-
-      socket.on('first',(data:any)=>{
-        console.log('socket.io',data);
-      })
+      this.socketMethod()
     }
+  }
+
+  socketMethod(){
+
+    // socket
+    this.api.messageObs.subscribe((newMessage)=>{
+      console.log('inside message page',newMessage);
+      
+      this.addToAllMessage(newMessage);
+      this.change=!this.change
+    })
   }
 
   getMessages(){
@@ -62,6 +61,8 @@ export class MessagePageComponent implements OnInit {
         this.allMessages.push({"date":msg.date,"messages":[msg]})
       }else{
         this.allMessages[len-1].messages.push(msg);
+        console.log(msg);
+        
       }
   }
 

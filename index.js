@@ -1,19 +1,16 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const express=require("express")
+
 const app = express();
-app.use(cors({origin: '*'}));  
-const http=require('http').Server(app)
-const io=require('socket.io')(http,{
-	cors: {
-	  origin: "http://localhost:3000",
-	  methods: ["GET", "POST"],
-	  allowedHeaders: ["Access-Control-Allow-Origin"],
-	}
-  })
+app.use(cors({origin: '*'}));
+const server=require('http').createServer(app)
+const { io }=require('./controller/socket')
+io.attach(server)
+// const io=require('socket.io')(http)
 
 const mainRoute = require("./router/mainRoute");
-const { sendSocket } =require('./controller/methods')
+const messageContoller=require("./controller/messageController")
 
 require("dotenv").config();
 	
@@ -28,13 +25,13 @@ mongoose
 	.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(() => {
 		
-		http.listen(PORT, () => {
+		server.listen(PORT, () => {
 			console.log(`connect to port  ${PORT}`);
 			// io=socketIo(http.Server(app))
-			io.on('connection',(socket)=>{
-				sendSocket(app,'message',{"message":"hi i am abilash"})
-			})
-			app.use("", mainRoute(io));
+			// io.on('connection',(socket)=>{
+			// 	messageContoller.respond(socket);
+			// });
+			app.use("", mainRoute());
 
 		});
 		

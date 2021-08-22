@@ -4,10 +4,12 @@ const { generateKey } =require('./methods')
 const messageSchema=require("../schema/messageSchema");
 const { updateLastMessage } = require("./userController");
 
+const { Socket } =require('./socket')
+
 
 const Message = mongoose.model("messages", messageSchema);
 
-const addMessage = (req, res, io) => {
+const addMessage = (req, res) => {
 	let newMessage = req.body;
 	newMessage.messageid=generateKey()
 
@@ -16,9 +18,7 @@ const addMessage = (req, res, io) => {
 	message.save()
 		.then((data) => {
 			updateLastMessage(message.to,message.message)
-				// sendSocket('message',message);
-				console.log('sending to '+message.to + 'message');
-			
+			Socket.emit(message.to + 'message',data)
 			res.json(data);
 		})
 		.catch((err) => {
@@ -69,3 +69,11 @@ module.exports = {
 	getMessageByUserId,
 	deleteMessageById,
 };
+module.exports.respond = function(socket){
+
+	socket.emit('message',"connected from server")
+	
+    socket.on('message',(data)=>{
+		console.log(data);
+    });
+}
