@@ -1,8 +1,9 @@
-<p class="center"><strong>{{ (date_message.date | date: 'mediumDate')== (today | date: 'mediumDate') ? 'Today': date_message.date | date: 'mediumDate' }}</strong></p>
+<p *ngIf="!isnew" class="center"><strong>{{ (date_message.date | date: 'mediumDate')== (today | date: 'mediumDate') ? 'Today': date_message.date | date: 'mediumDate' }}</strong></p>
+<p *ngIf="isnew" class="center"><strong>New messages</strong></p>
 <app-message-model *ngFor="let message of date_message.messages" 
     [user]="user"
     [message]="message"
     [curr_userid]="curr_userid"
     class="chat-model"
-    [ngClass]="{'right' : message.from==curr_userid}"
+    [ngClass]="{'right' : message.from==curr_userid,'new':isnew}"
     ></app-message-model>

@@ -197,6 +197,17 @@ export class ApiService {
         return res;
 
     }
+    isDifferentDay(date1: Date, date2: Date): boolean {
+        let d1=`${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}`
+        let d2=`${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}`
+        
+        if(d1===d2){
+    
+          return false
+        }
+        return true
+    }
+    
     getSuffixS(val:number){
         if(val==1){
             return ' ago'

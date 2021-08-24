@@ -21,7 +21,8 @@
 
 .messages{
     margin: 50px 0;
-    overflow: hidden;
+    overflow: scroll;
+    height: 90%;
 }
 
 .messagebox{

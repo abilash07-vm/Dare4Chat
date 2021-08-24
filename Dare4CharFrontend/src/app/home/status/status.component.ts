@@ -29,8 +29,9 @@ export class StatusComponent implements OnInit {
         this.api.getStatusByUserId(userid).subscribe((data:any)=>{
           let statusArr:Status[]=data;
           this.api.getUserByid(userid).subscribe((user:any)=>{
-            if(statusArr.length>0)
-            this.statuses.push({"user":user,"statuses":statusArr});
+            if(statusArr.length>0){
+              this.filterStatus(user,statusArr);
+            }
           })
         })
       })
@@ -39,7 +40,22 @@ export class StatusComponent implements OnInit {
     
   }
 
-
+  filterStatus(user:User,statusArr:Status[]){
+    let newArray:Status[]=[]
+    statusArr.forEach((status)=>{
+      if(this.api.getDateDiffFromNowInMS(status.date)>=24*60*60*1000){
+        if(status.statusid){
+          this.api.deleteStatusById(status.statusid).subscribe((data)=>{
+            console.log('deleted status');
+          })
+        }else{
+          newArray.push(status);
+        }
+      }
+    })
+    if(newArray.length)
+    this.statuses.push({"user":user,"statuses":newArray});
+  }
 
   onStatusShow(i:number){
     this.currIndex=i;

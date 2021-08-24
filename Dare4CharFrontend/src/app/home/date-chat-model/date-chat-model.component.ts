@@ -11,7 +11,7 @@ export class DateChatModelComponent implements OnInit {
   @Input() date_message!:DateMessage
   @Input() user!:User
   @Input() curr_userid!:string
-  @Input() change!:boolean
+  @Input() isnew:boolean=false
 
   today=new Date()
 

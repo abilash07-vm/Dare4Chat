@@ -1,4 +1,4 @@
-import { Output,EventEmitter } from '@angular/core';
+import { Output,EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { DateMessage, Message } from 'src/Interfaces/chat';
 import { User } from 'src/Interfaces/user';
@@ -16,13 +16,13 @@ export class MessagePageComponent implements OnInit {
   @Input() user!:User
   @Output() back=new EventEmitter();
 
-  change:boolean=true
-
   allMessages:DateMessage[]=[]
   curr_message:string=''
   curr_userid!:string
+  newMessages:DateMessage | undefined
   constructor(private api:ApiService,
     private auth:AuthService,
+    private changeDetection: ChangeDetectorRef
     ) { }
 
   ngOnInit(): void {
@@ -39,9 +39,16 @@ export class MessagePageComponent implements OnInit {
     // socket
     this.api.messageObs.subscribe((newMessage)=>{
       console.log('inside message page',newMessage);
-      
-      this.addToAllMessage(newMessage);
-      this.change=!this.change
+      if(this.newMessages){
+        this.newMessages.messages.push(newMessage)
+      }else{
+        this.newMessages={
+          "date": new Date(),
+          "messages":[newMessage]
+        }
+      }
+      // this.addToAllMessage(newMessage);
+      this.changeDetection.detectChanges()
     })
   }
 
@@ -57,7 +64,7 @@ export class MessagePageComponent implements OnInit {
   }
   addToAllMessage(msg:Message){
     let len=this.allMessages.length
-      if(len==0 || this.isDifferentDay(new Date(this.allMessages[len-1].date),new Date(msg.date))){
+      if(len==0 || this.api.isDifferentDay(new Date(this.allMessages[len-1].date),new Date(msg.date))){
         this.allMessages.push({"date":msg.date,"messages":[msg]})
       }else{
         this.allMessages[len-1].messages.push(msg);
@@ -66,17 +73,7 @@ export class MessagePageComponent implements OnInit {
       }
   }
 
-  isDifferentDay(date1: Date, date2: Date): boolean {
-    let d1=`${date1.getDate()}/${date1.getMonth()}/${date1.getFullYear()}`
-    let d2=`${date2.getDate()}/${date2.getMonth()}/${date2.getFullYear()}`
-    
-    if(d1===d2){
-
-      return false
-    }
-    return true
-  }
-
+  
   getProfile(){
     return this.user.profileurl ? this.user.profileurl: this.api.profileurl;
   }
@@ -97,6 +94,12 @@ export class MessagePageComponent implements OnInit {
     
     this.api.addMessage(message).subscribe((data:any)=>{
       this.curr_message=''
+      if(this.newMessages){
+        this.newMessages.messages.forEach((msg)=>{
+          this.addToAllMessage(msg);
+        })
+        this.newMessages=undefined
+      }
       this.addToAllMessage(data)
     })
   }

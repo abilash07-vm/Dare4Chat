@@ -6,12 +6,17 @@
         <mat-card-title>{{ user.username }}</mat-card-title>
     </div>
 </mat-card>
-<div class="messages">
+<div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages">
     <app-date-chat-model 
         *ngFor="let date_message of allMessages"
         [date_message]="date_message"
         [user]="user"
-        [curr_userid]="curr_userid" [change]="change"></app-date-chat-model>
+        [curr_userid]="curr_userid"></app-date-chat-model>
+    <app-date-chat-model *ngIf="newMessages"
+        [date_message]="newMessages"
+        [isnew]="true"
+        [user]="user"
+        [curr_userid]="curr_userid"></app-date-chat-model>
 
 </div>
 <div class="messagebox">
