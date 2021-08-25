@@ -23,9 +23,9 @@ module.exports = () => {
 		res.redirect('http://localhost:4200/auth')
 	}
 	  });
-	router.route("/").get((req, res) => {
-		res.status(201).json({ message: "connected..." });
-	});
+	// router.route("/").get((req, res) => {
+	// 	res.status(201).json({ message: "connected..." });
+	// });
 	router.route("/proVerify").post((req, res) => {
 		let user=req.body;
 		let emailid=user.emailid;

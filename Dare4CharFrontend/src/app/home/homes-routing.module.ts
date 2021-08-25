@@ -5,6 +5,7 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
     { path: 'comments/:postid' ,component:CommentsComponent},
+    { path: ':type', component: MainComponent },
     { path: '', component: MainComponent },  
 ];
 

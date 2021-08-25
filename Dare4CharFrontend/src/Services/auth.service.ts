@@ -8,6 +8,7 @@ const ADD_KEY = 'dare4chat-add-key';
 const JWT_TOKEN='dare4chat-jwt-key';
 const USER_KEY='dare4chat-user-key';
 const USERID_KEY='dare4chat-userid-key'
+const LAST_TAB='dare4chat-last-tab-key'
 @Injectable({
     providedIn: 'root',
 })
@@ -86,7 +87,7 @@ export class AuthService {
         return this.delItemFromStrong(USER_KEY);
     }
 
-    //User
+    //User Id
     setUserId(user:string){
         this.setToStorage(USERID_KEY,user);
     }
@@ -95,6 +96,14 @@ export class AuthService {
     }
     delUserId(){
         return this.delItemFromStrong(USERID_KEY);
+    }
+
+    // last Tab  in home 
+    getLatTab(){
+        return this.getFromStorage(LAST_TAB);
+    }
+    setLastTab(tab:string){
+        this.setToStorage(LAST_TAB,tab)
     }
 
 }

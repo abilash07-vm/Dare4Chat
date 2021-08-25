@@ -40,8 +40,7 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
       // insert logic to check if there are pending changes here;
       // returning true will navigate without confirmation
       // returning false will show a confirm dialog before navigating away
-      this.apiServices.onOffline()
-      return false;
+      return true;
     }
 
     constructor(

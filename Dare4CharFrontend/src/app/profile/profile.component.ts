@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit,ComponentCanDeactivate {
       // returning true will navigate without confirmation
       // returning false will show a confirm dialog before navigating away
       this.api.onOffline()
-      return false;
+      return true;
     }
 
   user!:User

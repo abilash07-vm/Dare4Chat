@@ -32,6 +32,7 @@ import { MatTabsModule } from '@angular/material/tabs'
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SharedModule } from './shared/shared.module';
+import { PullToRefreshModule } from '@piumaz/pull-to-refresh';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,9 @@ import { SharedModule } from './shared/shared.module';
 
         // Loading Spinner
         NgxSpinnerModule,
+
+        // Pull to Refresh
+        PullToRefreshModule
     ],
     providers: [],
     bootstrap: [AppComponent],

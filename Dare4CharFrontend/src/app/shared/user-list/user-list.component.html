@@ -4,5 +4,7 @@
         [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
     <div>
         <mat-card-title>{{ user.username }} <mat-icon *ngIf="user.isPro">verified</mat-icon></mat-card-title>
+        <!-- <mat-card-subtitle *ngIf="user.message" style="margin-left: 10px;" >{{ user.message }}</mat-card-subtitle> -->
     </div>
+    <p style="position: absolute;right: 5px;">20</p>
 </mat-card>

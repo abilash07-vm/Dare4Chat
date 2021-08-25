@@ -1,5 +1,5 @@
 <!-- Tabs -->
-<mat-tab-group mat-stretch-tabs (selectedTabChange)="tabChanged($event)">
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="tabChanged($event)" [(selectedIndex)]="currTabInd">
     <mat-tab label="Post">
         <app-post></app-post>
     </mat-tab>
