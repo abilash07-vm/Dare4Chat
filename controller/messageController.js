@@ -69,11 +69,4 @@ module.exports = {
 	getMessageByUserId,
 	deleteMessageById,
 };
-module.exports.respond = function(socket){
 
-	socket.emit('message',"connected from server")
-	
-    socket.on('message',(data)=>{
-		console.log(data);
-    });
-}

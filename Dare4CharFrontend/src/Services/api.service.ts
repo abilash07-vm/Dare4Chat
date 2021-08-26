@@ -4,13 +4,14 @@ import { environment } from 'src/environments/environment';
 import { Message } from 'src/Interfaces/chat';
 import { Post } from 'src/Interfaces/post';
 import { Status } from 'src/Interfaces/status';
-import { User } from 'src/Interfaces/user';
+import { Pro, User } from 'src/Interfaces/user';
 import { AuthService } from './auth.service';
 
 //socket
 import { io } from 'socket.io-client'
 
 import { Subject } from 'rxjs';
+import { Notification } from 'src/Interfaces/notification';
 
 const baseurl = environment.baseurl;
 const socket=io("http://localhost:3000/",{
@@ -46,6 +47,11 @@ export class ApiService {
         socket.on(this.userid+'message',(data:any)=>{
             console.log('socket.io',data);
             this.newMessage.next(data);
+        })
+
+        socket.on(this.userid+'notification',(data:any)=>{
+            console.log('socket.io',data);
+            
         })
     }
 
@@ -115,6 +121,9 @@ export class ApiService {
     updateUserProfile(user:User){
         return this.http.put(baseurl+'user/update',user,{ headers: this.headers });
     }
+    updateUserProDetail(user:Pro){
+        return this.http.put(baseurl+'user/updatePro',user,{ headers: this.headers });
+    }
     getUserByid(id:string){
         return this.http.get(baseurl+'user/'+id,{ headers: this.headers });
     }
@@ -127,10 +136,10 @@ export class ApiService {
     removeFriendid(friendid:string,userid:string){
         return this.http.put(`${baseurl}user/removefriend/${friendid}/${userid}`,{},{headers:this.headers})
     }
-    verifyAccount(user:User,detail:any){
-        let payload=Object.assign({},user,detail);
-        return this.http.post(`${baseurl}proVerify`,payload,{headers:this.headers})
-    }
+    // verifyAccount(user:User,detail:any){
+    //     let payload=Object.assign({},user,detail);
+    //     return this.http.post(`${baseurl}proVerify`,payload,{headers:this.headers})
+    // }
 
     // likes
     addLike(userid:string,postid:string){
@@ -219,17 +228,29 @@ export class ApiService {
     onOffline(){
         this.http.put(baseurl+'user/updateLastseen',{userid:this.userid,isOnline:false,lastseen:new Date()},{ headers: this.headers }).subscribe((data)=>{
             this.getUserByid(this.userid).subscribe((data)=>{
-                console.log('onOffline',data);
             })
         });
     }
     onOnline(){
         this.http.put(baseurl+'user/updateLastseen',{userid:this.userid,isOnline:true,lastseen:new Date()},{ headers: this.headers }).subscribe((data)=>{
             this.getUserByid(this.userid).subscribe((data)=>{
-                console.log('onOnline',data);
             })
         });
 
+    }
+
+    // Notifications
+    getNotificationByuserid(userid:string){
+        return this.http.get(`${baseurl}notification/${userid}`,{headers:this.headers});
+    }
+
+    sendNotificationToUser(userid:string,notification:Notification){
+        return this.http.post(`${baseurl}notification/${userid}`,notification,{headers:this.headers});
+    }
+
+    //Pro request
+    addProRequest(proRequest:Pro){
+        return this.http.post(`${baseurl}pro/`,proRequest,{headers:this.headers});
     }
 
    

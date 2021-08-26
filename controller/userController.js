@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const userSchema = require("../schema/userSchema");
 const { addSendRequest, addRecieveRequest, onCancleFriendRequest } = require("./friend-request");
+const { addNotificationInternal, notificationInitialize } = require("./notificationController");
 
 
 const User = mongoose.model("user", userSchema);
@@ -13,6 +14,7 @@ const addUser = (req, res) => {
 		.then((data) => {
 			addSendRequest(user.userid)
 			addRecieveRequest(user.userid)
+			notificationInitialize(user.userid)
 			res.status(201).json(data);
 		})
 		.catch((err) => {
@@ -115,6 +117,7 @@ const addUserFriendsid=(req,res)=>{
 		}
 	}).then((data)=>{
 		onCancleFriendRequest(userid,friendid)
+		addNotificationInternal(friendid,{userid,type:'accepted',date:new Date()})
 		console.log('added friendid from user',friendid);
 		res.json({"message":"added friend"})
 	}).catch((err)=>{
@@ -146,7 +149,16 @@ const updateLastMessage=(userid,msg)=>{
 	})
 }
 
-
+const updateuserProDetails=(req,res)=>{
+	let userid=req.params.userid;
+	let changes=req.body;
+	User.updateOne({userid},changes).then((data)=>{
+		res.json({"message":"pro updated"})
+	}).catch((err)=>{
+		console.log(err);
+		res.json({"message":"pro update err"})
+	})
+}
 
 module.exports = {
 	addUser,
@@ -160,5 +172,6 @@ module.exports = {
 	removeUserFriendsid,
 	addUserFriendsid,
 	updateUserOnlineOrOffline,
-	updateLastMessage
+	updateLastMessage,
+	updateuserProDetails
 };

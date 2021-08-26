@@ -1,5 +1,7 @@
 <ngx-spinner></ngx-spinner>
 <div class="profile" *ngIf="user">
+
+    <!-- Edit -->
     <mat-card *ngIf="isEdit">
         <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
         <mat-card-content class="centerrow">
@@ -25,6 +27,7 @@
             <button color="primary" mat-raised-button (click)="onEditSave()">Save</button>
         </mat-card-content>
     </mat-card>
+    <!-- pro -->
     <mat-card *ngIf="isProRequest">
         <mat-icon (click)=" onGoBack()">arrow_back</mat-icon>
         <br>

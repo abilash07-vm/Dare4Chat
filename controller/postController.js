@@ -25,7 +25,7 @@ const addPost = (req, res) => {
 const getPostById=(req,res)=>{
 	let id=req.params.postid;
 	Post.findOne({postid:id}).then((data)=>{
-		
+		console.log(data);
 		res.status(201).send(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in get post by id func" });

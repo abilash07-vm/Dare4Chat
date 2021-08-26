@@ -11,6 +11,8 @@ const { addOtp,verifyOtp }=require('../controller/otpController')
 const { sendMail,generateotp } =require('../controller/methods')
 const { addUserCred,AuthenticateUser, updateUserCred } =require('../controller/userCredController')
 const checkjwt=require('express-jwt');
+const notificationRoute = require("./notificationRoute");
+const proRequestRoute = require("./proRequestRoute");
 
 require('dotenv').config()
 const router = express.Router();
@@ -23,9 +25,7 @@ module.exports = () => {
 		res.redirect('http://localhost:4200/auth')
 	}
 	  });
-	// router.route("/").get((req, res) => {
-	// 	res.status(201).json({ message: "connected..." });
-	// });
+
 	router.route("/proVerify").post((req, res) => {
 		let user=req.body;
 		let emailid=user.emailid;
@@ -57,6 +57,8 @@ module.exports = () => {
 	router.use("/user",userRoute());
 	router.use("/friendrequest",friendRequestRoute())
 	router.use("/message",messageRoute())
+	router.use("/notification",notificationRoute())
+	router.use("/pro",proRequestRoute())
 
 	return router;
 };

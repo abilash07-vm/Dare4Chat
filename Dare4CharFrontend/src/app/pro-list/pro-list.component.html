@@ -1,0 +1,11 @@
+<mat-card *ngFor="let userPro of pro_users ;index as i" class="status">
+<!-- (click)="onClickUser(userPro.user)"> -->
+    <div mat-card-avatar 
+        [ngStyle]="{'background': '#000 url(' + getProfile(i) + ') no-repeat','background-size': 'cover'}"></div>
+    <div *ngIf="userPro.user">
+        <mat-card-title>{{ userPro.user.username }} <mat-icon *ngIf="userPro.user.isPro">verified</mat-icon></mat-card-title>
+        <mat-card-subtitle  style="margin-left: 10px;" ><strong>{{ userPro.category }}</strong><br>{{ userPro.description }}</mat-card-subtitle>
+    </div>
+    <button>Accept</button>
+    <button>Reject</button>
+</mat-card>

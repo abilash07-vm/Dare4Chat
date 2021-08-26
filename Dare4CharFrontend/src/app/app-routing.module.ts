@@ -5,8 +5,10 @@ import { AuthGuard } from './auth.guard';
 import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component'
-import { NotificationsComponent } from './notifications/notifications.component'
 import { PendingChangesGuard } from '../Services/pending-changes-guard.guard';
+import { NotificationListComponent } from './notification-list/notification-list.component';
+import { PostModelComponent } from './shared/post-model/post-model.component';
+import { ProListComponent } from './pro-list/pro-list.component';
 
 const routes: Routes = [
     {
@@ -42,13 +44,21 @@ const routes: Routes = [
         path: 'notifications',
         canActivate: [AuthGuard],
         canDeactivate: [PendingChangesGuard],
-        component: NotificationsComponent
+        component: NotificationListComponent
+    },
+    {
+        path: 'post/:postid',
+        component: PostModelComponent
+    },{
+        path:'pro',
+        component: ProListComponent
     },
     {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
     },
+    
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from 'src/Interfaces/post';
 import { ApiService } from 'src/Services/api.service';
+import { AuthService } from 'src/Services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -10,10 +11,15 @@ import { ApiService } from 'src/Services/api.service';
 })
 export class CommentsComponent implements OnInit {
   post!:Post
+  currUserid!: string;
   constructor(private activatedRoute:ActivatedRoute,
-    private api:ApiService) { }
+    private api:ApiService,private auth:AuthService) { }
 
   ngOnInit(): void {
+    let userid=this.auth.getUserId();
+    if(userid){
+      this.currUserid=userid
+    }
     let postid=this.activatedRoute.snapshot.paramMap.get('postid');
     if(postid){
       this.api.getPostById(postid).subscribe((post:any)=>{
@@ -23,6 +29,15 @@ export class CommentsComponent implements OnInit {
     }
   }
 
-
+  onComment(){
+    this.api.sendNotificationToUser(this.post.userid,
+      {
+        "userid":this.currUserid,
+        "date": new Date(),
+        "type":"comment"
+      }).subscribe((data)=>{
+        console.log(data);              
+      })
+  }
 
 }

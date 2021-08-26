@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const requestRecievedSchema = require('../schema/request-recievedSchema');
 const requestsentSchema=require('../schema/request-sentSchema');
+const { addNotificationInternal } = require('./notificationController');
 
 const Recieved=mongoose.model('request-received',requestRecievedSchema);
 const Sent=mongoose.model('request-sent',requestsentSchema);
@@ -28,6 +29,7 @@ const sendRequest=(userid,friendid)=>{
             sentids: friendid
         }
     }).then(()=>{
+        addNotificationInternal(friendid,{userid,type:'request',date:new Date()})
         console.log('request sent recorded',userid);
     }).catch((err)=>{
         console.log(err);

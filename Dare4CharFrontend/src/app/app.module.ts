@@ -11,7 +11,6 @@ import { LoginLogoutComponent } from './login-logout/login-logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileModelComponent } from './profile-model/profile-model.component'
 import { SearchComponent } from './search/search.component';
-import { NotificationsComponent } from './notifications/notifications.component';
 import { environment } from '../environments/environment';
 
 // Firebase
@@ -33,6 +32,8 @@ import { MatTabsModule } from '@angular/material/tabs'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SharedModule } from './shared/shared.module';
 import { PullToRefreshModule } from '@piumaz/pull-to-refresh';
+import { NotificationListComponent } from './notification-list/notification-list.component';
+import { ProListComponent } from './pro-list/pro-list.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { PullToRefreshModule } from '@piumaz/pull-to-refresh';
         ProfileComponent,
         ProfileModelComponent,
         SearchComponent,
-        NotificationsComponent,
+        NotificationListComponent,
+        ProListComponent,
 
     ],
     imports: [

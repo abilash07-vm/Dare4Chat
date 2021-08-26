@@ -116,7 +116,7 @@ export class ProfileModelComponent implements OnInit {
     if(this.category.length==0){
       this.popups.openSnackbar('category is required')
     }else {
-      this.api.verifyAccount(this.user,{"category":this.category,"explain":this.detail_verify}).subscribe((data:any)=>{
+      this.api.addProRequest({userid:this.user.userid,"category":this.category,"description":this.detail_verify}).subscribe((data:any)=>{
         console.log(data);
         this.popups.openSnackbar('request sent to admin')
         this.onGoBack();

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/Interfaces/post';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
@@ -12,25 +12,37 @@ import { TouchSwipeService } from 'src/Services/touch-swipe.service';
   styleUrls: ['./post-model.component.css']
 })
 export class PostModelComponent implements OnInit {
+  @Input('post') post!:Post
+  postOwner!:User
   currIndex = 0;
   maxIndex = 0;
   currUserid!:string
+  currUser!:User
 
   constructor(private swipeService: TouchSwipeService,
     private auth:AuthService,
     private api:ApiService,
-    private router:Router) {
+    private router:Router,
+    private activatedRoute:ActivatedRoute) {
+      let postid=this.activatedRoute.snapshot.paramMap.get('postid');
+      if(postid){
+        api.getPostById(postid).subscribe((data:any)=>{
+          this.post=data;
+          console.log('post is working',data);
+          this.ngOnInit();
+        })
+      }
       let id=auth.getUserId();
-      if(id){
+      let user=auth.getUser();
+      if(id && user){
+        this.currUser=JSON.parse(user);
         this.currUserid=id;
       }
     }
 
-  @Input('post') post!:Post
-  postOwner!:User
-  
+
   ngOnInit(): void {
-    if(this.post.items){
+    if(this.post && this.post.items){
     
       this.maxIndex=this.post.items.length
       this.api.getUserByid(this.post.userid).subscribe((data:any)=>{
@@ -90,6 +102,14 @@ export class PostModelComponent implements OnInit {
         this.post.likeids.push(this.currUserid);
         this.api.addLike(this.currUserid,this.post.postid).subscribe((data)=>{
           console.log(data);
+          this.api.sendNotificationToUser(this.post.userid,
+            {
+              "userid":this.currUserid,
+              "date": new Date(),
+              "type":"like"
+            }).subscribe((data)=>{
+              console.log(data);              
+            })
         })
       }else{
         this.post.likeids.splice(ind,1);

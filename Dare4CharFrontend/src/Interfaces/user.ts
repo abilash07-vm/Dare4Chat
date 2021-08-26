@@ -28,3 +28,10 @@ export interface RequestRecieved{
     userid:string,
     receivedids:string[]
 }
+
+export interface Pro{
+    user?:User,
+    userid:string
+    category:string,
+    description:string,
+}
