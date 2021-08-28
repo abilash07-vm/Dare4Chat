@@ -14,7 +14,18 @@ textarea{
     top: 7%;
     right:3%
 }
-
+.content{
+    margin-top: 120px;
+}
+.mat-card{
+    padding: 5px;
+}
+.mat-card-title{
+    margin: 0;
+}
+mat-card-subtitle{
+    margin: 0;
+}
 @media screen and (min-width: 650px) {
     .commentbox{
         top:12.5%;

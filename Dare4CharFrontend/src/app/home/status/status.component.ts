@@ -25,9 +25,13 @@ export class StatusComponent implements OnInit {
       let user:User=JSON.parse(struser);
       let userids=user.friendsids
       userids.push(user.userid);
+      console.log(userids);
+      
       userids.forEach((userid:string)=>{
         this.api.getStatusByUserId(userid).subscribe((data:any)=>{
           let statusArr:Status[]=data;
+          console.log(userid,statusArr);
+          
           this.api.getUserByid(userid).subscribe((user:any)=>{
             if(statusArr.length>0){
               this.filterStatus(user,statusArr);
@@ -48,9 +52,9 @@ export class StatusComponent implements OnInit {
           this.api.deleteStatusById(status.statusid).subscribe((data)=>{
             console.log('deleted status');
           })
-        }else{
-          newArray.push(status);
         }
+      }else{
+        newArray.push(status);        
       }
     })
     if(newArray.length)

@@ -105,6 +105,38 @@ const removeLikeToPost=(req,res)=>{
 	})
 }
 
+const addCommentToPost=(req,res)=>{
+	let comment=req.body;
+	let postid=req.params.postid;
+	Post.updateOne({postid},{
+		$push:{
+			comments: comment
+		}
+	}).then((data)=>{
+		console.log("added comment");
+		res.json({"message": "added comment"})
+	}).catch((err)=>{
+		console.log("not added comment");
+		res.json({"message": err})
+	})
+}
+
+const removeCommentToPost=(req,res)=>{
+	let comment=req.body;
+	let postid=req.params.postid;
+	Post.updateOne({postid},{
+		$pull:{
+			comments: comment
+		},
+	}).then((data)=>{
+		console.log("added comment");
+		res.json({"message": "removed comment"})
+	}).catch((err)=>{
+		console.log("not added comment");
+		res.json({"message": err})
+	})
+}
+
 
 
 module.exports = {
@@ -115,5 +147,7 @@ module.exports = {
 	getPostByUserId,
 	deletePostById,
 	addLikeToPost,
-	removeLikeToPost
+	removeLikeToPost,
+	addCommentToPost,
+	removeCommentToPost
 };

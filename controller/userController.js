@@ -150,9 +150,11 @@ const updateLastMessage=(userid,msg)=>{
 }
 
 const updateuserProDetails=(req,res)=>{
-	let userid=req.params.userid;
 	let changes=req.body;
-	User.updateOne({userid},changes).then((data)=>{
+	User.updateOne({userid: changes.userid},{
+		category: changes.category,
+		isPro:true,
+	}).then((data)=>{
 		res.json({"message":"pro updated"})
 	}).catch((err)=>{
 		console.log(err);

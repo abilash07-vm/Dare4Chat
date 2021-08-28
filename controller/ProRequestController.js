@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
-// const proRequest = require("../schema/pro-request");
-
 const proRequestSchema=require("../schema/pro-request");
-
 const ProRequest = mongoose.model("proRequest", proRequestSchema);
 
 const addProRequest = (req, res) => {
@@ -18,7 +15,8 @@ const addProRequest = (req, res) => {
 };
 
 const deleteProRequest=(req,res)=>{
-    let userid=req.param.userid;
+    let userid=req.params.userid;
+    console.log(userid);
     ProRequest.deleteMany({userid}).then(()=>{
         res.json({message:"delected pro request"})
     }) .catch((err) => {
@@ -26,10 +24,17 @@ const deleteProRequest=(req,res)=>{
     });
 }
 
-
+const getAllProRequest=(req,res)=>{
+    ProRequest.find({}).then((data)=>{
+        res.json(data);
+    }).catch((err)=>{
+        console.log('get pro request',err);
+    })
+}
 
 
 module.exports = {
 	addProRequest,
+    getAllProRequest,
     deleteProRequest
 };

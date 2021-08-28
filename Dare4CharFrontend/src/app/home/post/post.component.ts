@@ -11,9 +11,7 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class PostComponent implements OnInit {
   posts:Post[]=[]
-  constructor(private api:ApiService,private auth:AuthService) { 
-    
-  }
+  constructor(private api:ApiService,private auth:AuthService) { }
 
   ngOnInit(): void {
     let ids=[]

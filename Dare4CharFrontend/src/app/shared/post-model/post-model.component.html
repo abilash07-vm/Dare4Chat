@@ -6,11 +6,11 @@
         <mat-card-subtitle>{{ getDateInString() }}</mat-card-subtitle>
         <span class="spacer"></span>
         <!-- post menu -->
-        <button class="menu" mat-button [matMenuTriggerFor]="postmenu"><mat-icon class="menuicon">more_vert</mat-icon></button>
+        <button class="menu" *ngIf="postOwner" mat-button [matMenuTriggerFor]="postmenu"><mat-icon class="menuicon">more_vert</mat-icon></button>
 
         <mat-menu #postmenu="matMenu">
-            <button mat-menu-item (click)="onDelete()" class="menuitem">delete</button>
-            <button mat-menu-item class="menuitem">report</button>
+            <button mat-menu-item (click)="onDelete()" *ngIf="postOwner" [disabled]="postOwner.userid!=currUserid" class="menuitem">delete</button>
+            <button mat-menu-item class="menuitem" *ngIf="postOwner" [disabled]="postOwner.userid==currUserid">report</button>
         </mat-menu>
         
     </mat-card-header>

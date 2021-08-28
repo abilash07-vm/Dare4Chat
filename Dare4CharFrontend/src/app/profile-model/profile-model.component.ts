@@ -44,7 +44,7 @@ export class ProfileModelComponent implements OnInit {
       let id=this.auth.getUserId()
       if(id){
         this.currUserid=id
-        this.api.getPostByUserId(id).subscribe((data:any)=>{
+        this.api.getPostByUserId(this.user.userid).subscribe((data:any)=>{
           let postArr:Post[]=data;
           postArr.forEach((post)=>{
             this.posts.push(post)

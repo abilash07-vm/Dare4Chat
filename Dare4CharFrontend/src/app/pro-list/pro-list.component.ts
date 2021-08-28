@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pro, User} from 'src/Interfaces/user';
+import { ApiService } from 'src/Services/api.service';
 
 @Component({
   selector: 'app-pro-list',
@@ -8,17 +9,49 @@ import { Pro, User} from 'src/Interfaces/user';
 })
 export class ProListComponent implements OnInit {
   pro_users:Pro[]=[]
-  constructor() { }
+  constructor(private api:ApiService) { }
 
   ngOnInit(): void {
+    this.api.getAllProRequest().subscribe((reqs:any)=>{
+      console.log('requests',reqs);
+      this.pro_users=reqs
+      this.updateUser()
+    })
+  }
+
+  updateUser(){
+    for(let i=0;i<this.pro_users.length;i++){
+      let userid=this.pro_users[i].userid;
+      this.api.getUserByid(userid).subscribe((data:any)=>{
+        this.pro_users[i].user=data
+      })
+    }
   }
 
   onClickUser(user:User){
 
   }
 
-  getProfile(i:number){
+  getProfile(proreq:Pro){
+    return proreq.user?.profileurl ? proreq.user.profileurl: this.api.profileurl;
+  }
 
+  onAccept(pro:Pro){
+    this.api.updateUserProDetail(pro).subscribe((data)=>{
+      console.log(pro.userid);
+      this.api.deleteProRequest(pro.userid).subscribe(()=>{
+        console.log(pro);
+        this.ngOnInit();        
+      })
+    })
+  }
+
+  onReject(pro:Pro){
+    this.api.deleteProRequest(pro.userid).subscribe((data)=>{
+      console.log(pro);
+      console.log(data);
+      this.ngOnInit();
+    })
   }
 
 }

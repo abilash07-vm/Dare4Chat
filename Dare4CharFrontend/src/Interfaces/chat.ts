@@ -4,6 +4,7 @@ export interface Message {
     message: string,
     messageid:string,
     date:Date,
+    type:string,
     isRead: boolean
 }
 

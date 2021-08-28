@@ -1,10 +1,10 @@
 const express = require("express");
-const { addProRequest, deleteProRequest } = require("../controller/ProRequestController");
+const { addProRequest, deleteProRequest, getAllProRequest } = require("../controller/ProRequestController");
 
 const router = express.Router();
 
 module.exports = () => {
-    router.post('',addProRequest);
+    router.route('').post(addProRequest).get(getAllProRequest);
     router.delete('/:userid',deleteProRequest);
 	return router;
 };

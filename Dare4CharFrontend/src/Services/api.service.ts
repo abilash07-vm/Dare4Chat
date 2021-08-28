@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Message } from 'src/Interfaces/chat';
-import { Post } from 'src/Interfaces/post';
+import { Post,Comment } from 'src/Interfaces/post';
 import { Status } from 'src/Interfaces/status';
 import { Pro, User } from 'src/Interfaces/user';
 import { AuthService } from './auth.service';
@@ -149,6 +149,14 @@ export class ApiService {
         return this.http.put(`${baseurl}post/removelike/${userid}/${postid}`,{},{headers:this.headers})
     }
 
+    //Comment
+    addCommentToAPost(postid:string,comment:Comment){
+        return this.http.put(`${baseurl}post/addcomment/${postid}`,comment,{headers:this.headers})
+    }
+    removeCommentFromPost(postid:string,comment:Comment){
+        return this.http.put(`${baseurl}post/removecomment/${postid}`,comment,{headers:this.headers})
+    }
+
     // Message
     addMessage(message: Message) {
         return this.http.post(baseurl + 'message', message,{ headers: this.headers });
@@ -177,7 +185,7 @@ export class ApiService {
 
     // date difference
     getDateDiffFromNowInMS(date:Date){
-        return new Date().getTime()-date.getTime()
+        return new Date().getTime()-new Date(date).getTime()
     }
     getDateDiffInWord(diffInMS:number){
         let aSec=1000;
@@ -252,7 +260,13 @@ export class ApiService {
     addProRequest(proRequest:Pro){
         return this.http.post(`${baseurl}pro/`,proRequest,{headers:this.headers});
     }
-
+    getAllProRequest(){
+        return this.http.get(`${baseurl}pro/`,{headers:this.headers});
+    }
+    deleteProRequest(userid:string){
+        console.log(userid);
+        return this.http.delete(`${baseurl}pro/${userid}`,{headers:this.headers});
+    }
    
     
 }

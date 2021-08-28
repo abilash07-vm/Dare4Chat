@@ -87,6 +87,7 @@ export class MessagePageComponent implements OnInit {
       "from":this.curr_userid,
       "to": this.user.userid,
       "message": this.curr_message,
+      "type":'text',
       "date": new Date(),
       "isRead": false,
       "messageid": '12345'
