@@ -24,6 +24,10 @@
     left: 0;
     height: 50px;
 }
+.large{
+    color: black;
+    font-size: 30px;
+}
 .navbar .mat-toolbar-row {
     display: flex;
     flex-direction: row;

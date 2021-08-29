@@ -1,9 +1,9 @@
 <div  class="commentbox">
-    <textarea placeholder="comment" rows="1" wrap="hard" #comment></textarea>
-    <mat-icon (click)="onComment(comment.value)">send</mat-icon>
+    <textarea placeholder="add comment ..." rows="1" wrap="hard" [(ngModel)]="usercomment"></textarea>
+    <mat-icon *ngIf="usercomment.length>0" (click)="onComment()">send</mat-icon>
 </div>
 <div class="content">
-    <mat-card *ngFor="let comment of comments ;index as i">
+    <mat-card *ngFor="let comment of comments.reverse() ;index as i">
         <mat-card-header *ngIf="users[comment.userid]">
             <img mat-card-avatar src="{{ getProfile(i) }}">
             <div>
@@ -11,6 +11,7 @@
                 <mat-card-subtitle  style="font-size: 20px;font-weight: 800;" ><strong>{{ comment.message }}</strong></mat-card-subtitle>
             </div>
         </mat-card-header>
+        <p class="date" style="font-size: 12px;">{{ getDate(comment.date) }}</p>
             
     </mat-card>
         

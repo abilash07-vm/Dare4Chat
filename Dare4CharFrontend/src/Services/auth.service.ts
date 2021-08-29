@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User, UserCredientials } from 'src/Interfaces/user';
 
-const baseurl = environment.baseurl;
+const baseurl = environment.BASEURL;
 const ADD_KEY = 'dare4chat-add-key';
 const JWT_TOKEN='dare4chat-jwt-key';
 const USER_KEY='dare4chat-user-key';

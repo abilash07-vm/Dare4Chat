@@ -51,11 +51,21 @@ const notificationInitialize = (userid) => {
 
 const getNotificationByUserId=(req,res)=>{
 	let userid=req.params.userid;
-	Notification.find({userid}).then((data)=>{
-		res.status(201).send(data);
+	Notification.findOne({userid}).then((data)=>{
+		res.status(201).json(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in get notification by userid func" });
 	})
+}
+
+const updateReadNotification=(req,res)=>{
+    let notification=req.body;
+    Notification.updateOne(notification,{read:true}).then(()=>{
+        console.log('notification',notification,'updated');
+        res.json({'message':'updated read'})
+    }).catch((err)=>{
+        res.json({'message':'err in updateRead'})
+    })
 }
 
 
@@ -63,5 +73,6 @@ module.exports = {
 	addNotification,
 	getNotificationByUserId,
     addNotificationInternal,
-    notificationInitialize
+    notificationInitialize,
+    updateReadNotification
 };

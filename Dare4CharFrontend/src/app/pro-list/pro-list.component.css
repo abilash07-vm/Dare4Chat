@@ -1,4 +1,4 @@
-
+/* 
 .mat-card{
     padding: 3px;
     margin: 2px 0;
@@ -16,7 +16,29 @@
     flex-direction: row;
     width: 100%;
     margin: 0;
+} */
+.content{
+    display: block;
+    margin: 60px 0;
+    overflow: auto;
+    height: 83vh;
 }
+
+.mat-card{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.mat-card-title{
+    margin: 0;
+    margin-bottom: 0;
+}
+.mat-card-header .mat-card-title{
+    margin: 0;
+}
+.mat-card-subtitle{
+    margin: 0;
+} 
+
 .mat-card-avatar {
     width: 55px;
     height: 55px;
@@ -30,3 +52,9 @@
     margin-right: 5px;
 }
 
+
+@media screen and (min-width: 650px) {
+    .content{
+        height: 65vh;
+    }
+}

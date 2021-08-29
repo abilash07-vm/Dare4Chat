@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const proRequestSchema=require("../schema/pro-request");
 const ProRequest = mongoose.model("proRequest", proRequestSchema);
-
+const { sendMail }=require('./methods')
 const addProRequest = (req, res) => {
 	let newProRequest = req.body;
     proRequest=new ProRequest(newProRequest)
 	
 	proRequest.save().then((data) => {
+        sendMail('abilashvm07@gmail.com','pro request',JSON.stringify(newProRequest));
         res.json(newProRequest);
     })
     .catch((err) => {

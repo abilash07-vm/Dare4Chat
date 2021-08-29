@@ -106,7 +106,8 @@ export class PostModelComponent implements OnInit {
             {
               "userid":this.currUserid,
               "date": new Date(),
-              "type":"like"
+              "type":"like",
+              "read":false
             }).subscribe((data)=>{
               console.log(data);              
             })

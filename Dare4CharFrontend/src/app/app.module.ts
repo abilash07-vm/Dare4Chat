@@ -27,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTabsModule } from '@angular/material/tabs'
+import { MatBadgeModule } from '@angular/material/badge'
 
 // Loading
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -70,6 +71,8 @@ import { ProListComponent } from './pro-list/pro-list.component';
         MatSlideToggleModule,
         MatSnackBarModule,
         MatTabsModule,
+        MatBadgeModule,
+    
 
         // Loading Spinner
         NgxSpinnerModule,

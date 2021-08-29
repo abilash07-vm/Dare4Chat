@@ -14,6 +14,7 @@ export class CommentsComponent implements OnInit {
   post!:Post
   currUserid!: string;
   comments:Comment[]=[]
+  usercomment:string=''
   users: {[userid:string]:User}={}
 
   constructor(private activatedRoute:ActivatedRoute,
@@ -48,18 +49,24 @@ export class CommentsComponent implements OnInit {
     return this.users[ind]?.profileurl ? this.users[ind].profileurl : this.api.profileurl;
   }
 
-  onComment(val:string){
+  getDate(date:Date){
+    return this.api.getDateDiffInWord(this.api.getDateDiffFromNowInMS(date));
+  }
+
+  onComment(){
     if(this.post?.postid){
-      let comment:Comment={"date":new Date(),"message":val,"userid":this.currUserid}
+      let comment:Comment={"date":new Date(),"message":this.usercomment,"userid":this.currUserid}
       this.api.addCommentToAPost(this.post.postid,comment).subscribe((data:any)=>{
         console.log(data);
         this.api.sendNotificationToUser(this.post.userid,
           {
             "userid":this.currUserid,
             "date": new Date(),
-            "type":"comment"
+            "type":"comment",
+            "read": false
           }).subscribe((data)=>{
-            console.log(data);              
+            console.log(data);  
+            window.location.reload();            
           })
         
       })

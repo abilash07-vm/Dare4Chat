@@ -12,20 +12,20 @@
 <!-- Navigation bar -->
 <mat-toolbar *ngIf="isLogin()" class="navbar" color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button routerLink="home">
-            <mat-icon>home</mat-icon>
+        <button mat-icon-button>
+            <mat-icon [ngClass]="{'large': currentTab==='home'}" (click)="updateTabName('home')">home</mat-icon>
         </button>
-        <button mat-icon-button routerLink="search">
-            <mat-icon>search</mat-icon>
+        <button mat-icon-button>
+            <mat-icon [ngClass]="{'large': currentTab==='search'}" (click)="updateTabName('search')">search</mat-icon>
         </button>
-        <button mat-icon-button routerLink="add">
-            <mat-icon>control_point</mat-icon>
+        <button mat-icon-button>
+            <mat-icon [ngClass]="{'large': currentTab==='add'}" (click)="updateTabName('add')">control_point</mat-icon>
         </button>
-        <button mat-icon-button routerLink="notifications">
-            <mat-icon>notifications</mat-icon>
+        <button mat-icon-button>
+            <mat-icon [ngClass]="{'large': currentTab==='notifications'}" matBadge="15" matBadgeColor="warn" (click)="updateTabName('notifications')">notifications</mat-icon>
         </button>
-        <button mat-icon-button routerLink="profile">
-            <mat-icon>person</mat-icon>
+        <button mat-icon-button>
+            <mat-icon [ngClass]="{'large': currentTab==='profile'}" (click)="updateTabName('profile')">person</mat-icon>
         </button>
     </mat-toolbar-row>
 </mat-toolbar>

@@ -14,5 +14,8 @@ module.exports = mongoose.Schema({
         date:{
             type: Date
         },
+        read:{
+            type: Boolean
+        }
     }]
 });

@@ -4,8 +4,13 @@
     left: 0;
     right: 0;
 }
+.date{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 textarea{
-    width: 98%;
+    width: 100%;
     padding-right: 20px;
 }
 .mat-icon{
@@ -15,19 +20,36 @@ textarea{
     right:3%
 }
 .content{
-    margin-top: 120px;
+    display: block;
+    margin: 105px 0;
+    overflow: auto;
+    height: 75vh;
+}
+.content .mat-icon{
+    position: relative;
 }
 .mat-card{
     padding: 5px;
 }
 .mat-card-title{
     margin: 0;
+    margin-bottom: 0;
 }
-mat-card-subtitle{
+.mat-card-header .mat-card-title{
+    margin: 0;
+}
+.mat-card-subtitle{
     margin: 0;
 }
 @media screen and (min-width: 650px) {
     .commentbox{
         top:12.5%;
+    }
+
+    .content{
+        display: block;
+        margin: 110px 0;
+        overflow: auto;
+        height: 65vh;
     }
 }

@@ -1,0 +1,32 @@
+.date{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.content{
+    display: block;
+    margin: 90px 0;
+    overflow: auto;
+    height: 75vh;
+}
+
+.mat-card{
+    padding: 5px;
+}
+.mat-card-title{
+    margin: 0;
+    margin-bottom: 0;
+}
+.mat-card-header .mat-card-title{
+    margin: 0;
+}
+.mat-card-subtitle{
+    margin: 0;
+} 
+
+@media screen and (min-width: 650px) {
+    .content{
+        height: 65vh;
+    }
+}
