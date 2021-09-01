@@ -9,6 +9,8 @@ import { PendingChangesGuard } from '../Services/pending-changes-guard.guard';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { PostModelComponent } from './shared/post-model/post-model.component';
 import { ProListComponent } from './pro-list/pro-list.component';
+import { FriendRequestComponent } from './friend-request/friend-request.component';
+import { ProfileModelComponent } from './profile-model/profile-model.component';
 
 const routes: Routes = [
     {
@@ -30,6 +32,12 @@ const routes: Routes = [
         component: LoginLogoutComponent
     },
     {
+        path: 'profileid/:userid',
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
+        component: ProfileModelComponent
+    },
+    {
         path: 'profile',
         canActivate: [AuthGuard],
         canDeactivate: [PendingChangesGuard],
@@ -48,16 +56,22 @@ const routes: Routes = [
     },
     {
         path: 'post/:postid',
+        canActivate: [AuthGuard],
         component: PostModelComponent
     },{
         path:'pro',
+        canActivate: [AuthGuard],
         component: ProListComponent
+    },{
+        path: 'req',
+        canActivate: [AuthGuard],
+        component: FriendRequestComponent
     },
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-    },
+    // { 
+    //     path: '**',
+    //     redirectTo: '/home', 
+    //     pathMatch: 'full' 
+    // }
     
 ];
 

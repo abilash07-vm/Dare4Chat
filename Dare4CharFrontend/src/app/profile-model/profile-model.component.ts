@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Post } from 'src/Interfaces/post';
 import { User } from 'src/Interfaces/user';
@@ -31,33 +32,50 @@ export class ProfileModelComponent implements OnInit {
       private auth:AuthService,
       private uploadService: UploadFileService,
       private spinnerService: NgxSpinnerService,
-      private popups:PopupsService) {}
+      private popups:PopupsService,
+      private activatedRoute:ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.update_user=Object.assign({},this.user)
-    this.newUrlOfProfile=this.getProfileUrl()
-    if(this.user.category!='Public'){
-      this.category=this.user.category;
-    }
-    let user=this.auth.getUser()
-    if(user){
-      let id=this.auth.getUserId()
-      if(id){
-        this.currUserid=id
-        this.api.getPostByUserId(this.user.userid).subscribe((data:any)=>{
-          let postArr:Post[]=data;
-          postArr.forEach((post)=>{
-            this.posts.push(post)
-            console.log(post);
-          })
-        })  
+    if(this.user){
+      this.update_user=Object.assign({},this.user)
+      this.newUrlOfProfile=this.getProfileUrl()
+      if(this.user.category!='Public'){
+        this.category=this.user.category;
       }
-     
+      let user=this.auth.getUser()
+      if(user){
+        let id=this.auth.getUserId()
+        if(id){
+          this.currUserid=id
+          this.api.getPostByUserId(this.user.userid).subscribe((data:any)=>{
+            let postArr:Post[]=data;
+            postArr.forEach((post)=>{
+              this.posts.push(post)
+              console.log(post);
+            })
+          })  
+        }
+      
+      }
+    }else{
+      this.getUserByLink();
     }
   }
 
+  getUserByLink()
+  {
+    this.activatedRoute.paramMap.subscribe((paramMap)=>{
+      let userid=paramMap.get('userid');
+      if(userid){
+        this.api.getUserByid(userid).subscribe((data:any)=>{
+          this.user=data;
+          this.ngOnInit();
+        })
+      }
+    })
+  }
   getProfileUrl(){
-    return this.user.profileurl ? this.user.profileurl:this.api.profileurl;
+    return this.user?.profileurl ? this.user.profileurl:this.api.profileurl;
   }
 
   onRequest(){

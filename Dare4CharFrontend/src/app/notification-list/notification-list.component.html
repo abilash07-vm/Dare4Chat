@@ -1,7 +1,13 @@
 <div class="content">
+    <mat-card style="padding: 14px 0 10px 0;background-color: black;color: azure;" routerLink="/req">
+        <mat-card-header>
+            <mat-icon style="font-size: 25px; margin-right: 20px;"  matBadge="15" matBadgeColor="warn" >person_add</mat-icon>
+            <h5>Friend Request</h5>
+        </mat-card-header>
+    </mat-card>
     <mat-card *ngFor="let notification of notifications.reverse();index as i" class="status">
         <mat-card-header *ngIf="users[notification.userid]">
-            <img mat-card-avatar src="{{ getProfile(i) }}"/>
+            <img mat-card-avatar src="{{ getProfile(notification.userid) }}"/>
             <mat-card-title>{{ users[notification.userid].username }} <mat-icon *ngIf="users[notification.userid].isPro">verified</mat-icon></mat-card-title>
             <mat-card-subtitle *ngIf="notification.message" style="margin-left: 10px;" >{{ notification.message }}</mat-card-subtitle>
         </mat-card-header>

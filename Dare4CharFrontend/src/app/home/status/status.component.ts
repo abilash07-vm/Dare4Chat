@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Status, StatusUser } from 'src/Interfaces/status';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
-
-
 
 @Component({
   selector: 'app-status',

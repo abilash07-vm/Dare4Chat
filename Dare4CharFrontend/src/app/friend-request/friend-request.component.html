@@ -1,0 +1,18 @@
+<div class="content">
+    <mat-card *ngFor="let user of userReqList ;index as i">
+        <!-- (click)="onClickUser(userPro.user)"> -->
+            <mat-card-header class="status">
+                <img mat-card-avatar src="{{ getProfile(user) }}">
+                <div>
+                    <mat-card-title>{{ user.username }} <mat-icon *ngIf="user.isPro">verified</mat-icon></mat-card-title>
+                    <mat-card-subtitle  style="font-size: 20px;font-weight: 800;" ><strong>{{ user.bio }}</strong></mat-card-subtitle>
+                </div>
+            </mat-card-header>
+            <div class="center">
+                <button color="primary" mat-raised-button (click)="onAccept(user)">Accept</button>
+                <button color="primary" mat-raised-button (click)="onReject(user)">Reject</button>
+            </div>
+            
+        </mat-card>
+        
+</div>

@@ -35,6 +35,8 @@ import { SharedModule } from './shared/shared.module';
 import { PullToRefreshModule } from '@piumaz/pull-to-refresh';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { ProListComponent } from './pro-list/pro-list.component';
+import { FriendRequestComponent } from './friend-request/friend-request.component';
+import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
 
 @NgModule({
     declarations: [
@@ -46,13 +48,18 @@ import { ProListComponent } from './pro-list/pro-list.component';
         SearchComponent,
         NotificationListComponent,
         ProListComponent,
+        FriendRequestComponent,
+        ProfileByIdComponent,
 
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        AppRoutingModule,
         HttpClientModule,
+
+        // Routing
+        AppRoutingModule,
+        
         ReactiveFormsModule,
         FormsModule,
         SharedModule,
@@ -78,7 +85,10 @@ import { ProListComponent } from './pro-list/pro-list.component';
         NgxSpinnerModule,
 
         // Pull to Refresh
-        PullToRefreshModule
+        PullToRefreshModule,
+
+       
+
     ],
     providers: [],
     bootstrap: [AppComponent],

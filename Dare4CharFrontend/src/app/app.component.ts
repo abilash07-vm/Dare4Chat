@@ -10,23 +10,26 @@ import { AuthService } from 'src/Services/auth.service';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    title = 'Dare4CharFrontend';
+    title = 'Dare4Chat';
     userid!:string
     notificationCount:number=0
-    currentTab:string='home'
+    currentTab!:string
     constructor(private auth: AuthService,
         private router:Router,
         private api:ApiService,
         private refresh:PullToRefreshService) {
         let id= this.auth.getUserId();
+        this.updateTabName(this.currentTabName())
         if(id){
             this.userid=id;
             refresh.refresh$().subscribe(()=>{
                 console.log('refresh by observable');
-                window.location.reload()
+                window.location.reload();
+                this.updateTabName(window.location.pathname.split('/')[1])
+                console.log(window.location.pathname.split('/'));
+                
             })
             this.observeBadges()
-            this.updateTabName('home')
         }
     }
 
@@ -35,9 +38,17 @@ export class AppComponent {
             this.notificationCount=count;
         })
     }
+    currentTabName(){
+        let l=window.location.pathname.split('/');
+        console.log(l);
+        return l[1]
+    }
     updateTabName(path:string){
+        console.log(path);
         this.currentTab=path
-        this.router.navigate(['/',path]);
+        if(['home','search','add','notifications','profile'].indexOf(path)>=0){
+            this.router.navigate(['/',path]);
+        }
     }
 
     isLogin(){

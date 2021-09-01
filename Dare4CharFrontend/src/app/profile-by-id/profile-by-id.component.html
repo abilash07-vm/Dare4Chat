@@ -1,0 +1,7 @@
+<mat-icon *ngIf="user && type"  (click)=" onGoBack()">arrow_back</mat-icon>
+<app-profile-model 
+    *ngIf="user && type" 
+    [user]="user"
+    [type]="type"
+    (refresh)="onRefresh($event)">
+</app-profile-model>

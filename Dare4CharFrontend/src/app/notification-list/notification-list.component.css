@@ -1,18 +1,19 @@
 .date{
     position: absolute;
-    right: 0;
+    right: 15px;
     bottom: 0;
 }
 
 .content{
     display: block;
-    margin: 90px 0;
+    margin: 57px 0 0 0;
     overflow: auto;
-    height: 75vh;
+    height: 83vh;
 }
 
 .mat-card{
     padding: 5px;
+    border-radius: 0;
 }
 .mat-card-title{
     margin: 0;
@@ -23,6 +24,7 @@
 }
 .mat-card-subtitle{
     margin: 0;
+    margin-bottom: 7px
 } 
 
 @media screen and (min-width: 650px) {
