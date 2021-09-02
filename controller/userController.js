@@ -117,7 +117,7 @@ const addUserFriendsid=(req,res)=>{
 		}
 	}).then((data)=>{
 		onCancleFriendRequest(userid,friendid)
-		addNotificationInternal(friendid,{userid,type:'accepted',date:new Date()})
+		addNotificationInternal(friendid,{userid,type:'accepted',date:new Date(),read:false})
 		console.log('added friendid from user',friendid);
 		res.json({"message":"added friend"})
 	}).catch((err)=>{

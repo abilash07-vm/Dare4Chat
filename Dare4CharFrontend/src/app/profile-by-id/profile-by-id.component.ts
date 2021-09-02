@@ -19,10 +19,17 @@ export class ProfileByIdComponent implements OnInit {
     private auth:AuthService) { }
 
   ngOnInit(): void {
+    let currid=this.auth.getUserId()
+    if(currid){
+      this.currUserId=currid
+    }
+    console.log('profile by id');
+    
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
       let userid=paramMap.get('userid');
       if(userid){
-        this.currUserId=userid;
+        console.log('activatedmap');
+        
         this.onRefresh({userid:userid,emailid:"",username:"",postids:[],friendsids:[],isOnline: false,lastseen: new Date(),isPro:  true,bio:"",category:"",})
       }
     });
@@ -35,12 +42,17 @@ export class ProfileByIdComponent implements OnInit {
   onRefresh(user:User){
     this.api.getUserByid(user.userid).subscribe((data:any)=>{
       this.onProfileClick(data);
+      if(user.userid==this.currUserId)
       this.auth.setUser(JSON.stringify(data));
     })
   }
 
 
   onProfileClick(user:User){
+    console.log(this.currUserId);
+    console.log(user);
+    
+    
     if(!user.userid){
       return;
     }else if(this.currUserId===user.userid){

@@ -22,7 +22,11 @@
             <mat-icon [ngClass]="{'large': currentTab==='add'}" (click)="updateTabName('add')">control_point</mat-icon>
         </button>
         <button mat-icon-button>
-            <mat-icon [ngClass]="{'large': currentTab==='notifications'}" matBadge="15" matBadgeColor="warn" (click)="updateTabName('notifications')">notifications</mat-icon>
+            <mat-icon [ngClass]="{'large': currentTab==='notifications'}" 
+                [matBadge]="notificationCount" 
+                matBadgeColor="warn"
+                [matBadgeHidden]="notificationCount==0"
+                (click)="updateTabName('notifications')">notifications</mat-icon>
         </button>
         <button mat-icon-button>
             <mat-icon [ngClass]="{'large': currentTab==='profile'}" (click)="updateTabName('profile')">person</mat-icon>

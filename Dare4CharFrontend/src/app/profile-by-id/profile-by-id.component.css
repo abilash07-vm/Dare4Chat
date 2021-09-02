@@ -1,0 +1,11 @@
+.content{
+    display: block;
+    overflow: auto;
+    height: 83vh;
+    margin-top: 57px;
+}
+@media screen and (min-width: 650px) {
+    .content{
+        height: 80vh;
+    }
+}

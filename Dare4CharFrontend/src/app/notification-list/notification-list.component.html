@@ -1,17 +1,20 @@
 <div class="content">
-    <mat-card style="padding: 14px 0 10px 0;background-color: black;color: azure;" routerLink="/req">
+    <mat-card class="btn" style="padding: 14px 0 5px 0;background-color: black;color: azure;" routerLink="/req">
         <mat-card-header>
-            <mat-icon style="font-size: 25px; margin-right: 20px;"  matBadge="15" matBadgeColor="warn" >person_add</mat-icon>
+            <mat-icon style="font-size: 25px; margin-right: 20px;"  
+                [matBadge]="reqCount" 
+                matBadgeColor="warn"
+                [matBadgeHidden]="reqCount==0" >person_add</mat-icon>
             <h5>Friend Request</h5>
         </mat-card-header>
     </mat-card>
-    <mat-card *ngFor="let notification of notifications.reverse();index as i" class="status">
+    <mat-card *ngFor="let notification of notifications;index as i" (click)="onNotificationClick(notification)" class="status">
         <mat-card-header *ngIf="users[notification.userid]">
             <img mat-card-avatar src="{{ getProfile(notification.userid) }}"/>
             <mat-card-title>{{ users[notification.userid].username }} <mat-icon *ngIf="users[notification.userid].isPro">verified</mat-icon></mat-card-title>
             <mat-card-subtitle *ngIf="notification.message" style="margin-left: 10px;" >{{ notification.message }}</mat-card-subtitle>
         </mat-card-header>
-        <p class="date" style="font-size: 12px;">{{ getDate(notification.date) }}</p>
+        <p *ngIf="notification.date" class="date" style="font-size: 12px;">{{ getDate(notification.date) }}</p>
     </mat-card>
     
 </div>

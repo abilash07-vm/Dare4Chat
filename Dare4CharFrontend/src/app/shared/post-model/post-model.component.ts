@@ -18,6 +18,7 @@ export class PostModelComponent implements OnInit {
   maxIndex = 0;
   currUserid!:string
   currUser!:User
+  isSeperatePage=false
 
   constructor(private swipeService: TouchSwipeService,
     private auth:AuthService,
@@ -26,6 +27,7 @@ export class PostModelComponent implements OnInit {
     private activatedRoute:ActivatedRoute) {
       let postid=this.activatedRoute.snapshot.paramMap.get('postid');
       if(postid){
+        this.isSeperatePage=true
         api.getPostById(postid).subscribe((data:any)=>{
           this.post=data;
           console.log('post is working',data);
@@ -107,7 +109,9 @@ export class PostModelComponent implements OnInit {
               "userid":this.currUserid,
               "date": new Date(),
               "type":"like",
-              "read":false
+              "read":false,
+              "postid":this.post.postid,
+              "notificationid":"12"
             }).subscribe((data)=>{
               console.log(data);              
             })

@@ -63,7 +63,9 @@ export class CommentsComponent implements OnInit {
             "userid":this.currUserid,
             "date": new Date(),
             "type":"comment",
-            "read": false
+            "read": false,
+            "postid":this.post.postid,
+            "notificationid":"12"
           }).subscribe((data)=>{
             console.log(data);  
             window.location.reload();            

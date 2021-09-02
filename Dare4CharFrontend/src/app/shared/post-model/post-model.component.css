@@ -11,6 +11,14 @@
     margin: 0;
 }
 
+.content{
+    display: block;
+    overflow: auto;
+    height: 83vh;
+    margin-top: 57px;
+}
+
+
 .icons{
     display: flex;
     flex-direction: row;
@@ -25,12 +33,7 @@
     justify-content: space-between;
 }
 
-button{
-    margin: 0;
-    padding: 0;
-    text-align: right;
-}
-.menuicon{
+button,.menuicon{
     margin: 0;
     padding: 0;
     text-align: right;
@@ -40,4 +43,10 @@ button{
 }
 p{
     margin: 0;
+}
+
+@media screen and (min-width: 650px) {
+    .content{
+        height: 80vh;
+    }
 }

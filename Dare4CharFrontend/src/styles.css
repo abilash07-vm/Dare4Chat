@@ -58,12 +58,10 @@ p{
 }
 
 .dummy{
-    position: absolute;
+    display: block;
     text-align: center;
-    align-self: center;
-    justify-self: center;
+    width: 60vw;
     margin: auto;
-    top: 40%;
 }
 
 

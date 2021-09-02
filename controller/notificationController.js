@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const notificationSchema=require("../schema/notificationSchema");
+const { generateKey } = require("./methods");
 
 const { Socket } =require('./socket')
 
@@ -10,6 +11,7 @@ const Notification = mongoose.model("notification", notificationSchema);
 const addNotification = (req, res) => {
     let userid=req.params.userid;
 	let newNotification = req.body;
+    newNotification.notificationid=generateKey()
 	
 	Notification.updateOne({userid},{
         $push :{
@@ -25,6 +27,7 @@ const addNotification = (req, res) => {
 };
 
 const addNotificationInternal = (userid, newNotification) => {
+    newNotification.notificationid=generateKey()
 	Notification.updateOne({userid},{
         $push :{
             notifications:newNotification
@@ -52,15 +55,34 @@ const notificationInitialize = (userid) => {
 const getNotificationByUserId=(req,res)=>{
 	let userid=req.params.userid;
 	Notification.findOne({userid}).then((data)=>{
-		res.status(201).json(data);
+		res.json(data);
 	}).catch((err)=>{
-		res.status(406).json({ message: "err in get notification by userid func" });
+		res.json({ message: "err in get notification by userid func" });
+	})
+}
+
+const getUnReadNotificationCountByUserId=(req,res)=>{
+	let userid=req.params.userid;
+    console.log(userid);
+	Notification.findOne({userid}).then((data)=>{
+        console.log(data);
+        count=0
+        data.notifications.forEach((notification)=>{
+            if(notification.read==false){
+                count+=1
+            }else{
+                console.log(notification);
+            }
+        })
+		res.json({count});
+	}).catch((err)=>{
+		res.json({ message: "err in get unread notification by userid func" });
 	})
 }
 
 const updateReadNotification=(req,res)=>{
-    let notification=req.body;
-    Notification.updateOne(notification,{read:true}).then(()=>{
+    let notificationid=req.params.id;
+    Notification.updateOne({notificationid},{read:true}).then(()=>{
         console.log('notification',notification,'updated');
         res.json({'message':'updated read'})
     }).catch((err)=>{
@@ -72,6 +94,7 @@ const updateReadNotification=(req,res)=>{
 module.exports = {
 	addNotification,
 	getNotificationByUserId,
+    getUnReadNotificationCountByUserId,
     addNotificationInternal,
     notificationInitialize,
     updateReadNotification

@@ -24,6 +24,7 @@ export class ProfileModelComponent implements OnInit {
 
   isEdit=false
   isProRequest=false
+  isSeperatePage=false
 
   posts:Post[]=[]
   detail_verify: string='';
@@ -58,6 +59,7 @@ export class ProfileModelComponent implements OnInit {
       
       }
     }else{
+      this.isSeperatePage=true
       this.getUserByLink();
     }
   }

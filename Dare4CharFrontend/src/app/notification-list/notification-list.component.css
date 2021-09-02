@@ -29,6 +29,7 @@
 
 @media screen and (min-width: 650px) {
     .content{
-        height: 65vh;
+        margin: 64px 0 0 0;
+        height: 76vh;
     }
 }

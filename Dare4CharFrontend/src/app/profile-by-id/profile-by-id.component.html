@@ -1,5 +1,6 @@
-<mat-icon *ngIf="user && type"  (click)=" onGoBack()">arrow_back</mat-icon>
+<!-- <mat-icon *ngIf="user && type"  (click)=" onGoBack()">arrow_back</mat-icon> -->
 <app-profile-model 
+    class="content"
     *ngIf="user && type" 
     [user]="user"
     [type]="type"

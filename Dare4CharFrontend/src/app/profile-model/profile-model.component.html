@@ -1,5 +1,5 @@
 <ngx-spinner></ngx-spinner>
-<div class="profile" *ngIf="user">
+<div class="profile content" *ngIf="user" [ngClass]="{'content': isSeperatePage}">
 
     <!-- Edit -->
     <mat-card *ngIf="isEdit">

@@ -36,9 +36,8 @@ export class ApiService {
     private newNotification:Subject<any>=new Subject<any>();
     notificationObs=this.newNotification.asObservable();
 
-    private notificationCount:Subject<any>=new Subject<any>();
-    notificationCountObs=this.notificationCount.asObservable();
-
+    private navbarNotificationCount:Subject<any>=new Subject<any>();
+    notificationCountObs=this.navbarNotificationCount.asObservable();
 
     constructor(private http: HttpClient,
         private auth:AuthService) {
@@ -59,12 +58,13 @@ export class ApiService {
 
         socket.on(this.userid+'notification',(data:Notification)=>{
             this.newNotification.next(data);
+            this.updateNotificationInbottomNavBar(false)
             console.log(data);
         })
     }
 
-    setNotificationCount(count:number){
-        this.notificationCount.next(count);
+    updateNotificationInbottomNavBar(isReset:boolean){
+        this.navbarNotificationCount.next(isReset);
     }
 
     setTokenkey() {
@@ -263,12 +263,14 @@ export class ApiService {
     getNotificationByuserid(userid:string){
         return this.http.get(`${BASEURL}notification/${userid}`,{headers:this.headers});
     }
-
+    getUnreadNotificationCount(userid:string){
+        return this.http.get(`${BASEURL}notification/unread/${userid}`,{headers:this.headers});
+    }
     sendNotificationToUser(userid:string,notification:Notification){
         return this.http.post(`${BASEURL}notification/${userid}`,notification,{headers:this.headers});
     }
     updateReadNotification(notification:Notification){
-        return this.http.put(`${BASEURL}notification`,notification,{headers:this.headers});
+        return this.http.put(`${BASEURL}notification/${notification.notificationid}`,notification,{headers:this.headers});
     }
 
     //Pro request

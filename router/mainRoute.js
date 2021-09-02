@@ -18,13 +18,13 @@ require('dotenv').config()
 const router = express.Router();
 
 module.exports = () => {
-	router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
-	router.use((err, req, res, next) => {
-		if (err.name === "UnauthorizedError") {
-		//   res.status(401).json({ error: "Unauthorized user :(" });
-		res.redirect('http://localhost:4200/auth')
-	}
-	  });
+	// router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
+	// router.use((err, req, res, next) => {
+	// 	if (err.name === "UnauthorizedError") {
+	// 	//   res.status(401).json({ error: "Unauthorized user :(" });
+	// 		// res.redirect('http://localhost:4200/auth')
+	// 	}
+	//   });
 
 	router.route("/proVerify").post((req, res) => {
 		let user=req.body;

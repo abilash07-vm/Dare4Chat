@@ -5,6 +5,9 @@ module.exports = mongoose.Schema({
         type:String
     },
     notifications:[{
+        notificationid: {
+            type: String
+        },
         userid:{
             type: String
         },
@@ -16,6 +19,9 @@ module.exports = mongoose.Schema({
         },
         read:{
             type: Boolean
+        },
+        postid:{
+            type:String
         }
     }]
 });

@@ -1,7 +1,8 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Notification } from 'src/Interfaces/notification';
-import { User } from 'src/Interfaces/user';
+import { RequestRecieved, User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 
@@ -19,24 +20,36 @@ export class NotificationListComponent implements OnInit {
   currUserId!:string
   notifications:Notification[]=[]
   users:{[userid:string]:User}={}
+  reqCount: number=0;
   constructor(private auth:AuthService,
-    private api:ApiService,private changeDetector:ChangeDetectorRef) { }
+    private api:ApiService,private changeDetector:ChangeDetectorRef,
+    private router:Router) { }
 
   ngOnInit(): void {
     let userid=this.auth.getUserId();
     if(userid){
       this.currUserId=userid;
+      this.getRequestCount();
       this.api.getNotificationByuserid(userid).subscribe((data:any)=>{
         let backend_not:NotificationBackend=data
+        backend_not
         if(backend_not){
           this.notifications=backend_not.notifications
           console.log(this.notifications);
           
+          this.updateNotificationNavbarCount();
           this.updateNotificationMessageArr();
           this.updateNewNotificationFromSocket();
         }
       })
     }
+  }
+
+  updateNotificationNavbarCount(){
+    this.notifications.forEach((notification)=>{
+      this.api.updateReadNotification(notification).subscribe(()=>{});
+    })
+    this.api.updateNotificationInbottomNavBar(true);
   }
 
   updateNotificationMessageArr(){
@@ -47,6 +60,9 @@ export class NotificationListComponent implements OnInit {
   updateNewNotificationFromSocket(){
     this.api.notificationObs.subscribe((data:any)=>{
       this.notifications.push(data);
+      if(this.notifications[this.notifications.length-1].type==='request'){
+        this.reqCount+=1
+      }
       this.updateNotificationMessage(this.notifications.length-1);
       this.changeDetector.detectChanges();
 
@@ -74,6 +90,21 @@ export class NotificationListComponent implements OnInit {
       
     }
 
+  }
+
+  getRequestCount(){
+    this.api.getUserReceivedFriendRequest(this.currUserId).subscribe((data:any)=>{
+      let receiedReq:RequestRecieved=data;
+      this.reqCount=receiedReq.receivedids.length;
+    })
+  }
+  
+  onNotificationClick(notification:Notification){
+    if(notification.postid){
+      this.router.navigate(['/','post',notification.postid]);
+    }else{
+      this.router.navigate(['/','profileid',notification.userid]);
+    }
   }
 
   getProfile(userid:string){

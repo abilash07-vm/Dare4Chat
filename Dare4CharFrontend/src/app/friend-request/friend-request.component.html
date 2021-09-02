@@ -1,4 +1,5 @@
 <div class="content">
+    <p *ngIf="userReqList.length==0" class="dummy">No Request Found</p>
     <mat-card *ngFor="let user of userReqList ;index as i">
         <!-- (click)="onClickUser(userPro.user)"> -->
             <mat-card-header class="status">

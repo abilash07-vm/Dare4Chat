@@ -10,12 +10,15 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class FriendRequestComponent implements OnInit {
   userReqList:User[]=[]
+  currUserid!:string
 
   constructor(private api:ApiService,private auth:AuthService) { }
 
   ngOnInit(): void {
     let userid=this.auth.getUserId();
     if(userid){
+      this.currUserid=userid;
+      this.userReqList=[]
       this.api.getUserReceivedFriendRequest(userid).subscribe((data:any)=>{
         if(data){
           let userreq:RequestRecieved=data;
@@ -45,9 +48,20 @@ export class FriendRequestComponent implements OnInit {
   }
 
   onAccept(user:User){
-
+    this.api.addFriendid(this.currUserid,user.userid).subscribe((data)=>{
+      console.log('onAccept 1',data);
+      this.api.addFriendid(user.userid,this.currUserid).subscribe((data)=>{
+        console.log('onAccept 2',data);
+        this.ngOnInit()
+      })
+      
+    })
   }
 
   onReject(user:User){
+    this.api.cancelFriendRequest(this.currUserid,user.userid).subscribe((data)=>{
+      console.log('request rejected',data);
+      this.ngOnInit()
+    })
   }
 }

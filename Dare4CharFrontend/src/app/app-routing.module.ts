@@ -11,6 +11,7 @@ import { PostModelComponent } from './shared/post-model/post-model.component';
 import { ProListComponent } from './pro-list/pro-list.component';
 import { FriendRequestComponent } from './friend-request/friend-request.component';
 import { ProfileModelComponent } from './profile-model/profile-model.component';
+import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
 
 const routes: Routes = [
     {
@@ -31,18 +32,20 @@ const routes: Routes = [
         path: 'auth',
         component: LoginLogoutComponent
     },
-    {
-        path: 'profileid/:userid',
-        canActivate: [AuthGuard],
-        canDeactivate: [PendingChangesGuard],
-        component: ProfileModelComponent
-    },
+   
     {
         path: 'profile',
         canActivate: [AuthGuard],
         canDeactivate: [PendingChangesGuard],
         component: ProfileComponent
-    },{
+    },
+    {
+        path: 'profileid/:userid',
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard],
+        component: ProfileByIdComponent
+    },
+    {
         path: 'search',
         canActivate: [AuthGuard],
         canDeactivate: [PendingChangesGuard],
@@ -67,11 +70,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: FriendRequestComponent
     },
-    // { 
-    //     path: '**',
-    //     redirectTo: '/home', 
-    //     pathMatch: 'full' 
-    // }
+    { 
+        path: '**',
+        redirectTo: '/home', 
+        pathMatch: 'full' 
+    }
     
 ];
 

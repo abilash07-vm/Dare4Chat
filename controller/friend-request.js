@@ -29,7 +29,7 @@ const sendRequest=(userid,friendid)=>{
             sentids: friendid
         }
     }).then(()=>{
-        addNotificationInternal(friendid,{userid,type:'request',date:new Date()})
+        addNotificationInternal(friendid,{userid,type:'request',date:new Date(),read:false})
         console.log('request sent recorded',userid);
     }).catch((err)=>{
         console.log(err);

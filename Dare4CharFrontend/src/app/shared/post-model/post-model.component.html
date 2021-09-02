@@ -1,4 +1,4 @@
-<mat-card *ngIf="maxIndex" class="child">
+<mat-card *ngIf="maxIndex" class="child" [ngClass]="{'content': isSeperatePage}">
     
     <mat-card-header>
         <div *ngIf="postOwner" mat-card-avatar [ngStyle]="{'background': '#fff url(' + getProfileUrl() + ') no-repeat','background-size': 'cover'}"></div>
