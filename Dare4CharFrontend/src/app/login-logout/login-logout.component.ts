@@ -196,7 +196,8 @@ export class LoginLogoutComponent implements OnInit {
       "isOnline":true,
       "lastseen":new Date(),
       "bio":'',
-      "category":"Public"
+      "category":"Public",
+      "messageids":[]
     }
     this.auth.setUser(JSON.stringify(user));
     this.api.addUser(user).subscribe((data:any)=>{

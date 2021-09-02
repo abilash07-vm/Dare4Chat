@@ -31,6 +31,9 @@ export class MessagePageComponent implements OnInit {
       this.curr_userid=userid
       this.getMessages()
       this.socketMethod()
+      this.api.removeMessageidFromUser(this.user.userid,this.curr_userid).subscribe((data)=>{
+        console.log(data);
+      })
     }
   }
 
@@ -39,17 +42,19 @@ export class MessagePageComponent implements OnInit {
     // socket
     this.api.messageObs.subscribe((newMessage)=>{
       console.log('inside message page',newMessage);
-      if(this.newMessages){
-        this.newMessages.messages.push(newMessage)
-      }else{
-        this.newMessages={
-          "date": new Date(),
-          "messages":[newMessage]
-        }
-      }
-      // this.addToAllMessage(newMessage);
+      this.addNewMessage(newMessage)
       this.changeDetection.detectChanges()
     })
+  }
+  addNewMessage(message:Message){
+    if(this.newMessages){
+      this.newMessages.messages.push(message);
+    }else{
+      this.newMessages={
+        "date": message.date,
+        "messages":[message]
+      }
+    }
   }
 
   getMessages(){
@@ -59,7 +64,15 @@ export class MessagePageComponent implements OnInit {
   }
   segregateByDate(messages:Message[]){
     for(let msg of messages){
-      this.addToAllMessage(msg);
+      if(msg.isRead){
+        this.addToAllMessage(msg);
+      }else{
+        this.addNewMessage(msg);
+        this.api.updateMessageById(msg.messageid).subscribe((data)=>{
+          console.log(data);
+        })
+      }
+     
     }
   }
   addToAllMessage(msg:Message){
@@ -101,6 +114,9 @@ export class MessagePageComponent implements OnInit {
         })
         this.newMessages=undefined
       }
+      this.api.addMessageidToUser(this.curr_userid,this.user.userid).subscribe((data)=>{
+        console.log(data);
+      })
       this.addToAllMessage(data)
     })
   }

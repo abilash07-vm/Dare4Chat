@@ -1,5 +1,5 @@
 const express = require("express");
-const { addUser, getAllUser, updateUser, getUserById,getUserByEmailId, addUserFriendsid, removeUserFriendsid,updateUserProfileEdit, updateUserOnlineOrOffline, updateuserProDetails} = require("../controller/userController");
+const { addUser, getAllUser, updateUser, getUserById,getUserByEmailId, addUserFriendsid, removeUserFriendsid,updateUserProfileEdit, updateUserOnlineOrOffline, updateuserProDetails, addUserMessageid, removeUserMessageid} = require("../controller/userController");
 
 const router = express.Router();
 
@@ -13,6 +13,8 @@ module.exports = () => {
 	router.route("/updateLastseen").put(updateUserOnlineOrOffline)
 	router.route("/addfriend/:friendid/:userid").put(addUserFriendsid)
 	router.route("/removefriend/:friendid/:userid").put(removeUserFriendsid)
+	router.route("/addmessage/:friendid/:userid").put(addUserMessageid)
+	router.route("/removemessage/:friendid/:userid").put(removeUserMessageid)
 
 	return router;
 };

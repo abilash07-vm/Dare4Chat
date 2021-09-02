@@ -1,5 +1,5 @@
 <p *ngIf="users.length==0" class="dummy">No chats found :(<br> Please make friends to have more fun</p>
 
-<app-user-list  *ngIf="!selected_user" [users]="users" (userclick)="onUserClick($event)"></app-user-list>
+<app-user-list  *ngIf="!selected_user" [users]="users" [isChat]="true" (userclick)="onUserClick($event)"></app-user-list>
 
 <app-message-page *ngIf="selected_user" [user]="selected_user" (back)="onUnselectUser()"></app-message-page>

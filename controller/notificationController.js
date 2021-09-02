@@ -63,15 +63,11 @@ const getNotificationByUserId=(req,res)=>{
 
 const getUnReadNotificationCountByUserId=(req,res)=>{
 	let userid=req.params.userid;
-    console.log(userid);
 	Notification.findOne({userid}).then((data)=>{
-        console.log(data);
         count=0
         data.notifications.forEach((notification)=>{
             if(notification.read==false){
                 count+=1
-            }else{
-                console.log(notification);
             }
         })
 		res.json({count});
@@ -82,10 +78,16 @@ const getUnReadNotificationCountByUserId=(req,res)=>{
 
 const updateReadNotification=(req,res)=>{
     let notificationid=req.params.id;
-    Notification.updateOne({notificationid},{read:true}).then(()=>{
-        console.log('notification',notification,'updated');
+    console.log(notificationid);
+    Notification.updateOne(
+        {"notifications.notificationid":notificationid},
+        {
+            $set: {"notifications.$.read": true}
+        }).then(()=>{
+        console.log('notification',notificationid,'updated');
         res.json({'message':'updated read'})
     }).catch((err)=>{
+        console.log(err);
         res.json({'message':'err in updateRead'})
     })
 }

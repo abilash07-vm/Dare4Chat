@@ -5,6 +5,10 @@ p{
     margin: 0;
     font-size: 19px;
 }
+.new{
+    background: lightskyblue;
+}
+
 .messageend{
     display: flex;
     align-items: center;

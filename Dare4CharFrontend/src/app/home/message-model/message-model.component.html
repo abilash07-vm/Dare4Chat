@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [ngClass]="{'new': isNew}">
     <p *ngIf="curr_userid!=message.from"><strong>{{ user.username }}</strong></p>
     <p class="message">{{ message.message }}</p>
     <div class="messageend">

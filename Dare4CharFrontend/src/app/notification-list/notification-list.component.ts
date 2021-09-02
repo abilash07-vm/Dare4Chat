@@ -47,7 +47,9 @@ export class NotificationListComponent implements OnInit {
 
   updateNotificationNavbarCount(){
     this.notifications.forEach((notification)=>{
-      this.api.updateReadNotification(notification).subscribe(()=>{});
+      if(!notification.read){
+        this.api.updateReadNotification(notification).subscribe(()=>{});
+      }
     })
     this.api.updateNotificationInbottomNavBar(true);
   }

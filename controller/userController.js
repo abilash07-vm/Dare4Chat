@@ -83,7 +83,7 @@ const getUserByEmailId=(req,res)=>{
 	})
 }
 
-
+// Updating user postid to profile
 const addUserPostid=(postid,userid)=>{
 	User.updateOne({userid},{
 		$push :{
@@ -108,7 +108,7 @@ const removeUserPostid=(postid,userid)=>{
 	})
 }
 
-
+// Friend request
 const addUserFriendsid=(req,res)=>{
 	let friendid=req.params.friendid,userid=req.params.userid
 	User.updateOne({userid},{
@@ -162,6 +162,35 @@ const updateuserProDetails=(req,res)=>{
 	})
 }
 
+// For message bages
+const addUserMessageid=(req,res)=>{
+	let friendid=req.params.friendid,userid=req.params.userid
+	User.updateOne({userid},{
+		$push: {
+			messageids: friendid
+		}
+	}).then((data)=>{
+		res.json({"message":"added messageid"})
+	}).catch((err)=>{
+		res.json({"message":"add messageid err occured"})
+	})
+}
+
+const removeUserMessageid=(req,res)=>{
+	let friendid=req.params.friendid,userid=req.params.userid
+	User.updateOne({userid},{
+		$pull: {
+			messageids: friendid
+		}
+	}).then((data)=>{
+		res.json({"message":"remove messageid"})
+	}).catch((err)=>{
+		console.log(err);
+		res.json({"message":"remove messageid err occured"})
+	})
+}
+
+
 module.exports = {
 	addUser,
 	getAllUser,
@@ -175,5 +204,7 @@ module.exports = {
 	addUserFriendsid,
 	updateUserOnlineOrOffline,
 	updateLastMessage,
-	updateuserProDetails
+	updateuserProDetails,
+	addUserMessageid,
+	removeUserMessageid
 };

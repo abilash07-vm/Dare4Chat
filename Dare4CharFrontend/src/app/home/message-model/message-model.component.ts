@@ -11,6 +11,7 @@ export class MessageModelComponent implements OnInit {
   @Input() user!:User
   @Input() message!:Message
   @Input() curr_userid!:string
+  @Input() isNew:boolean=false
 
   constructor() { 
     

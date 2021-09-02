@@ -35,5 +35,8 @@ module.exports = mongoose.Schema({
 	},
 	lastMessage:{
 		type: String
+	},
+	messageids:{
+	type: [String]
 	}
 });

@@ -179,6 +179,16 @@ export class ApiService {
     getMessageByUserId(userid:string){
         return this.http.get(`${BASEURL}message/user/${userid}`,{ headers: this.headers })
     }
+    updateMessageById(messageid:string){
+        return this.http.put(`${BASEURL}message/read/${messageid}`,{},{ headers: this.headers })
+    }
+    addMessageidToUser(friendid:string,userid:string){
+        return this.http.put(`${BASEURL}user/addmessage/${friendid}/${userid}`,{},{headers:this.headers})
+    }
+    removeMessageidFromUser(friendid:string,userid:string){
+        return this.http.put(`${BASEURL}user/removemessage/${friendid}/${userid}`,{},{headers:this.headers})
+    }
+
 
     // Friend Request
     sendFriendRequest(userid:string,friendid:string){

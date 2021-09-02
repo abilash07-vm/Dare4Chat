@@ -5,6 +5,7 @@ export interface User {
     username:string,
     postids:string[],
     friendsids:string[],
+    messageids:string[],
     isOnline:boolean,
     lastseen:Date,
     isPro:boolean,

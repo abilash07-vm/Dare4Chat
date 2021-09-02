@@ -30,7 +30,7 @@ export class ProfileByIdComponent implements OnInit {
       if(userid){
         console.log('activatedmap');
         
-        this.onRefresh({userid:userid,emailid:"",username:"",postids:[],friendsids:[],isOnline: false,lastseen: new Date(),isPro:  true,bio:"",category:"",})
+        this.onRefresh({userid:userid,emailid:"",username:"",postids:[],friendsids:[],isOnline: false,lastseen: new Date(),isPro:  true,bio:"",category:"",messageids:[]})
       }
     });
   }

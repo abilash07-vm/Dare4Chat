@@ -63,10 +63,21 @@ const deleteMessageById=(req,res)=>{
 	})
 }
 
+const updateReadMessageById=(req,res)=>{
+	let messageid=req.params.messageid;
+	Message.updateOne({messageid},{isRead:true})
+		.then((data)=>{
+			res.json({"message":"updated message read"})
+		}).catch((err)=>{
+			res.json({"message":err});
+		})
+}
+
 module.exports = {
 	addMessage,
 	getMessageById,
 	getMessageByUserId,
 	deleteMessageById,
+	updateReadMessageById
 };
 
