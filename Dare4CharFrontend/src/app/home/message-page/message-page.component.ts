@@ -15,6 +15,7 @@ import { AuthService } from 'src/Services/auth.service';
 export class MessagePageComponent implements OnInit {
   @Input() user!:User
   @Output() back=new EventEmitter();
+  @Output() update=new EventEmitter();
 
   allMessages:DateMessage[]=[]
   curr_message:string=''
@@ -116,6 +117,7 @@ export class MessagePageComponent implements OnInit {
       }
       this.api.addMessageidToUser(this.curr_userid,this.user.userid).subscribe((data)=>{
         console.log(data);
+        this.update.emit(this.user)
       })
       this.addToAllMessage(data)
     })

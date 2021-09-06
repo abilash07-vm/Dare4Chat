@@ -36,6 +36,7 @@ export class FriendRequestComponent implements OnInit {
         this.userReqList.push(data);
       })
     })
+    this.userReqList=this.userReqList.reverse();
 
   }
 
@@ -52,7 +53,15 @@ export class FriendRequestComponent implements OnInit {
       console.log('onAccept 1',data);
       this.api.addFriendid(user.userid,this.currUserid).subscribe((data)=>{
         console.log('onAccept 2',data);
-        this.ngOnInit()
+        this.api.sendNotificationToUser(user.userid,{
+          "userid":this.currUserid,
+          "read": false,
+          "type":"accepted",
+          "date": new Date(),
+          "notificationid":"1234567"
+        }).subscribe((data)=>{
+          this.ngOnInit()
+        })
       })
       
     })

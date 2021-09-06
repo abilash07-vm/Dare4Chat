@@ -14,7 +14,6 @@ export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate
   constructor(private api:ApiService){}
   canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
     // if there are no pending changes, just allow deactivation; else confirm first
-    this.api.onOffline()
     return true;
       // NOTE: this warning message will only be shown when navigating elsewhere within your angular app;
       // when navigating away from your angular app, the browser will show a generic warning message

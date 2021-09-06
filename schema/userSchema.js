@@ -37,6 +37,9 @@ module.exports = mongoose.Schema({
 		type: String
 	},
 	messageids:{
-	type: [String]
+		type: [String]
+	},
+	lastMessageTime: {
+		type: Date
 	}
 });

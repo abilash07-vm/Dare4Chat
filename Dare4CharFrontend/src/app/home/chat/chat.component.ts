@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
@@ -10,28 +10,64 @@ import { AuthService } from 'src/Services/auth.service';
 })
 export class ChatComponent implements OnInit {
   users:User[]=[]
+  currUser!:User
   selected_user!:User | undefined
+  @Output() inc=new EventEmitter();
+  @Output() dec=new EventEmitter();
 
-  constructor(private api:ApiService,private auth:AuthService) { }
+  constructor(private api:ApiService,private auth:AuthService,
+    private changesDetector:ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.users=[]
     let user=this.auth.getUser();
     if(user){
       let currUser:User=JSON.parse(user);
+      this.currUser=currUser;
       currUser.friendsids.forEach((friendid)=>{
         this.api.getUserByid(friendid).subscribe((friend:any)=>{
           this.users.push(friend);
+          if(this.isMessageIdInCurrUser(friend)){
+            this.inc.emit();
+          }
+          this.sortBasedOnDate()
         })
       })
+
+    }
+  }
+  sortBasedOnDate(){
+    console.log('sorting...');
+    console.log(this.users);
+    this.users.sort((a,b)=>{
+      return new Date(b.lastMessageTime).getTime() - new Date(a.lastMessageTime).getTime()
+    })
+    this.changesDetector.detectChanges();
+    console.log(this.users);
+    
+  }
+
+  onUserClick(user:User){
+    this.selected_user=user;
+    if(this.isMessageIdInCurrUser(user)){
+      this.dec.emit();
     }
   }
 
-  onUserClick(user:any){
-    this.selected_user=user;
+  isMessageIdInCurrUser(user:User){
+    if(this.currUser.messageids.indexOf(user.userid)>=0){
+      return true;
+    }
+    return false;
   }
 
   onUnselectUser(){
     this.selected_user=undefined
+    window.location.reload();
+  }
+
+  onUpdate(updateUser:User){
+    console.log('updating...');
   }
 
 }

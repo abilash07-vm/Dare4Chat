@@ -4,7 +4,16 @@
         <app-post></app-post>
     </mat-tab>
     <mat-tab label="Chat">
-        <app-chat></app-chat>
+        <ng-template mat-tab-label>
+            <span [matBadge]="chatCount" matBadgeOverlap="false"
+                matBadgeColor="warn"
+                [matBadgeHidden]="chatCount==0">Chat</span>
+        </ng-template>
+        <app-chat
+        
+            (inc)="incrementChatCount()"
+            (dec)="decrementChatCount()">
+        </app-chat>
     </mat-tab>
     <mat-tab label="Status">
         <app-status class="statuscontent"></app-status>

@@ -1,10 +1,12 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, HostListener } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Notification } from 'src/Interfaces/notification';
 import { RequestRecieved, User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
+import { ComponentCanDeactivate } from 'src/Services/pending-changes-guard.guard';
 
 interface NotificationBackend{
   userid:string,
@@ -16,11 +18,22 @@ interface NotificationBackend{
   templateUrl: './notification-list.component.html',
   styleUrls: ['./notification-list.component.css']
 })
-export class NotificationListComponent implements OnInit {
+export class NotificationListComponent implements OnInit,ComponentCanDeactivate {
   currUserId!:string
   notifications:Notification[]=[]
   users:{[userid:string]:User}={}
   reqCount: number=0;
+
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    // insert logic to check if there are pending changes here;
+    // returning true will navigate without confirmation
+    // returning false will show a confirm dialog before navigating away
+    this.api.onOffline();
+    return true;
+  }
+
+
   constructor(private auth:AuthService,
     private api:ApiService,private changeDetector:ChangeDetectorRef,
     private router:Router) { }
@@ -32,7 +45,6 @@ export class NotificationListComponent implements OnInit {
       this.getRequestCount();
       this.api.getNotificationByuserid(userid).subscribe((data:any)=>{
         let backend_not:NotificationBackend=data
-        backend_not
         if(backend_not){
           this.notifications=backend_not.notifications
           console.log(this.notifications);
@@ -40,6 +52,7 @@ export class NotificationListComponent implements OnInit {
           this.updateNotificationNavbarCount();
           this.updateNotificationMessageArr();
           this.updateNewNotificationFromSocket();
+          this.notifications.reverse()
         }
       })
     }
@@ -61,11 +74,12 @@ export class NotificationListComponent implements OnInit {
   }
   updateNewNotificationFromSocket(){
     this.api.notificationObs.subscribe((data:any)=>{
-      this.notifications.push(data);
+      this.notifications.unshift(data);
       if(this.notifications[this.notifications.length-1].type==='request'){
         this.reqCount+=1
       }
-      this.updateNotificationMessage(this.notifications.length-1);
+      this.updateNotificationMessage(0);
+      this.updateNotificationNavbarCount();
       this.changeDetector.detectChanges();
 
     })

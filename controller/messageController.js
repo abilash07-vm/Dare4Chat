@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { generateKey } =require('./methods')
 
 const messageSchema=require("../schema/messageSchema");
-const { updateLastMessage } = require("./userController");
+const { updateLastMessage, updateLastMessageTime } = require("./userController");
 
 const { Socket } =require('./socket')
 
@@ -18,6 +18,8 @@ const addMessage = (req, res) => {
 	message.save()
 		.then((data) => {
 			updateLastMessage(message.to,message.message)
+			updateLastMessageTime(message.to);
+			updateLastMessageTime(message.from);
 			Socket.emit(message.to + 'message',data)
 			res.json(data);
 		})

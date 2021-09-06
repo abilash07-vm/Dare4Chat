@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const userSchema = require("../schema/userSchema");
 const { addSendRequest, addRecieveRequest, onCancleFriendRequest } = require("./friend-request");
-const { addNotificationInternal, notificationInitialize } = require("./notificationController");
+const { notificationInitialize } = require("./notificationController");
 
 
 const User = mongoose.model("user", userSchema);
@@ -117,7 +117,6 @@ const addUserFriendsid=(req,res)=>{
 		}
 	}).then((data)=>{
 		onCancleFriendRequest(userid,friendid)
-		addNotificationInternal(friendid,{userid,type:'accepted',date:new Date(),read:false})
 		console.log('added friendid from user',friendid);
 		res.json({"message":"added friend"})
 	}).catch((err)=>{
@@ -143,9 +142,18 @@ const removeUserFriendsid=(req,res)=>{
 
 const updateLastMessage=(userid,msg)=>{
 	User.updateOne({userid:userid},{
-		lastMessage: msg
+		lastMessage: msg,
+		lastMessageTime: new Date()
 	}).then((data)=>{
 		console.log('updated last message');
+	})
+}
+
+const updateLastMessageTime=(userid)=>{
+	User.updateOne({userid:userid},{
+		lastMessageTime: new Date()
+	}).then((data)=>{
+		console.log('updated last message Time');
 	})
 }
 
@@ -206,5 +214,6 @@ module.exports = {
 	updateLastMessage,
 	updateuserProDetails,
 	addUserMessageid,
-	removeUserMessageid
+	removeUserMessageid,
+	updateLastMessageTime
 };

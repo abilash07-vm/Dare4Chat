@@ -36,8 +36,11 @@ export class ApiService {
     private newNotification:Subject<any>=new Subject<any>();
     notificationObs=this.newNotification.asObservable();
 
-    private navbarNotificationCount:Subject<any>=new Subject<any>();
+    navbarNotificationCount:Subject<any>=new Subject<any>();
     notificationCountObs=this.navbarNotificationCount.asObservable();
+
+    private updateChatCountNavbar:Subject<any>=new Subject<any>();
+    updateChatCountNavbarObs=this.updateChatCountNavbar.asObservable();
 
     constructor(private http: HttpClient,
         private auth:AuthService) {
@@ -49,7 +52,7 @@ export class ApiService {
 
     socketTasks(){
         // Sockets
-        console.log(this.userid+'message');
+
         
         socket.on(this.userid+'message',(data:Message)=>{
             console.log('socket.io',data);
@@ -63,8 +66,13 @@ export class ApiService {
         })
     }
 
+
     updateNotificationInbottomNavBar(isReset:boolean){
         this.navbarNotificationCount.next(isReset);
+    }
+
+    setValueToHomeForChatCount(val:number){
+        this.updateChatCountNavbar.next(val);
     }
 
     setTokenkey() {
@@ -148,10 +156,6 @@ export class ApiService {
     removeFriendid(friendid:string,userid:string){
         return this.http.put(`${BASEURL}user/removefriend/${friendid}/${userid}`,{},{headers:this.headers})
     }
-    // verifyAccount(user:User,detail:any){
-    //     let payload=Object.assign({},user,detail);
-    //     return this.http.post(`${BASEURL}proVerify`,payload,{headers:this.headers})
-    // }
 
     // likes
     addLike(userid:string,postid:string){

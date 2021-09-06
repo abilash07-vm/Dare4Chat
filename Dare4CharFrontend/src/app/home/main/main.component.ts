@@ -17,12 +17,14 @@ export class MainComponent implements OnInit,ComponentCanDeactivate {
       // insert logic to check if there are pending changes here;
       // returning true will navigate without confirmation
       // returning false will show a confirm dialog before navigating away
+      this.api.onOffline();
       return true;
     }
   constructor(private api:ApiService,
     private auth:AuthService) { }
   isStatus:boolean=false
   currTabInd:number=0
+  chatCount=0
 
   ngOnInit(): void {
     let tabname=this.auth.getLatTab() || 0;
@@ -46,6 +48,15 @@ export class MainComponent implements OnInit,ComponentCanDeactivate {
 
   onStatusView(isStatus:boolean){
     
+  }
+
+  incrementChatCount(){
+    this.chatCount+=1;
+    this.api.setValueToHomeForChatCount(this.chatCount);
+  }
+  decrementChatCount(){
+    this.chatCount-=1;
+    this.api.setValueToHomeForChatCount(this.chatCount);
   }
 
 }

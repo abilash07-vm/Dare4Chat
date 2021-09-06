@@ -8,9 +8,15 @@ var Socket = {
         io.sockets.emit(event, data);
     }
 };
+var currentOnlineCount=0;
 
 io.on("connection", function (socket) {
-    console.log("A user connected");
+    currentOnlineCount+=1;
+    console.log('current action count=',currentOnlineCount);
+    socket.on('disconnect',(reason)=>{
+        currentOnlineCount-=1;
+        console.log('current action count=',currentOnlineCount);
+    })
 });
 
 exports.Socket = Socket;

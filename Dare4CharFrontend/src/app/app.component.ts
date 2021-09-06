@@ -13,6 +13,7 @@ export class AppComponent {
     title = 'Dare4Chat';
     currUserid!:string
     notificationCount:number=0
+    chatCount:number=0
     currentTab!:string
 
     constructor(private auth: AuthService,
@@ -46,6 +47,9 @@ export class AppComponent {
             }else{
                 this.increaseNotificationCount();
             }
+        })
+        this.api.updateChatCountNavbarObs.subscribe((val:any)=>{
+            this.chatCount=val;
         })
     }
     increaseNotificationCount(){

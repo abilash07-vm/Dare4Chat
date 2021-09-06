@@ -197,7 +197,8 @@ export class LoginLogoutComponent implements OnInit {
       "lastseen":new Date(),
       "bio":'',
       "category":"Public",
-      "messageids":[]
+      "messageids":[],
+      "lastMessageTime": new Date()
     }
     this.auth.setUser(JSON.stringify(user));
     this.api.addUser(user).subscribe((data:any)=>{

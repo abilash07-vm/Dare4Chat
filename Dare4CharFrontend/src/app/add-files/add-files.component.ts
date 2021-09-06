@@ -40,13 +40,14 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
       // insert logic to check if there are pending changes here;
       // returning true will navigate without confirmation
       // returning false will show a confirm dialog before navigating away
+      this.api.onOffline();
       return true;
     }
 
     constructor(
         public uploadService: UploadFileService,
         private authServices: AuthService,
-        private apiServices: ApiService,
+        private api: ApiService,
         private spinnerService: NgxSpinnerService,
         private swipeService: TouchSwipeService,
         private popups:PopupsService
@@ -181,11 +182,11 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
                 likeids:[],
                 comments: [],
             };
-            this.apiServices.addPost(data).subscribe((data_server: any) => {
+            this.api.addPost(data).subscribe((data_server: any) => {
                 let data_mongo: Post = data_server;
                 this.popups.openSnackbar('Added sucessfully!!!')
                 setTimeout(()=>{
-                    this.apiServices.updateUserForLocalStorage()
+                    this.api.updateUserForLocalStorage()
                     this.onReset()
                 },1000)
                 
@@ -200,9 +201,9 @@ export class AddFilesComponent implements OnInit,ComponentCanDeactivate {
                     views: 0,
                     viewsids:[]
                 }
-                this.apiServices.addStatus(status).subscribe((data_server: any) => {
+                this.api.addStatus(status).subscribe((data_server: any) => {
                     this.popups.openSnackbar('Added sucessfully!!!')
-                    this.apiServices.updateUserForLocalStorage()
+                    this.api.updateUserForLocalStorage()
                     setTimeout(()=>{
                         this.onReset()
                     },1000)                    

@@ -12,24 +12,27 @@
 <!-- Navigation bar -->
 <mat-toolbar *ngIf="isLogin()" class="navbar" color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button>
-            <mat-icon [ngClass]="{'large': currentTab==='home'}" (click)="updateTabName('home')">home</mat-icon>
+        <button mat-icon-button (click)="updateTabName('home')">
+            <mat-icon [ngClass]="{'large': currentTab==='home'}"
+                [matBadge]="chatCount" 
+                matBadgeColor="warn"
+                [matBadgeHidden]="chatCount==0" 
+                >home</mat-icon>
         </button>
-        <button mat-icon-button>
-            <mat-icon [ngClass]="{'large': currentTab==='search'}" (click)="updateTabName('search')">search</mat-icon>
+        <button mat-icon-button  (click)="updateTabName('search')">
+            <mat-icon [ngClass]="{'large': currentTab==='search'}">search</mat-icon>
         </button>
-        <button mat-icon-button>
-            <mat-icon [ngClass]="{'large': currentTab==='add'}" (click)="updateTabName('add')">control_point</mat-icon>
+        <button mat-icon-button (click)="updateTabName('add')">
+            <mat-icon [ngClass]="{'large': currentTab==='add'}" >control_point</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button (click)="updateTabName('notifications')">
             <mat-icon [ngClass]="{'large': currentTab==='notifications'}" 
                 [matBadge]="notificationCount" 
                 matBadgeColor="warn"
-                [matBadgeHidden]="notificationCount==0"
-                (click)="updateTabName('notifications')">notifications</mat-icon>
+                [matBadgeHidden]="notificationCount==0">notifications</mat-icon>
         </button>
-        <button mat-icon-button>
-            <mat-icon [ngClass]="{'large': currentTab==='profile'}" (click)="updateTabName('profile')">person</mat-icon>
+        <button mat-icon-button (click)="updateTabName('profile')">
+            <mat-icon [ngClass]="{'large': currentTab==='profile'}" >person</mat-icon>
         </button>
     </mat-toolbar-row>
 </mat-toolbar>

@@ -11,7 +11,8 @@ export interface User {
     isPro:boolean,
     bio:string,
     category:string,
-    lastMessage?:string
+    lastMessage?:string,
+    lastMessageTime:Date
 
 }
 export interface UserCredientials{

@@ -2,4 +2,6 @@
 
 <app-user-list  *ngIf="!selected_user" [users]="users" [isChat]="true" (userclick)="onUserClick($event)"></app-user-list>
 
-<app-message-page *ngIf="selected_user" [user]="selected_user" (back)="onUnselectUser()"></app-message-page>
+<app-message-page *ngIf="selected_user" [user]="selected_user" 
+    (update)="onUpdate($event)" (back)="onUnselectUser()">
+</app-message-page>
