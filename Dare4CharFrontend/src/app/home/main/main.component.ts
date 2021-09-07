@@ -28,7 +28,7 @@ export class MainComponent implements OnInit,ComponentCanDeactivate {
 
   ngOnInit(): void {
     let tabname=this.auth.getLatTab() || 0;
-    console.log('last tab ng in it',tabname);
+    
     
     if(tabname=='Chat'){
       this.currTabInd=1;

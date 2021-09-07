@@ -6,7 +6,7 @@
             <mat-tab label="login">
                 <p *ngIf="loginErrors.length>0" class="error">{{loginErrors}}</p>
                 <mat-card-content>
-                    <input matInput [disabled]="isVerified" [(ngModel)]="email" placeholder="email"/>
+                    <input matInput [disabled]="isVerified" id="foc" [(ngModel)]="email" placeholder="email"/>
                     <div class="password" *ngIf="!isForget">
                         <input matInput type="{{loginhide ? 'password' : 'text'}}" [(ngModel)]="loginPassword" placeholder="password">
                         <mat-icon class="passwordeye" (click)="loginhide=!loginhide">{{loginhide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -36,7 +36,7 @@
             <mat-tab label="signup">
                 <p *ngIf="signupErrors.length>0" class="error">{{signupErrors}}</p>
                 <mat-card-content>
-                    <input [disabled]="isVerified" matInput [(ngModel)]="username" placeholder="user name"/>
+                    <input [disabled]="isVerified" class="focus" matInput [(ngModel)]="username" placeholder="user name"/>
                     <input [disabled]="isVerified" matInput [(ngModel)]="email" placeholder="email"/>
                     <input [disabled]="isVerified" *ngIf="openOtp" matInput [(ngModel)]="otp" placeholder="otp"/>
                     <div class="password" *ngIf="isVerified">

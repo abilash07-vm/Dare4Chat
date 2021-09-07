@@ -23,12 +23,12 @@ export class StatusComponent implements OnInit {
       let user:User=JSON.parse(struser);
       let userids=user.friendsids
       userids.push(user.userid);
-      console.log(userids);
+      
       
       userids.forEach((userid:string)=>{
         this.api.getStatusByUserId(userid).subscribe((data:any)=>{
           let statusArr:Status[]=data;
-          console.log(userid,statusArr);
+          
           
           this.api.getUserByid(userid).subscribe((user:any)=>{
             if(statusArr.length>0){
@@ -48,7 +48,9 @@ export class StatusComponent implements OnInit {
       if(this.api.getDateDiffFromNowInMS(status.date)>=24*60*60*1000){
         if(status.statusid){
           this.api.deleteStatusById(status.statusid).subscribe((data)=>{
-            console.log('deleted status');
+            
+            
+            
           })
         }
       }else{
@@ -72,7 +74,7 @@ export class StatusComponent implements OnInit {
 
   onNext(isnext:boolean){
     this.currIndex+=1
-    console.log('onNext is called ',this.currIndex);
+    
     if(this.currIndex>=this.statuses.length){
       this.onStop(true)
     }else{

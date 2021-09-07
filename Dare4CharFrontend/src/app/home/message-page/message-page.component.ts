@@ -33,8 +33,9 @@ export class MessagePageComponent implements OnInit {
       this.getMessages()
       this.socketMethod()
       this.api.removeMessageidFromUser(this.user.userid,this.curr_userid).subscribe((data)=>{
-        console.log(data);
+        
       })
+      document.getElementById('msgbox')?.focus();
     }
   }
 
@@ -42,7 +43,7 @@ export class MessagePageComponent implements OnInit {
 
     // socket
     this.api.messageObs.subscribe((newMessage)=>{
-      console.log('inside message page',newMessage);
+      
       this.addNewMessage(newMessage)
       this.changeDetection.detectChanges()
     })
@@ -70,7 +71,7 @@ export class MessagePageComponent implements OnInit {
       }else{
         this.addNewMessage(msg);
         this.api.updateMessageById(msg.messageid).subscribe((data)=>{
-          console.log(data);
+          
         })
       }
      
@@ -82,7 +83,7 @@ export class MessagePageComponent implements OnInit {
         this.allMessages.push({"date":msg.date,"messages":[msg]})
       }else{
         this.allMessages[len-1].messages.push(msg);
-        console.log(msg);
+        
         
       }
   }
@@ -116,7 +117,7 @@ export class MessagePageComponent implements OnInit {
         this.newMessages=undefined
       }
       this.api.addMessageidToUser(this.curr_userid,this.user.userid).subscribe((data)=>{
-        console.log(data);
+        
         this.update.emit(this.user)
       })
       this.addToAllMessage(data)

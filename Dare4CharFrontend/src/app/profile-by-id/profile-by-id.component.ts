@@ -23,12 +23,12 @@ export class ProfileByIdComponent implements OnInit {
     if(currid){
       this.currUserId=currid
     }
-    console.log('profile by id');
+    
     
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
       let userid=paramMap.get('userid');
       if(userid){
-        console.log('activatedmap');
+        
         
         this.onRefresh({userid:userid,emailid:"",username:"",postids:[],friendsids:[],isOnline: false,lastseen: new Date(),isPro:  true,bio:"",category:"",messageids:[],lastMessageTime:new Date()})
       }
@@ -49,8 +49,8 @@ export class ProfileByIdComponent implements OnInit {
 
 
   onProfileClick(user:User){
-    console.log(this.currUserId);
-    console.log(user);
+    
+    
     
     
     if(!user.userid){
@@ -62,7 +62,7 @@ export class ProfileByIdComponent implements OnInit {
     }else if(this.currUserId){
       this.type='other'
       this.api.getUserSentFriendRequest(this.currUserId).subscribe((data:any)=>{
-        console.log('profile',data);
+        
         if(data){
           let requestSent:RequestSent=data;
           if(requestSent.sentids.indexOf(user.userid)>=0){
@@ -71,7 +71,7 @@ export class ProfileByIdComponent implements OnInit {
         }
       })
       this.api.getUserReceivedFriendRequest(this.currUserId).subscribe((data:any)=>{
-        console.log('profile-rec',data);
+        
         if(data){
           let requestRecieved:RequestRecieved=data;
           if(requestRecieved.receivedids.indexOf(user.userid)>=0){

@@ -24,7 +24,11 @@ export class UserListComponent implements OnInit {
       if(currUserId){
         this.api.messageObs.subscribe((data:User)=>{
             //.............. TODO .........................
+            if(this.isChat){
+              this.api.setValueToHomeForChatCount('?');
+            }
         })
+        document.getElementById('box')?.focus()
         this.api.getUserByid(currUserId).subscribe((data:any)=>{
           this.currUser=data;
         })

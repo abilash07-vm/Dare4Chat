@@ -62,9 +62,9 @@ const AuthenticateUser = (req, res) => {
   };
 
   const CheckExistingUser=(emailid)=>{
-    console.log('exist:',emailid);
+    
     return UserCred.findOne({emailid:emailid}).then((data)=>{
-      console.log(data);
+      
       return data
     })
   }

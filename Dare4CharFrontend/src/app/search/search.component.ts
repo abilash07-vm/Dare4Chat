@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit,ComponentCanDeactivate {
     }else if(currUserid){
       this.type='other'
       this.api.getUserSentFriendRequest(currUserid).subscribe((data:any)=>{
-        console.log('search',data);
+        
         if(data){
           let requestSent:RequestSent=data;
           if(requestSent.sentids.indexOf(user.userid)>=0){
@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit,ComponentCanDeactivate {
         }
       })
       this.api.getUserReceivedFriendRequest(currUserid).subscribe((data:any)=>{
-        console.log('search-rec',data);
+        
         if(data){
           let requestRecieved:RequestRecieved=data;
           if(requestRecieved.receivedids.indexOf(user.userid)>=0){

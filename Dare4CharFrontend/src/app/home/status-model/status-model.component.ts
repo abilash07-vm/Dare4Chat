@@ -50,7 +50,7 @@ export class StatusModelComponent implements OnInit,OnChanges {
     // let statusid=this.userStatus.statuses[this.currIndex].statusid
     // if(diff>aDay && statusid){
     //   this.api.deleteStatusById(statusid).subscribe((data)=>{
-    //     console.log(data);
+    //     
     //   })
     // }
     return this.api.getDateDiffInWord(diff);
@@ -88,7 +88,7 @@ export class StatusModelComponent implements OnInit,OnChanges {
   
   setTime(){
     this.time+=10;
-    console.log(`time=${this.time}`,this.userStatus.statuses[this.currIndex]);
+    
     if(this.time>100){
       this.time=0;
       this.onCurrentNext();

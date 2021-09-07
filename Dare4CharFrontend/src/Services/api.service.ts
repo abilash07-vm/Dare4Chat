@@ -52,17 +52,15 @@ export class ApiService {
 
     socketTasks(){
         // Sockets
-
-        
         socket.on(this.userid+'message',(data:Message)=>{
-            console.log('socket.io',data);
+            
             this.newMessage.next(data);
         })
 
         socket.on(this.userid+'notification',(data:Notification)=>{
             this.newNotification.next(data);
             this.updateNotificationInbottomNavBar(false)
-            console.log(data);
+            
         })
     }
 
@@ -71,7 +69,7 @@ export class ApiService {
         this.navbarNotificationCount.next(isReset);
     }
 
-    setValueToHomeForChatCount(val:number){
+    setValueToHomeForChatCount(val:number|string){
         this.updateChatCountNavbar.next(val);
     }
 
@@ -125,7 +123,7 @@ export class ApiService {
         return this.http.put(BASEURL + 'status' , status,{ headers: this.headers })
     }
     deleteStatusById(statusid:string){
-        return this.http.get(`${BASEURL}status/${statusid}`,{ headers: this.headers })
+        return this.http.delete(`${BASEURL}status/${statusid}`,{ headers: this.headers })
     }
 
     // User 
@@ -295,7 +293,7 @@ export class ApiService {
         return this.http.get(`${BASEURL}pro/`,{headers:this.headers});
     }
     deleteProRequest(userid:string){
-        console.log(userid);
+        
         return this.http.delete(`${BASEURL}pro/${userid}`,{headers:this.headers});
     }
    

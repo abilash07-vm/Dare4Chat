@@ -34,20 +34,20 @@ const addNotificationInternal = (userid, newNotification) => {
         }  
     }).then((data) => {
         Socket.emit(userid + 'notification',newNotification)
-        console.log('new notification',newNotification);
+        
     })
     .catch((err) => {
-        console.log({ message: err });
+        
     });
 };
 
 const notificationInitialize = (userid) => {
     let newNotification=new Notification({userid,notifications:[]});
 	newNotification.save().then((data) => {
-        console.log('notification Initialized',newNotification);
+        
     })
     .catch((err) => {
-        console.log({ message: err });
+        
     });
 };
 
@@ -78,16 +78,16 @@ const getUnReadNotificationCountByUserId=(req,res)=>{
 
 const updateReadNotification=(req,res)=>{
     let notificationid=req.params.id;
-    console.log(notificationid);
+    
     Notification.updateOne(
         {"notifications.notificationid":notificationid},
         {
             $set: {"notifications.$.read": true}
         }).then(()=>{
-        console.log('notification',notificationid,'updated');
+        
         res.json({'message':'updated read'})
     }).catch((err)=>{
-        console.log(err);
+        
         res.json({'message':'err in updateRead'})
     })
 }

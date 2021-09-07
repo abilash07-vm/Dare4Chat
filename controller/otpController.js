@@ -12,9 +12,9 @@ const addOtp = async(emailid,otp,isForgotPass) => {
 	let otpNode = new OTP(newotp);
 	
 	let existingUser=await CheckExistingUser(emailid);
-	console.log('addotp',existingUser);
+	
 	if(existingUser && !isForgotPass){
-		console.log('returning..');
+		
 		return true;
 	}
 	OTP.deleteMany({emailid}).then((data)=>{})
@@ -36,7 +36,7 @@ const verifyOtp=(req,res)=>{
             res.status(201).json({message:"wrong OTP"})
         }
 	}).catch((err)=>{
-		console.log(err);
+		
 		res.status(201).json({ message: "err in get otp by id func" });
 	})
 }

@@ -35,12 +35,15 @@
 }
 .messagebox textarea{
     width: 100%;
-    padding-right: 40px;
+    padding: 0 40px;
 }
 .messagebox .mat-icon{
     font-size: 40px;
     position: absolute;
     right: 0;
+}
+.attach{
+    left: 0;
 }
 
 

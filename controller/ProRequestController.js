@@ -17,7 +17,7 @@ const addProRequest = (req, res) => {
 
 const deleteProRequest=(req,res)=>{
     let userid=req.params.userid;
-    console.log(userid);
+    
     ProRequest.deleteMany({userid}).then(()=>{
         res.json({message:"delected pro request"})
     }) .catch((err) => {
@@ -29,7 +29,7 @@ const getAllProRequest=(req,res)=>{
     ProRequest.find({}).then((data)=>{
         res.json(data);
     }).catch((err)=>{
-        console.log('get pro request',err);
+        
     })
 }
 

@@ -52,7 +52,7 @@ export class ProfileModelComponent implements OnInit {
             let postArr:Post[]=data;
             postArr.forEach((post)=>{
               this.posts.push(post)
-              console.log(post);
+              
             })
           })  
         }
@@ -82,15 +82,15 @@ export class ProfileModelComponent implements OnInit {
 
   onRequest(){
     this.api.sendFriendRequest(this.currUserid,this.user.userid).subscribe((data)=>{
-      console.log('request sent',data);
+      
       this.refresh.emit(this.user);
     })
   }
   onUnfriend(){
     this.api.removeFriendid(this.currUserid,this.user.userid).subscribe((data)=>{
-      console.log('onUnfriend 1',data);
+      
       this.api.removeFriendid(this.user.userid,this.currUserid).subscribe((data)=>{
-        console.log('onUnfriend 2',data);
+        
         this.refresh.emit(this.user);
         
       })
@@ -100,7 +100,7 @@ export class ProfileModelComponent implements OnInit {
   }
   onCancel(){
     this.api.cancelFriendRequest(this.currUserid,this.user.userid).subscribe((data)=>{
-      console.log('request cancel',data);
+      
       this.refresh.emit(this.user);
 
     })
@@ -108,9 +108,9 @@ export class ProfileModelComponent implements OnInit {
   
   onAccept(){
     this.api.addFriendid(this.currUserid,this.user.userid).subscribe((data)=>{
-      console.log('onAccept 1',data);
+      
       this.api.addFriendid(this.user.userid,this.currUserid).subscribe((data)=>{
-        console.log('onAccept 2',data);
+        
         this.refresh.emit(this.user);
       })
       
@@ -125,7 +125,7 @@ export class ProfileModelComponent implements OnInit {
       this.popups.openSnackbar('username length is too high');
     }else{
       this.api.updateUserProfile(this.update_user).subscribe((data:any)=>{
-        console.log(data);
+        
         this.onGoBack();
         this.user=this.update_user
         this.ngOnInit()
@@ -137,7 +137,7 @@ export class ProfileModelComponent implements OnInit {
       this.popups.openSnackbar('category is required')
     }else {
       this.api.addProRequest({userid:this.user.userid,"category":this.category,"description":this.detail_verify}).subscribe((data:any)=>{
-        console.log(data);
+        
         this.popups.openSnackbar('request sent to admin')
         this.onGoBack();
         this.category=''

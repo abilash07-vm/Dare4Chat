@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
     this.users=[]
     let user=this.auth.getUser();
     if(user){
+      this.api.setValueToHomeForChatCount(0);
       let currUser:User=JSON.parse(user);
       this.currUser=currUser;
       currUser.friendsids.forEach((friendid)=>{
@@ -37,13 +38,13 @@ export class ChatComponent implements OnInit {
     }
   }
   sortBasedOnDate(){
-    console.log('sorting...');
-    console.log(this.users);
+    
+    
     this.users.sort((a,b)=>{
       return new Date(b.lastMessageTime).getTime() - new Date(a.lastMessageTime).getTime()
     })
     this.changesDetector.detectChanges();
-    console.log(this.users);
+    
     
   }
 
@@ -67,7 +68,7 @@ export class ChatComponent implements OnInit {
   }
 
   onUpdate(updateUser:User){
-    console.log('updating...');
+    
   }
 
 }

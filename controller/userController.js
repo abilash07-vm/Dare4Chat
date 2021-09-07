@@ -45,7 +45,7 @@ const updateUserProfileEdit=(req,res)=>{
 		username:user.username,
 		bio:user.bio
 	}).then((data)=>{
-		console.log(user,data);
+		
 		res.status(201).json(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in update user func" });
@@ -57,7 +57,7 @@ const updateUserOnlineOrOffline=(req,res)=>{
 		isOnline:user.isOnline,
 		lastseen:user.lastseen
 	}).then((data)=>{
-		console.log('online/offline',user);
+		
 		res.status(201).json(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in update user func" });
@@ -90,9 +90,9 @@ const addUserPostid=(postid,userid)=>{
 			postids: postid
 		}
 	}).then((data)=>{
-		console.log('added postid to user',postid);
+		
 	}).catch((err)=>{
-		console.log(err);
+		
 	})
 }
 
@@ -102,9 +102,9 @@ const removeUserPostid=(postid,userid)=>{
 			postids: postid
 		}
 	}).then((data)=>{
-		console.log('removed postid from user',postid);
+		
 	}).catch((err)=>{
-		console.log(err);
+		
 	})
 }
 
@@ -117,10 +117,10 @@ const addUserFriendsid=(req,res)=>{
 		}
 	}).then((data)=>{
 		onCancleFriendRequest(userid,friendid)
-		console.log('added friendid from user',friendid);
+		
 		res.json({"message":"added friend"})
 	}).catch((err)=>{
-		console.log(err);
+		
 		res.json({"message":"add friend err occured"})
 	})
 }
@@ -132,10 +132,10 @@ const removeUserFriendsid=(req,res)=>{
 			friendsids: friendid
 		}
 	}).then((data)=>{
-		console.log('removed friendid from user',friendid);
+		
 		res.json({"message":"remove friend"})
 	}).catch((err)=>{
-		console.log(err);
+		
 		res.json({"message":"remove friend err occured"})
 	})
 }
@@ -145,7 +145,7 @@ const updateLastMessage=(userid,msg)=>{
 		lastMessage: msg,
 		lastMessageTime: new Date()
 	}).then((data)=>{
-		console.log('updated last message');
+		
 	})
 }
 
@@ -153,7 +153,7 @@ const updateLastMessageTime=(userid)=>{
 	User.updateOne({userid:userid},{
 		lastMessageTime: new Date()
 	}).then((data)=>{
-		console.log('updated last message Time');
+		
 	})
 }
 
@@ -165,7 +165,7 @@ const updateuserProDetails=(req,res)=>{
 	}).then((data)=>{
 		res.json({"message":"pro updated"})
 	}).catch((err)=>{
-		console.log(err);
+		
 		res.json({"message":"pro update err"})
 	})
 }
@@ -193,7 +193,7 @@ const removeUserMessageid=(req,res)=>{
 	}).then((data)=>{
 		res.json({"message":"remove messageid"})
 	}).catch((err)=>{
-		console.log(err);
+		
 		res.json({"message":"remove messageid err occured"})
 	})
 }

@@ -39,6 +39,7 @@ export class LoginLogoutComponent implements OnInit {
     private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
+    document.getElementById('foc')?.focus();
   }
 
   onLogin(){
@@ -116,7 +117,7 @@ export class LoginLogoutComponent implements OnInit {
     }
     this.spinner.show()
     this.auth.verifyOTP(this.email,this.otp).subscribe((data:any)=>{
-      console.log(data);
+      
       
       if(data["message"]==="verified"){
         this.popup.openSnackbar('OTP verified!!!')
@@ -174,7 +175,7 @@ export class LoginLogoutComponent implements OnInit {
       return;
     }
     this.auth.updatePassword({"admin":false,"emailid":this.email,"password":this.signupPassword}).subscribe((data)=>{
-      console.log(data);
+      
       this.api.getUserByEmailid(this.email).subscribe((data:any)=>{
         let user:User=data
         this.auth.setUser(JSON.stringify(user));

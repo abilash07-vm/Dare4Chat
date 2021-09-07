@@ -50,9 +50,9 @@ export class FriendRequestComponent implements OnInit {
 
   onAccept(user:User){
     this.api.addFriendid(this.currUserid,user.userid).subscribe((data)=>{
-      console.log('onAccept 1',data);
+      
       this.api.addFriendid(user.userid,this.currUserid).subscribe((data)=>{
-        console.log('onAccept 2',data);
+        
         this.api.sendNotificationToUser(user.userid,{
           "userid":this.currUserid,
           "read": false,
@@ -69,7 +69,7 @@ export class FriendRequestComponent implements OnInit {
 
   onReject(user:User){
     this.api.cancelFriendRequest(this.currUserid,user.userid).subscribe((data)=>{
-      console.log('request rejected',data);
+      
       this.ngOnInit()
     })
   }

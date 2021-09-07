@@ -25,7 +25,7 @@ const addPost = (req, res) => {
 const getPostById=(req,res)=>{
 	let id=req.params.postid;
 	Post.findOne({postid:id}).then((data)=>{
-		console.log(data);
+		
 		res.status(201).send(data);
 	}).catch((err)=>{
 		res.status(406).json({ message: "err in get post by id func" });
@@ -66,7 +66,7 @@ const deletePostById=(req,res)=>{
 	let userid=req.params.userid;
 	Post.deleteOne({postid}).then((data)=>{
 		removeUserPostid(postid,userid)
-		console.log('deleted post',data);
+		
 		res.json({"message":"deleted"});
 	}).catch((err)=>{
 		res.json({"message":err});
@@ -81,10 +81,10 @@ const addLikeToPost=(req,res)=>{
 			likeids: userid
 		}
 	}).then((data)=>{
-		console.log("added like");
+		
 		res.json({"message": "added like"})
 	}).catch((err)=>{
-		console.log("not added like");
+		
 		res.json({"message": err})
 	})
 }
@@ -97,10 +97,10 @@ const removeLikeToPost=(req,res)=>{
 			likeids: userid
 		}
 	}).then((data)=>{
-		console.log("removed like");
+		
 		res.json({"message": "removed like"})
 	}).catch((err)=>{
-		console.log("not removed like");
+		
 		res.json({"message": err})
 	})
 }
@@ -113,10 +113,10 @@ const addCommentToPost=(req,res)=>{
 			comments: comment
 		}
 	}).then((data)=>{
-		console.log("added comment");
+		
 		res.json({"message": "added comment"})
 	}).catch((err)=>{
-		console.log("not added comment");
+		
 		res.json({"message": err})
 	})
 }
@@ -129,10 +129,10 @@ const removeCommentToPost=(req,res)=>{
 			comments: comment
 		},
 	}).then((data)=>{
-		console.log("added comment");
+		
 		res.json({"message": "removed comment"})
 	}).catch((err)=>{
-		console.log("not added comment");
+		
 		res.json({"message": err})
 	})
 }

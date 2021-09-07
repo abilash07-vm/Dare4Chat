@@ -13,7 +13,7 @@ export class ProListComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAllProRequest().subscribe((reqs:any)=>{
-      console.log('requests',reqs);
+      
       this.pro_users=reqs
       this.updateUser()
     })
@@ -38,9 +38,9 @@ export class ProListComponent implements OnInit {
 
   onAccept(pro:Pro){
     this.api.updateUserProDetail(pro).subscribe((data)=>{
-      console.log(pro.userid);
+      
       this.api.deleteProRequest(pro.userid).subscribe(()=>{
-        console.log(pro);
+        
         this.ngOnInit();        
       })
     })
@@ -48,8 +48,8 @@ export class ProListComponent implements OnInit {
 
   onReject(pro:Pro){
     this.api.deleteProRequest(pro.userid).subscribe((data)=>{
-      console.log(pro);
-      console.log(data);
+      
+      
       this.ngOnInit();
     })
   }

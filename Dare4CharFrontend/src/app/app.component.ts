@@ -25,10 +25,10 @@ export class AppComponent {
         if(id){
             this.currUserid=id;
             refresh.refresh$().subscribe(()=>{
-                console.log('refresh by observable');
+                
                 window.location.reload();
                 this.updateTabName(window.location.pathname.split('/')[1])
-                console.log(window.location.pathname.split('/'));
+                
                 
             })
             this.observeBadges()
@@ -38,7 +38,7 @@ export class AppComponent {
     observeBadges(){
         this.api.getUnreadNotificationCount(this.currUserid).subscribe((data:any)=>{
             let curr:{count:number}=data;
-            console.log(curr);
+            
             this.notificationCount=curr.count
         });
         this.api.notificationCountObs.subscribe((isReset)=>{
@@ -60,11 +60,11 @@ export class AppComponent {
     }
     currentTabName(){
         let l=window.location.pathname.split('/');
-        console.log(l);
+        
         return l[1]
     }
     updateTabName(path:string){
-        console.log(path);
+        
         this.currentTab=path
         if(['home','search','add','notifications','profile'].indexOf(path)>=0){
             this.router.navigate(['/',path]);

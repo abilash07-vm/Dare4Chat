@@ -34,7 +34,7 @@ export class CommentsComponent implements OnInit {
     }
   }
   getAllComments(){
-    console.log(this.post.comments);
+    
     this.post.comments.forEach((comment)=>{
       this.comments.push(comment);
       if(!this.users[comment.userid]){
@@ -57,7 +57,7 @@ export class CommentsComponent implements OnInit {
     if(this.post?.postid){
       let comment:Comment={"date":new Date(),"message":this.usercomment,"userid":this.currUserid}
       this.api.addCommentToAPost(this.post.postid,comment).subscribe((data:any)=>{
-        console.log(data);
+        
         this.api.sendNotificationToUser(this.post.userid,
           {
             "userid":this.currUserid,
@@ -67,7 +67,7 @@ export class CommentsComponent implements OnInit {
             "postid":this.post.postid,
             "notificationid":"12"
           }).subscribe((data)=>{
-            console.log(data);  
+              
             window.location.reload();            
           })
         

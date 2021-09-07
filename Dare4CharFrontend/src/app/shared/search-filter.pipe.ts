@@ -13,12 +13,12 @@ export class SearchFilterPipe implements PipeTransform {
       args = args.toLowerCase();
 
       let l=value.filter(function(data:User){
-        console.log((data.username).toLowerCase().includes(args));
+        
           let count=(data.username).toLowerCase().search(args);
-          console.log(data.username,args,count);
+          
           return (count!=-1)
       });
-      console.log('result: ',l);
+      
       
       return l;
   }

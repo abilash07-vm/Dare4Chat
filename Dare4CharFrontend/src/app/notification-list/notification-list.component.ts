@@ -47,7 +47,7 @@ export class NotificationListComponent implements OnInit,ComponentCanDeactivate 
         let backend_not:NotificationBackend=data
         if(backend_not){
           this.notifications=backend_not.notifications
-          console.log(this.notifications);
+          
           
           this.updateNotificationNavbarCount();
           this.updateNotificationMessageArr();

@@ -44,10 +44,11 @@ const updateStatus=(req,res)=>{
 
 const deleteStatusById=(req,res)=>{
 	let statusid=req.params.statusid;
-	status.deleteOne({statusid}).then((data)=>{
-		console.log('deleted post',data);
+	Status.deleteOne({statusid}).then((data)=>{
+		
 		res.json({"message":"deleted"});
 	}).catch((err)=>{
+		
 		res.json({"message":err});
 	})
 }

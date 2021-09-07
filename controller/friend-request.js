@@ -9,17 +9,17 @@ const Sent=mongoose.model('request-sent',requestsentSchema);
 const addSendRequest=(userid)=>{
     let request=Sent({userid,sentids:[]})
     request.save().then(()=>{
-        console.log('request sent initialized');
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 const addRecieveRequest=(userid)=>{
     let request=Recieved({userid,receivedids:[]})
     request.save().then(()=>{
-        console.log('request received initailized');
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 
@@ -30,9 +30,9 @@ const sendRequest=(userid,friendid)=>{
         }
     }).then(()=>{
         addNotificationInternal(friendid,{userid,type:'request',date:new Date(),read:false})
-        console.log('request sent recorded',userid);
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 const cancelSentRequest=(userid,friendid)=>{
@@ -41,9 +41,9 @@ const cancelSentRequest=(userid,friendid)=>{
             sentids: friendid
         }
     }).then(()=>{
-        console.log('request cancelled recorded');
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 const receiveRequest=(userid,friendid)=>{
@@ -52,9 +52,9 @@ const receiveRequest=(userid,friendid)=>{
             receivedids: userid
         }
     }).then((data)=>{
-        console.log('request receive recorded',friendid,'userid',userid,data);
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 
@@ -64,9 +64,9 @@ const cancelRecieveRequest=(userid,friendid)=>{
             receivedids: userid
         }
     }).then(()=>{
-        console.log('request receive cancelled recorded');
+        
     }).catch((err)=>{
-        console.log(err);
+        
     })
 }   
 
@@ -77,7 +77,7 @@ const getRecievedRequest=(req,res)=>{
             res.json(data);
         })
         .catch((err)=>{
-            console.log(err);
+            
             res.json({"message":"err in get recieved request"})
         })
 }
@@ -89,7 +89,7 @@ const getSentRequest=(req,res)=>{
             res.json(data);
         })
         .catch((err)=>{
-            console.log(err);
+            
             res.json({"message":"err in get sent request"})
         })
 }

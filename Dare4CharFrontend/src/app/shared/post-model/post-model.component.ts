@@ -30,7 +30,7 @@ export class PostModelComponent implements OnInit {
         this.isSeperatePage=true
         api.getPostById(postid).subscribe((data:any)=>{
           this.post=data;
-          console.log('post is working',data);
+          
           this.ngOnInit();
         })
       }
@@ -79,7 +79,7 @@ export class PostModelComponent implements OnInit {
   onDelete(){
     if(this.post.postid){
       this.api.deletePostById(this.post.postid,this.post.userid).subscribe((data)=>{
-        console.log('deleted post: ',data);
+        
         window.location.reload();
       })
     }
@@ -103,7 +103,7 @@ export class PostModelComponent implements OnInit {
       if(ind<0){
         this.post.likeids.push(this.currUserid);
         this.api.addLike(this.currUserid,this.post.postid).subscribe((data)=>{
-          console.log(data);
+          
           this.api.sendNotificationToUser(this.post.userid,
             {
               "userid":this.currUserid,
@@ -113,13 +113,13 @@ export class PostModelComponent implements OnInit {
               "postid":this.post.postid,
               "notificationid":"12"
             }).subscribe((data)=>{
-              console.log(data);              
+                            
             })
         })
       }else{
         this.post.likeids.splice(ind,1);
         this.api.removeLike(this.currUserid,this.post.postid).subscribe((data)=>{
-          console.log(data);
+          
         })
       }
     }
