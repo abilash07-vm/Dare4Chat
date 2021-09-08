@@ -1,6 +1,7 @@
 <mat-card [ngClass]="{'new': isNew}">
     <p *ngIf="curr_userid!=message.from"><strong>{{ user.username }}</strong></p>
-    <p class="message">{{ message.message }}</p>
+    <p class="message" *ngIf="message.type==='text'">{{ message.message }}</p>
+    <img class="message" src="{{ message.message }}" *ngIf="message.type==='image'">
     <div class="messageend">
         <p>{{ message.date | date:'shortTime' }}</p>
         <mat-icon color="primary" *ngIf="curr_userid==message.from">done</mat-icon>

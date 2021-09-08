@@ -12,12 +12,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedialogComponent } from './sharedialog/sharedialog.component';
 
 @NgModule({
   declarations: [
     UserListComponent,
     PostModelComponent,
     SearchFilterPipe,
+    SharedialogComponent,
   ],
   imports: [
     CommonModule,
@@ -28,13 +33,25 @@ import { MatBadgeModule } from '@angular/material/badge'
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule,
+    MatCheckboxModule,
+
+    //Spinner
+    NgxSpinnerModule
   ],
   exports: [
     UserListComponent,
     PostModelComponent,
+    SharedialogComponent,
+
     SearchFilterPipe,
-    MatBadgeModule
+    
+    MatBadgeModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    
+    NgxSpinnerModule,
   ]
 })
 export class SharedModule { }

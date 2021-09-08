@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/Interfaces/post';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
+import { SharedialogComponent } from '../sharedialog/sharedialog.component';
 
 @Component({
   selector: 'app-post-model',
@@ -24,7 +26,8 @@ export class PostModelComponent implements OnInit {
     private auth:AuthService,
     private api:ApiService,
     private router:Router,
-    private activatedRoute:ActivatedRoute) {
+    private activatedRoute:ActivatedRoute,
+    private dialog: MatDialog) {
       let postid=this.activatedRoute.snapshot.paramMap.get('postid');
       if(postid){
         this.isSeperatePage=true
@@ -123,6 +126,17 @@ export class PostModelComponent implements OnInit {
         })
       }
     }
+  }
+
+  openDialog() {
+    const dialog = this.dialog.open(SharedialogComponent, {
+      width: "200px",
+      data: {},
+    });
+
+    dialog.afterClosed().subscribe((data:any) => {
+      alert(`choosen ${data}`);
+    });
   }
 
   // Comments

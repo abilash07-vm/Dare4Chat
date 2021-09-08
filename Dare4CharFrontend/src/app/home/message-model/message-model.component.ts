@@ -18,6 +18,7 @@ export class MessageModelComponent implements OnInit {
   }
 
   ngOnInit(): void {    
+    console.log(this.message);
     
   }
 

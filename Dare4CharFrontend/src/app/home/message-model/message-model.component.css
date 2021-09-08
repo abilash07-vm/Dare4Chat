@@ -8,7 +8,11 @@ p{
 .new{
     background: lightskyblue;
 }
-
+img{
+    width: 90%;
+    height: 200px;
+    margin: 10px;
+}
 .messageend{
     display: flex;
     align-items: center;

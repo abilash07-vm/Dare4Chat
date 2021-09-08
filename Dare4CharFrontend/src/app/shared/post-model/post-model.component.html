@@ -38,7 +38,7 @@
             </div>
             <div>
                 <mat-icon>report</mat-icon>
-                <mat-icon>share</mat-icon>
+                <mat-icon (click)="openDialog()">share</mat-icon>
             </div>
         </div>
         <p *ngIf="post.likeids.length || post.comments.length" >{{post.likeids.length}} likes and {{ post.comments.length }} comments</p>
