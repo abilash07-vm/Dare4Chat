@@ -1,9 +1,11 @@
 import { Output,EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { DateMessage, Message } from 'src/Interfaces/chat';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
+import { UploadFileService } from 'src/Services/upload-file.service';
 
 
 
@@ -23,7 +25,10 @@ export class MessagePageComponent implements OnInit {
   newMessages:DateMessage | undefined
   constructor(private api:ApiService,
     private auth:AuthService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private uploadService:UploadFileService,
+    private spinnerService: NgxSpinnerService,
+
     ) { }
 
   ngOnInit(): void {
@@ -69,12 +74,13 @@ export class MessagePageComponent implements OnInit {
       if(msg.isRead){
         this.addToAllMessage(msg);
       }else{
-        this.addNewMessage(msg);
-        this.api.updateMessageById(msg.messageid).subscribe((data)=>{
-          
-        })
+        if(msg.to==this.curr_userid){
+          this.addNewMessage(msg);
+          this.api.updateMessageById(msg.messageid).subscribe((data)=>{});
+        }else{
+          this.addToAllMessage(msg);
+        }
       }
-     
     }
   }
   addToAllMessage(msg:Message){
@@ -127,6 +133,30 @@ export class MessagePageComponent implements OnInit {
   onGoBack(){
     this.back.emit();
   }
+
+  async upload($event: any) {
+    this.spinnerService.show();
+    let links: string[] = await this.uploadService.upload(
+        $event.target.files,
+        'message'
+    );
+    links.forEach((link)=>{
+      this.api.addMessage({
+        "from":this.curr_userid,
+        "to": this.user.userid,
+        "isRead": false,
+        "date": new Date(),
+        "message": link,
+        "type": "image",
+        "messageid": "1234"
+      }).subscribe((data:any)=>{
+        this.addToAllMessage(data)
+        console.log(data);
+      })
+    })
+    
+    this.spinnerService.hide();    
+}
 
 }
 

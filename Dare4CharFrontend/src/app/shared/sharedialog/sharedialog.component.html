@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Select Your city</h1>
+<div mat-dialog-content>
+    <mat-checkbox *ngFor="let city of l" (click)="onCheck(city)">{{ city }}</mat-checkbox>
+</div>
+<div>
+  <button matButton color="primary" [mat-dialog-close]="loc">SELECT</button>
+</div>

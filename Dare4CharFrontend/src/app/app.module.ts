@@ -50,7 +50,6 @@ import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
         ProListComponent,
         FriendRequestComponent,
         ProfileByIdComponent,
-
     ],
     imports: [
         BrowserModule,

@@ -1,3 +1,4 @@
+<ngx-spinner></ngx-spinner>
 <mat-card class="header" (click)="onProfileClick()" style="background-color: green;">
     <mat-icon (click)="onGoBack()">arrow_back</mat-icon>
     <div mat-card-avatar 
@@ -21,6 +22,15 @@
 </div>
 <div class="messagebox">
     <textarea placeholder="message" id="msgbox" [(ngModel)]="curr_message"></textarea>
-    <mat-icon class="attach"> attach_file</mat-icon>
+    <mat-icon class="attach"                
+        onclick="document.getElementById('file').click()"> attach_file</mat-icon>
+    <input
+        style="display: none;"
+        type="file"
+        id="file"
+        accept="image/*"
+        value="Upload"
+        multiple
+        (change)="upload($event)"/>
     <mat-icon *ngIf="curr_message.length>0" (click)="onMessageSend()">send</mat-icon>
 </div>
