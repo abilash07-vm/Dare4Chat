@@ -18,13 +18,19 @@ require('dotenv').config()
 const router = express.Router();
 
 module.exports = () => {
-	// router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
-	// router.use((err, req, res, next) => {
-	// 	if (err.name === "UnauthorizedError") {
-	// 	//   res.status(401).json({ error: "Unauthorized user :(" });
-	// 		// res.redirect('http://localhost:4200/auth')
-	// 	}
-	//   });
+	router.use(checkjwt({algorithms:["HS256"],secret:process.env.JWT_SECRET}).unless({path:[/\/sendotp*/,/verify*/,/auth*/]}))
+	router.use((err, req, res, next) => {
+		if (err.name === "UnauthorizedError") {
+		//   res.status(401).json({ error: "Unauthorized user :(" });
+			// res.redirect('http://localhost:4200/auth')
+		}
+	  });
+	
+	router.post("/report",(req,res)=>{
+		let post=req.body
+		sendMail(process.env.MAIL_ID,'Scam/InAppropriate reported',JSON.stringify(post));
+		res.status(201).json({ message: "Reported to admin" });
+	})
 
 	router.route("/proVerify").post((req, res) => {
 		let user=req.body;

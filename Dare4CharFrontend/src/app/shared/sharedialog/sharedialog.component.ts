@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/Interfaces/user';
+import { ApiService } from 'src/Services/api.service';
+import { AuthService } from 'src/Services/auth.service';
 
 @Component({
   selector: 'app-sharedialog',
@@ -6,19 +9,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sharedialog.component.css']
 })
 export class SharedialogComponent implements OnInit {
-  loc: String[] = [];
-  l=['chennai','mumbai','kochi']
-  constructor() { }
+  loc: string[] = [];
+  users:User[]=[]
+  constructor(private auth:AuthService,private api:ApiService) { }
 
   ngOnInit(): void {
+    let userLoc=this.auth.getUser();
+    if(userLoc){
+      let user:User=JSON.parse(userLoc);
+      user.friendsids.forEach((friend)=>{
+        this.api.getUserByid(friend).subscribe((data:any)=>{
+          this.users.push(data);
+        })
+      })
+    }
+    
   }
 
-  onCheck(city:string){
-    let ind=this.loc.indexOf(city)
+  getProfile(user:User){
+    return user.profileurl ? user.profileurl: this.api.profileurl;
+  }
+
+  onCheck(user:User){
+    let ind=this.loc.indexOf(user.userid)
     if(ind>=0){
       this.loc.splice(ind,1);
     }else{
-      this.loc.push(city);
+      this.loc.push(user.userid);
     }
   }
 

@@ -1,0 +1,11 @@
+.container{
+    height: 90%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.mat-card{
+    width: 180px;
+}
+/* .btn{
+    position: absolute;
+} */

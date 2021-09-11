@@ -5,6 +5,7 @@ import { Post } from 'src/Interfaces/post';
 import { User } from 'src/Interfaces/user';
 import { ApiService } from 'src/Services/api.service';
 import { AuthService } from 'src/Services/auth.service';
+import { PopupsService } from 'src/Services/popups.service';
 import { TouchSwipeService } from 'src/Services/touch-swipe.service';
 import { SharedialogComponent } from '../sharedialog/sharedialog.component';
 
@@ -27,7 +28,8 @@ export class PostModelComponent implements OnInit {
     private api:ApiService,
     private router:Router,
     private activatedRoute:ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private popups:PopupsService) {
       let postid=this.activatedRoute.snapshot.paramMap.get('postid');
       if(postid){
         this.isSeperatePage=true
@@ -130,18 +132,39 @@ export class PostModelComponent implements OnInit {
 
   openDialog() {
     const dialog = this.dialog.open(SharedialogComponent, {
-      width: "200px",
+      width: "90%",
+      maxHeight: "90%",
       data: {},
     });
 
     dialog.afterClosed().subscribe((data:any) => {
-      alert(`choosen ${data}`);
+      data.forEach((userid:any) => {
+        this.api.addMessage({
+          "from": this.currUserid,
+          "to" : userid,
+          "isRead": false,
+          "message": this.post.postid || "",
+          "type": "post",
+          "messageid": "123",
+          "date": new Date()
+        }).subscribe((data)=>{
+          console.log(data);
+          
+        })
+      });
     });
   }
 
   // Comments
   onComment(){
     this.router.navigate(['/','home','comments',this.post.postid]);
+  }
+
+  onReportPost(){
+    this.api.report(this.post).subscribe((data:any)=>{
+      console.log(data);
+      this.popups.openSnackbar(data.message);
+    })
   }
 
 }

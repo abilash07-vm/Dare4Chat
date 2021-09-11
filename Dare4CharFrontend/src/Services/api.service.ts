@@ -108,6 +108,9 @@ export class ApiService {
     deletePostById(postid:string,postUserid:string){
         return this.http.delete(`${BASEURL}post/delete/${postUserid}/${postid}`,{ headers: this.headers })
     }
+    report(post:Post){
+        return this.http.post(`${BASEURL}/report`,post,{ headers: this.headers })
+    }
 
     //Status
     addStatus(status: Status) {

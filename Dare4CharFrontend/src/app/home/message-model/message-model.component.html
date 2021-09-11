@@ -2,6 +2,7 @@
     <p *ngIf="curr_userid!=message.from"><strong>{{ user.username }}</strong></p>
     <p class="message" *ngIf="message.type==='text'">{{ message.message }}</p>
     <img class="message" src="{{ message.message }}" *ngIf="message.type==='image'">
+    <app-post-model *ngIf="message.type==='post' && post" [post]="post"></app-post-model>
     <div class="messageend">
         <p>{{ message.date | date:'shortTime' }}</p>
         <mat-icon color="primary" *ngIf="curr_userid==message.from">done</mat-icon>

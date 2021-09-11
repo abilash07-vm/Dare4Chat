@@ -1,7 +1,15 @@
-<h1 mat-dialog-title>Select Your city</h1>
-<div mat-dialog-content>
-    <mat-checkbox *ngFor="let city of l" (click)="onCheck(city)">{{ city }}</mat-checkbox>
+<h1 mat-dialog-title>Select Friends</h1>
+<div mat-dialog-content class="container">
+    <mat-checkbox *ngFor="let user of users" (click)="onCheck(user)">
+      <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar 
+            [ngStyle]="{'background': '#000 url(' + getProfile(user) + ') no-repeat','background-size': 'cover'}"></div>
+            <mat-card-title>{{ user.username }} <mat-icon *ngIf="user.isPro">verified</mat-icon></mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </mat-checkbox>
 </div>
-<div>
-  <button matButton color="primary" [mat-dialog-close]="loc">SELECT</button>
+<div class="btn">
+  <button mat-raised-button color="primary" [mat-dialog-close]="loc">SELECT</button>
 </div>
